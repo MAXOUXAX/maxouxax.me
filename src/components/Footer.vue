@@ -30,7 +30,7 @@
       <v-divider></v-divider>
 
       <v-card-text class="copyright white--text">
-        <v-icon size="14px">mdi-copyright</v-icon> {{ new Date().getFullYear() }} — <strong>MAXOUXAX</strong>
+        <v-icon size="14px">mdi-copyright</v-icon>2021 - {{ new Date().getFullYear() }} — <strong>MAXOUXAX</strong>
       </v-card-text>
     </v-card>
   </v-footer>
