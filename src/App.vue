@@ -66,7 +66,6 @@ export default {
       });
     },
     afterEnter(element) {
-      console.log("test");
       element.style.height = 'auto';
     },
   }
