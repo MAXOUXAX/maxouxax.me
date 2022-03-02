@@ -1,13 +1,66 @@
 <template>
     <div class="projects">
-        <p>WIP</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident rem incidunt, atque veniam ab iste ipsam eligendi, quaerat natus libero mollitia. Vel atque recusandae provident debitis porro eos eius officiis dignissimos omnis voluptatum quam officia aut nulla, nihil reiciendis perspiciatis veritatis natus itaque illum alias ipsam corrupti quae in? Omnis voluptates, enim magnam ratione doloribus totam quia officiis eveniet eligendi suscipit exercitationem sunt nulla asperiores inventore maxime maiores quam doloremque libero minima, optio accusamus? Repudiandae ipsa non, assumenda neque quo nesciunt laborum cum ducimus illo eaque accusamus distinctio eligendi repellendus quaerat deleniti dolores ad magni itaque. Sint eaque sit voluptate aliquam blanditiis laudantium corporis recusandae! Nesciunt perspiciatis sapiente atque dignissimos! Animi, natus quas. Odio deleniti quia ipsum voluptas placeat modi perferendis dolore hic repudiandae laboriosam vitae molestias molestiae incidunt cum ex dignissimos, doloremque distinctio amet magni eligendi officia, consectetur nesciunt architecto. Amet repellat, obcaecati reiciendis cum quos atque mollitia temporibus maxime aspernatur harum debitis maiores, odio non recusandae nulla suscipit voluptas possimus accusantium quidem vel. Impedit id inventore libero reprehenderit officiis. Architecto in ducimus explicabo quidem exercitationem, earum officia quae autem quasi voluptatum neque sunt commodi similique corrupti? Iure architecto assumenda voluptatum nesciunt iste dolore. Ipsa dignissimos adipisci placeat vel iure tempore alias quo, quidem cupiditate fugit minus nemo! Corporis sit, odio praesentium dolorem provident quibusdam fugit eius molestias porro voluptates dolorum officiis harum cupiditate quae. Eaque totam non, ducimus excepturi amet saepe explicabo rem unde, harum nemo perspiciatis porro placeat deleniti eveniet praesentium modi odit exercitationem accusamus maxime, velit sit. Saepe, deserunt expedita eos non adipisci voluptates voluptate, veniam a soluta autem, magni ut nobis aut excepturi ipsum? Possimus quas modi nam fugit illo excepturi, reprehenderit blanditiis accusantium vitae! Accusamus illo laborum aliquam nam voluptatem veniam saepe. Sapiente praesentium dolorem quas suscipit tempora consectetur fuga asperiores aspernatur ea debitis expedita iusto repellendus nulla illo, obcaecati odio quaerat sit voluptatibus dolore? Temporibus ducimus fuga vitae, id sint, ut delectus obcaecati expedita velit molestias sunt voluptates adipisci minima nam eius nostrum eveniet. Magnam, explicabo ipsam totam accusamus labore animi velit necessitatibus distinctio, molestiae, omnis assumenda cumque minima. Labore ipsum rem, nesciunt, quae accusamus possimus fugit tempora totam non unde numquam odio quod nisi eligendi earum ab! Laborum aspernatur doloremque sequi asperiores doloribus dolorum itaque debitis earum vero, fuga nemo quibusdam ipsam, natus deleniti, velit cum? Vel commodi, enim quisquam nemo iste dolor. Earum a nihil quam nobis magni voluptate sunt magnam doloribus quod exercitationem unde autem impedit eveniet neque tenetur eum explicabo necessitatibus dolore fugiat voluptatem accusantium aperiam, cum eligendi quia. Quam, nam alias. Deserunt alias beatae amet commodi perspiciatis error explicabo quas ipsa nisi maxime nam voluptas, ea debitis, quibusdam illum vel provident! Quia distinctio quaerat mollitia, nemo exercitationem temporibus quas corporis quasi repudiandae eveniet in, animi ipsa! Nesciunt mollitia animi ab ratione laborum laudantium ipsa temporibus blanditiis magnam unde, dolores incidunt itaque excepturi voluptatibus beatae distinctio voluptates consequatur facere deleniti ex quisquam, maiores inventore optio voluptate? Aliquid adipisci soluta officiis fugiat commodi aspernatur repellendus dolor assumenda, mollitia vero? Distinctio necessitatibus autem inventore consequuntur fugit? Blanditiis cumque labore sit repellendus, fugit voluptatibus animi maiores sapiente reprehenderit dolor, ipsa doloremque exercitationem iusto magni inventore quisquam eos eveniet necessitatibus recusandae, dolore facilis suscipit nobis ad delectus. Eveniet beatae aspernatur dolorum doloribus accusamus ut fuga sequi sed? Itaque maxime ipsa, autem animi ipsam magni accusamus nemo repellendus vel? Debitis illum quibusdam ipsa dolore vel alias, voluptas magni neque beatae enim fugit quidem tenetur aut! Suscipit cumque esse, blanditiis expedita architecto quam alias eos doloribus explicabo! Nisi, illo impedit iure reiciendis eveniet ad aut vel aperiam fugit, inventore dolorum similique eos voluptas sequi rerum itaque. Assumenda mollitia velit obcaecati corrupti, culpa quas laboriosam, inventore, esse veniam eum totam ad molestiae fuga animi porro optio vitae? Amet quas omnis non nobis eum, beatae possimus. Corrupti unde accusamus repudiandae explicabo, facere nesciunt alias quae vel, quod nam voluptatem, obcaecati a est voluptates inventore deserunt amet omnis molestiae assumenda? Reprehenderit laborum ab rem quis, nihil repudiandae qui repellendus consectetur atque dicta unde odio accusamus delectus quam deserunt esse in libero natus hic, adipisci excepturi? Iste animi vitae fugit veniam. Aperiam, nostrum! Quam recusandae nesciunt maxime illo harum rerum, suscipit esse officia vero voluptatem sapiente odio, omnis nemo repellat dolores? Adipisci veniam veritatis impedit assumenda nemo, doloremque suscipit autem, harum sed dignissimos iste quas dolor! Unde ipsa mollitia ipsam at quidem cupiditate velit minima sunt, obcaecati esse explicabo expedita qui a sapiente fugit, laudantium repudiandae omnis quasi, nemo veniam fugiat? Quo nesciunt voluptatibus iste quibusdam. Natus incidunt iusto neque maxime facilis iure assumenda quo, aliquid ab ratione dolore, autem vero non itaque ea. Eum accusamus provident illum, soluta recusandae iusto? Vitae voluptas mollitia eius corporis? Dolorem in veniam incidunt et obcaecati rerum sequi, libero officiis odio modi? Ad sunt illo in ullam culpa dolorum temporibus aut quisquam quis, ab architecto alias mollitia! Cupiditate, aliquid quo. Dolorum odio blanditiis labore error in aperiam est quam. Illum necessitatibus a ipsa suscipit sint excepturi molestiae odio rem blanditiis delectus pariatur consequatur ad repellendus error earum amet voluptatem, non facilis fugit nam ea fugiat, nulla alias? Adipisci nam recusandae ex totam distinctio hic provident itaque cumque perferendis cum? Ducimus dolorum iusto corporis incidunt quo sit accusantium animi cupiditate commodi a, corrupti similique nulla nam voluptatem! Esse architecto eligendi magni sint optio veniam officia. Cumque odio excepturi dicta quo aperiam, voluptates ipsa eligendi veniam, accusamus aliquid error incidunt porro est quia numquam suscipit cupiditate cum optio, non harum aliquam. Magni voluptatum aut impedit qui nam dolorem recusandae nulla vitae quos voluptate amet, aperiam aliquid nostrum non, ullam doloremque explicabo cumque cum mollitia ducimus reprehenderit totam? Ratione nemo alias quae reiciendis officia dolorum officiis repellat sunt delectus itaque? Officia doloribus dolorum consectetur quasi cum inventore temporibus minus repellat minima saepe ex repudiandae, ipsam beatae neque nulla ab molestias molestiae omnis aliquid. Corporis sed exercitationem maiores placeat, voluptas iusto nostrum error, quas consectetur sapiente ut beatae consequuntur non deleniti! Iste possimus similique, ullam distinctio aut tempore dolor, adipisci delectus consectetur mollitia quam accusantium obcaecati aperiam?</p>
+        <div v-if="loading">
+            <v-row
+                align="center"
+                justify="center"
+            >
+                <v-skeleton-loader
+                    v-for="index in 10"
+                    :key="index"
+                    class="mx-5 my-4"
+                    max-width="300"
+                    type="card"
+                ></v-skeleton-loader>
+            </v-row>
+        </div>
+        <div v-if="!loading" class="repository">
+            <v-row
+                align="center"
+                justify="center"
+            >
+                <github-repository v-for="repo in repos" :repository="repo" :key="repo.name">{{ repo }}</github-repository>
+            </v-row>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
+import GitHubRepository from '../components/GitHubRepository.vue'
 
+export default {
+    data() {
+        return {
+            repos: [],
+            transitionName: 'slide',
+            loading: true
+        }
+    },
+    mounted(){
+        fetch('https://api.github.com/users/MAXOUXAX/repos').then(response => response.json()).then(data => {
+            data.filter(repo => repo.fork == false).forEach(repo => {
+                this.repos.push({
+                    name: repo.name,
+                    url: repo.html_url,
+                    description: repo.description,
+                    language: repo.language,
+                    license: repo.license,
+                    stars: repo.stargazers_count,
+                    archived: repo.archived,
+                    updated: repo.updated_at
+                });
+            });
+        }).finally(() => {
+            if(this.repos.length == 0){
+                alert("No repositories found (Network error)");
+            }else{
+                this.loading = false;
+            }
+        });
+    },
+    components: {
+        'github-repository': GitHubRepository
+    }
 }
 </script>
 
