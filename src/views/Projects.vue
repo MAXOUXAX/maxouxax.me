@@ -1,17 +1,34 @@
 <template>
     <div class="projects">
+        <div class="network-error" v-if="networkError">
+            <v-alert
+               :value="alert"
+               border="left"
+               icon="mdi-alert-circle"
+               transition="slide-y-transition"
+               elevation="4"
+               type="error"
+               :width="vAlertWidth"
+               >
+                Une erreur est survenue lors du chargement des projets. Veuillez vérifier votre connexion Internet ou réessayer plus tard.        
+            </v-alert>
+        </div>
         <div v-if="loading">
             <v-row
                 align="center"
                 justify="center"
             >
-                <v-skeleton-loader
+                <v-sheet
+                    :width="vSkeletonWidth"
                     v-for="index in 10"
                     :key="index"
                     class="mx-5 my-4"
-                    max-width="300"
-                    type="card"
-                ></v-skeleton-loader>
+                >
+                    <v-skeleton-loader
+                        width="100%"
+                        type="card"
+                    ></v-skeleton-loader>
+                </v-sheet>
             </v-row>
         </div>
         <div v-if="!loading" class="repository">
@@ -33,7 +50,22 @@ export default {
         return {
             repos: [],
             transitionName: 'slide',
-            loading: true
+            loading: true,
+            networkError: false,
+        }
+    },
+    computed: {
+        vSkeletonWidth () {
+            switch (this.$vuetify.breakpoint.name) {
+                case 'xs': return "80vw"
+                default: return 374
+            }
+        },
+        vAlertWidth() {
+            switch (this.$vuetify.breakpoint.name) {
+                case 'xs': return "80vw"
+                default: return "520px"
+            }
         }
     },
     mounted(){
@@ -52,7 +84,7 @@ export default {
             });
         }).finally(() => {
             if(this.repos.length == 0){
-                alert("No repositories found (Network error)");
+                this.networkError = true;
             }else{
                 this.loading = false;
             }
@@ -65,5 +97,9 @@ export default {
 </script>
 
 <style>
-
+.network-error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>
