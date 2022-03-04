@@ -1,6 +1,6 @@
 <template>
     <div class="motus-letter">
-        <span>{{ letter ? letter : '.' }}</span>
+        <span>{{ currentRow ? (letter ? letter : '.') : '' }}</span>
         <div v-if="wellPlaced" class="red-square"></div>
         <div v-if="wronglyPlaced" class="yellow-circle"></div>
     </div>
@@ -11,11 +11,24 @@ export default {
     data(){
         return {
             letter: ".",
+            currentRow: false,
             wellPlaced: false,
             wronglyPlaced: false
         }
     },
     name: 'MotusLetter'
+}
+
+function setLetter(letter) {
+    this.letter = letter;
+}
+
+function setWellPlaced(wellPlaced){
+    this.wellPlaced = wellPlaced;
+}
+
+function setWronglyPlaced(wronglyPlaced) {
+    this.wronglyPlaced = wronglyPlaced;
 }
 </script>
 
