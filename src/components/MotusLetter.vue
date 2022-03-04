@@ -14,7 +14,7 @@ export default {
             wellPlaced: Boolean,
             wronglyPlaced: Boolean
         }
-    }
+    },
     name: 'MotusLetter'
 }
 </script>
