@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import MotusLetter from '../components/MotusLetter.vue'
+
 export default {
     name: 'Motus',
     components: {
