@@ -41,7 +41,7 @@ const routes = [
     path: '/motus',
     name: 'MOTUS',
     component: () => import('../views/Motus.vue')
-  }
+  },
   {
     path: "*",
     name: 'Page introuvable',
