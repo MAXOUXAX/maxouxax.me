@@ -38,6 +38,11 @@ const routes = [
     component: () => import('../views/MEJRI.vue')
   },
   {
+    path: '/motus',
+    name: 'MOTUS',
+    component: () => import('../views/Motus.vue')
+  }
+  {
     path: "*",
     name: 'Page introuvable',
     component: () => import('../views/404.vue')
