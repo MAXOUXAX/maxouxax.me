@@ -10,9 +10,9 @@
 export default {
     data(){
         return {
-            letter: String,
-            wellPlaced: Boolean,
-            wronglyPlaced: Boolean
+            letter: ".",
+            wellPlaced: false,
+            wronglyPlaced: false
         }
     },
     name: 'MotusLetter'
@@ -29,18 +29,19 @@ export default {
 }
 .motus-letter span{
     font-size: 4rem;
+    z-index: 2;
 }
 .motus-letter .red-square{
     width: 100%;
     height: 100%;
-    z-index: calc(inherit - 1);
+    z-index: 1;
     background-color: red;
 }
 .motus-letter .yellow-circle{
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    z-index: calc(inherit - 1);
+    z-index: 1;
     background-color: yellow;
 }
 </style>
