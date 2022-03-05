@@ -5,11 +5,12 @@
 		<v-divider width="20%" class="my-6"></v-divider>
 		<div class="motus-grid" @click="openKeyboard">
 			<v-row v-for="i in 6" :key="i" class="my-0 mx-0">
-				<v-col class="pa-0" v-for="l in word.length" :key="l">
+				<v-col :class="'pa-0 ' + widthClass()" v-for="l in word.length" :key="l">
 					<motus-letter :ref="'row' + i"></motus-letter>
 				</v-col>
 			</v-row>
 		</div>
+		<input hidden type="text" ref="fakeTextInput">
 	</v-container>
 </template>
 
@@ -32,11 +33,6 @@ export default {
 	mounted() {
 		this.startGame();
 		this.$nextTick(() => {
-			console.log("-------------------");
-			this.$refs.row1.forEach(element => {
-				console.log(element);
-			});
-			console.log("-------------------");
 			this.moveRow(1);
 		});
 		document.addEventListener("keydown", (e) => {
@@ -101,14 +97,16 @@ export default {
 			motusLetter.setLetter(letter);
 		},
 		openKeyboard: function(){
-			prompt();
+			this.$refs.fakeTextInput.focus();
+		},
+		widthClass: function(){
+			switch (this.$vuetify.breakpoint.name) {
+                case 'xs': return "80vw"
+                default: return "374"
+            }
 		}
 	}
 };
-
-function validateRow() {
-	console.log("TODO: Validate row");
-}
 </script>
 
 <style scoped>
