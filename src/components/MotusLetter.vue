@@ -1,6 +1,6 @@
 <template>
     <div class="motus-letter">
-        <span>{{ currentRow ? letter : ''}}</span>
+        <span class="white--text">{{ currentRow ? letter : ''}}</span>
         <div v-if="wellPlaced" class="red-square abs"></div>
         <div v-if="wronglyPlaced" class="yellow-circle abs"></div>
         <div class="background abs"></div>
@@ -22,6 +22,9 @@ export default {
         setCurrentRow: function(currentRow){
             this.currentRow = currentRow;
         },
+        getLetter: function(){
+            return this.letter;
+        },
         setLetter: function(letter){
             this.letter = letter;
         },
@@ -31,14 +34,6 @@ export default {
         setWronglyPlaced: function(wronglyPlaced){
             this.wronglyPlaced = wronglyPlaced;
         },
-        validate: function(letter, word){
-            if(this.letter.toLowerCase() == letter){
-                this.setWellPlaced(true);
-            }else if(word.includes(this.letter.toLowerCase())){
-                this.setWronglyPlaced(true);
-            }
-            return this.wellPlaced;
-        }
     }
 }
 </script>
