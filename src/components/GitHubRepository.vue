@@ -2,7 +2,7 @@
     <v-scroll-x-transition mode="in-out">
         <v-card
           v-ripple
-          class="mx-5 my-4 card"
+          class="mx-5 my-4 card overflow-hidden"
           :min-width="vCardWidth"
           :width="vCardWidth"
           min-height="120"
