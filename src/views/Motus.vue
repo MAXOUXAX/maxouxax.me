@@ -3,7 +3,7 @@
 		<h1>Motus</h1>
 		<h2 class="text-caption my-0">Le jeu</h2>
 		<v-divider width="20%" class="my-6"></v-divider>
-		<div class="motus-grid">
+		<div class="motus-grid" @click="openKeyboard">
 			<v-row v-for="i in 6" :key="i" class="my-0 mx-0">
 				<v-col class="pa-0" v-for="l in word.length" :key="l">
 					<motus-letter :ref="'row' + i"></motus-letter>
@@ -99,6 +99,9 @@ export default {
 				motusLetter.setCurrentRow(true);
 			}
 			motusLetter.setLetter(letter);
+		},
+		openKeyboard: function(){
+			prompt();
 		}
 	}
 };
