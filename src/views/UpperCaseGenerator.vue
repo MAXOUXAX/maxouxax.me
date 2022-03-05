@@ -1,5 +1,5 @@
 <template>
-	<div id="uppercasegenerator">
+	<div id="uppercasegenerator" class="my-12">
 		<div class="header">
             <div class="title">
                 <p id="title">UpperCaseGenerator</p>
@@ -170,18 +170,18 @@ textarea:hover{
 .why{
     width: 50vw;
     text-align: center;
-    margin-left:auto;
-    margin-right:auto;
-    padding: 50px;
     border: 0px solid #070707;
     transition: 1.4s cubic-bezier(0.86, 0, 0.07, 1);
     box-shadow: 0px 0px 0px #070707;
     animation: wow 10s infinite;
 }
 .whycontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     text-align: center;
-    margin-left:auto;
-    margin-right:auto;
     transition: 1s;
     padding: 1px;
     margin-top: 80px;

@@ -1,5 +1,5 @@
 <template>
-    <div class="projects">
+    <div class="projects my-6">
         <div class="network-error" v-if="networkError">
             <v-alert
                :value="alert"

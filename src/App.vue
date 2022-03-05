@@ -100,9 +100,7 @@ export default {
 .container{
   width: 100%;
   min-height: 100%;
-}
-.v-main{
-  margin: 24px 0px;
+  padding: 0 !important;
 }
 a{
 	text-decoration: none;

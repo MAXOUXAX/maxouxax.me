@@ -10,42 +10,58 @@ const routes = [
   {
     path: '/',
     name: 'Accueil',
-    component: Home
+    component: Home,
+    icon: "mdi-home",
+    showInMenu: true
   },
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import('../views/Contact.vue')
+    component: () => import('../views/Contact.vue'),
+    icon: "mdi-email",
+    showInMenu: true
   },
   {
     path: '/projects',
     name: 'Projets',
-    component: () => import('../views/Projects.vue')
+    component: () => import('../views/Projects.vue'),
+    icon: "mdi-bookshelf",
+    showInMenu: true
   },
   {
     path: '/groubox',
     name: 'GROUBOX',
-    component: () => import('../views/GROUBOX.vue')
+    component: () => import('../views/GROUBOX.vue'),
+    icon: "mdi-account-voice",
+    showInMenu: true
   },
   {
     path: '/uppercasegenerator',
     name: 'UpperCaseGenerator',
-    component: () => import('../views/UpperCaseGenerator.vue')
+    component: () => import('../views/UpperCaseGenerator.vue'),
+    icon: "mdi-format-text-rotation-down-vertical",
+    showInMenu: true
   },
   {
     path: '/mejri',
     name: 'MEJRI',
-    component: () => import('../views/MEJRI.vue')
+    component: () => import('../views/MEJRI.vue'),
+    icon: "mdi-account-question-outline",
+    showInMenu: false
   },
   {
     path: '/motus',
     name: 'MOTUS',
-    component: () => import('../views/Motus.vue')
+    component: () => import('../views/Motus.vue'),
+    icon: "mdi-keyboard",
+    showInMenu: true
   },
   {
     path: "*",
     name: 'Page introuvable',
-    component: () => import('../views/404.vue')
+    component: () => import('../views/NotFound.vue'),
+    icon: "mdi-heart-broken",
+    showInMenu: false
   }
 ]
 
@@ -84,6 +100,6 @@ window.addEventListener('keypress', (function() {
           if(router.currentRoute.name != "MEJRI")router.push("mejri");
       }
   };
-}()) );
+}));
 
 export default router
