@@ -1,8 +1,9 @@
 <template>
     <div class="motus-letter">
-        <span>{{ currentRow ? (letter ? letter : '.') : '' }}</span>
-        <div v-if="wellPlaced" class="red-square"></div>
-        <div v-if="wronglyPlaced" class="yellow-circle"></div>
+        <span>{{ currentRow ? letter : ''}}</span>
+        <div v-if="wellPlaced" class="red-square abs"></div>
+        <div v-if="wronglyPlaced" class="yellow-circle abs"></div>
+        <div class="background abs"></div>
     </div>
 </template>
 
@@ -16,45 +17,71 @@ export default {
             wronglyPlaced: false
         }
     },
-    name: 'MotusLetter'
-}
-
-function setLetter(letter) {
-    this.letter = letter;
-}
-
-function setWellPlaced(wellPlaced){
-    this.wellPlaced = wellPlaced;
-}
-
-function setWronglyPlaced(wronglyPlaced) {
-    this.wronglyPlaced = wronglyPlaced;
+    name: 'MotusLetter',
+    methods: {
+        setCurrentRow: function(currentRow){
+            this.currentRow = currentRow;
+        },
+        setLetter: function(letter){
+            this.letter = letter;
+        },
+        setWellPlaced: function(wellPlaced){
+            this.wellPlaced = wellPlaced;
+        },
+        setWronglyPlaced: function(wronglyPlaced){
+            this.wronglyPlaced = wronglyPlaced;
+        },
+        validate: function(letter, word){
+            if(this.letter.toLowerCase() == letter){
+                this.setWellPlaced(true);
+            }else if(word.includes(this.letter.toLowerCase())){
+                this.setWronglyPlaced(true);
+            }
+            return this.wellPlaced;
+        }
+    }
 }
 </script>
 
 <style scoped>
+.abs{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .motus-letter{
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+.motus-letter .background{
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: #0077c7;
+    z-index: 1;
 }
 .motus-letter span{
-    font-size: 4rem;
-    z-index: 2;
+    text-transform: uppercase;
+    font-size: 3rem;
+    z-index: 3;
 }
 .motus-letter .red-square{
     width: 100%;
     height: 100%;
-    z-index: 1;
-    background-color: red;
+    z-index: 2;
+    background-color: #e7002a;
 }
 .motus-letter .yellow-circle{
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    z-index: 1;
-    background-color: yellow;
+    z-index: 2;
+    background-color: #ffbd00;
 }
 </style>
