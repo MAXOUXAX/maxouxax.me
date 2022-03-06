@@ -12,56 +12,64 @@ const routes = [
     name: 'Accueil',
     component: Home,
     icon: "mdi-home",
-    showInMenu: true
+    showInMenu: true,
+    allowEasterEgg: true
   },
   {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/Contact.vue'),
     icon: "mdi-email",
-    showInMenu: false
+    showInMenu: false,
+    allowEasterEgg: true
   },
   {
     path: '/projects',
     name: 'Projets',
     component: () => import('../views/Projects.vue'),
     icon: "mdi-bookshelf",
-    showInMenu: true
+    showInMenu: true,
+    allowEasterEgg: true
   },
   {
     path: '/groubox',
     name: 'GROUBOX',
     component: () => import('../views/GROUBOX.vue'),
     icon: "mdi-account-voice",
-    showInMenu: true
+    showInMenu: true,
+    allowEasterEgg: true
   },
   {
     path: '/uppercasegenerator',
     name: 'UpperCaseGenerator',
     component: () => import('../views/UpperCaseGenerator.vue'),
     icon: "mdi-format-text-rotation-down-vertical",
-    showInMenu: true
+    showInMenu: true,
+    allowEasterEgg: false
   },
   {
     path: '/mejri',
     name: 'MEJRI',
     component: () => import('../views/MEJRI.vue'),
     icon: "mdi-account-question-outline",
-    showInMenu: false
+    showInMenu: false,
+    allowEasterEgg: false
   },
   {
     path: '/motus',
     name: 'MOTUS',
     component: () => import('../views/Motus.vue'),
     icon: "mdi-keyboard",
-    showInMenu: true
+    showInMenu: true,
+    allowEasterEgg: false
   },
   {
     path: "*",
     name: 'Page introuvable',
     component: () => import('../views/NotFound.vue'),
     icon: "mdi-heart-broken",
-    showInMenu: false
+    showInMenu: false,
+    allowEasterEgg: true
   }
 ]
 
@@ -96,10 +104,13 @@ window.addEventListener('keypress', (function() {
       strTyped += character;
       if (strToType.indexOf(strTyped) === -1) strTyped = '';
       else if (strTyped === strToType) {
+        let currentRoute = router.options.routes.filter(route => route.path === router.currentRoute.path)[0];
+        if(currentRoute.allowEasterEgg){
           strTyped = '';
-          if(router.currentRoute.name != "MEJRI")router.push("mejri");
+          router.push("mejri");
+        }
       }
   };
-}));
+}()) );
 
 export default router
