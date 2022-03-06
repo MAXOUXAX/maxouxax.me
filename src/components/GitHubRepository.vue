@@ -2,7 +2,7 @@
     <v-scroll-x-transition mode="in-out">
         <v-card
           v-ripple
-          class="mx-5 my-4 card overflow-hidden"
+          class="mx-5 my-4 card"
           :min-width="vCardWidth"
           :width="vCardWidth"
           min-height="120"
@@ -46,7 +46,6 @@ export default {
     name: 'github-repository',
     data: () => ({
         loading: false,
-        selection: 1,
     }),
     computed: {
       vCardWidth () {
@@ -95,5 +94,8 @@ export default {
     align-items: center;
     align-content: center;
     vertical-align: middle;
+}
+.v-ripple__container::deep{
+    border-radius: 5px;
 }
 </style>

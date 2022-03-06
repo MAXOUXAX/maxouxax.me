@@ -35,6 +35,7 @@
             <v-row
                 align="center"
                 justify="center"
+                class="mx-0"
             >
                 <github-repository v-for="repo in repos" :repository="repo" :key="repo.name">{{ repo }}</github-repository>
             </v-row>
