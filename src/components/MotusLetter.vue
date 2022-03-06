@@ -63,8 +63,13 @@ export default {
 }
 .motus-letter span{
     text-transform: uppercase;
-    font-size: 3rem;
+    font-size: 5rem;
     z-index: 3;
+}
+@media screen and (max-width: 960px) {
+	.motus-letter span {
+		font-size: 8vw;
+	}
 }
 .motus-letter .red-square{
     width: 100%;

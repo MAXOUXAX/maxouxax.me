@@ -5,7 +5,7 @@
 		<v-divider width="20%" class="my-6"></v-divider>
 		<div class="motus-grid" @click="openKeyboard">
 			<v-row v-for="i in 6" :key="i" class="my-0 mx-0">
-				<v-col :class="'pa-0 ' + widthClass()" v-for="l in motusWord.word.length" :key="l">
+				<v-col class="pa-0" :width="widthClass()" v-for="l in motusWord.word.length" :key="l">
 					<motus-letter :ref="'row' + i"></motus-letter>
 				</v-col>
 			</v-row>
@@ -136,7 +136,7 @@ export default {
 		widthClass: function(){
 			switch (this.$vuetify.breakpoint.name) {
                 case 'xs': return "80vw"
-                default: return "374"
+                default: return "374px"
             }
 		}
 	}
@@ -146,9 +146,15 @@ export default {
 <style scoped>
 .col {
 	border: 0.5px solid white;
-	width: 64px;
-	height: 64px;
+	width: 96px;
+	height: 96px;
 	flex-basis: initial !important;
 	flex-grow: initial !important;
+}
+@media screen and (max-width: 960px) {
+	.col {
+		width: 10vw;
+		height: 10vw;
+	}
 }
 </style>
