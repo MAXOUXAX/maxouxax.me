@@ -19,11 +19,12 @@
               elevation="5"
               v-on:click="playSound(sound.id)"
               :id="sound.id"
-              ><v-icon :large="sound.playing" left>{{
-                sound.playing ? "mdi-stop" : "mdi-play"
-              }}</v-icon
-              >{{ sound.name }}</v-btn
             >
+              <v-icon :large="sound.playing" left>
+                {{ sound.playing ? "mdi-stop" : "mdi-play" }}
+              </v-icon>
+              <span style="white-space: normal">{{ sound.name }}</span>
+            </v-btn>
           </template>
           <span>
             <v-icon left>mdi-play</v-icon>
@@ -36,6 +37,9 @@
 </template>
 
 <style scoped>
+.groubox {
+  width: 100%;
+}
 h1 {
   font-size: 3rem;
   margin: 25px 0px 0px 0px;
@@ -68,31 +72,10 @@ h1 {
 .button-div span button:hover {
   box-shadow: 0 0 10px #2195f315, 0 0 40px #2196f315, 0 0 80px #2196f315;
 }
-.button-div span button span {
-  position: absolute;
-  background-color: #fff;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  border-radius: 50%;
-  animation: animate 1s linear infinite;
-}
 
 @media screen and (max-width: 800px) {
   .button-div > button > span {
     display: none;
-  }
-}
-
-@keyframes animate {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 0.2;
-  }
-  100% {
-    width: 500px;
-    height: 500px;
-    opacity: 0;
   }
 }
 </style>
