@@ -1,12 +1,12 @@
 <template>
   <div id="uppercasegenerator" class="my-12">
-    <div class="header">
+    <div class="header d-flex justify-center align-center flex-column">
       <div class="title">
         <v-card-text class="text--primary text-center">
           <h1>UpperCaseGenerator</h1>
         </v-card-text>
       </div>
-      <v-divider class="mx-16"></v-divider>
+      <v-divider width="40%" class="mx-16"></v-divider>
     </div>
     <div class="main">
       <div
