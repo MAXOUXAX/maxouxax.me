@@ -19,7 +19,7 @@ const routes = [
     name: 'Contact',
     component: () => import('../views/Contact.vue'),
     icon: "mdi-email",
-    showInMenu: true
+    showInMenu: false
   },
   {
     path: '/projects',
