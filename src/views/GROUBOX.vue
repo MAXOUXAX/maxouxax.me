@@ -1,8 +1,6 @@
 <template>
   <div class="groubox">
-    <v-card-text class="text--primary text-center"
-      ><h1>GROUBOX</h1></v-card-text
-    >
+    <page-title class="my-12">GROUBOX</page-title>
     <div class="button-div" id="centerdiv" data-sr-id="0">
       <span v-for="sound in sounds" v-bind:key="sound.id">
         <v-tooltip top>
@@ -39,10 +37,6 @@
 <style scoped>
 .groubox {
   width: 100%;
-}
-h1 {
-  font-size: 3rem;
-  margin: 25px 0px 0px 0px;
 }
 .button-div {
   text-align: center;
@@ -81,6 +75,8 @@ h1 {
 </style>
 
 <script>
+import PageTitle from "../components/PageTitle.vue";
+
 export default {
   methods: {
     playSound(name) {
@@ -270,5 +266,8 @@ export default {
       audio: null,
     };
   },
+  components: {
+    PageTitle
+  }
 };
 </script>

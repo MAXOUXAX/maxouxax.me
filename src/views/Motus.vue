@@ -1,6 +1,6 @@
 <template>
 	<v-container class="d-flex justify-center align-center flex-column">
-		<h1>Motus</h1>
+		<page-title>Motus</page-title>
 		<h2 class="text-caption my-0">Le jeu</h2>
 		<v-divider width="20%" class="my-6"></v-divider>
 		<div class="motus-grid" @click="openKeyboard">
@@ -16,6 +16,7 @@
 
 <script>
 import MotusLetter from "../components/MotusLetter.vue";
+import PageTitle from "../components/PageTitle.vue";
 
 export default {
 	name: "Motus",
@@ -55,6 +56,7 @@ export default {
 	},
 	components: {
 		"motus-letter": MotusLetter,
+		PageTitle
 	},
 	mounted() {
 		this.startGame();

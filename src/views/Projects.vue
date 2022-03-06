@@ -1,5 +1,6 @@
 <template>
     <div class="projects my-6">
+        <page-title class="mb-8">Projets</page-title>
         <div class="network-error" v-if="networkError">
             <v-alert
                :value="alert"
@@ -45,6 +46,7 @@
 
 <script>
 import GitHubRepository from '../components/GitHubRepository.vue'
+import PageTitle from '../components/PageTitle.vue';
 
 export default {
     data() {
@@ -92,7 +94,8 @@ export default {
         });
     },
     components: {
-        'github-repository': GitHubRepository
+        'github-repository': GitHubRepository,
+        PageTitle
     }
 }
 </script>

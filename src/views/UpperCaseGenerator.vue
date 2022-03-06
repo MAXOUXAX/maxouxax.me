@@ -1,11 +1,7 @@
 <template>
   <div id="uppercasegenerator" class="my-12">
     <div class="header d-flex justify-center align-center flex-column">
-      <div class="title">
-        <v-card-text class="text--primary text-center">
-          <h1>UpperCaseGenerator</h1>
-        </v-card-text>
-      </div>
+      <page-title class="mb-12">UpperCaseGenerator</page-title>
       <v-divider width="40%" class="mx-16"></v-divider>
     </div>
     <div class="main">
@@ -74,7 +70,10 @@
 </template>
 
 <script>
+import PageTitle from '../components/PageTitle.vue';
+
 export default {
+  components: { PageTitle },
   data: function () {
     return {
       text: "",
@@ -125,24 +124,9 @@ export default {
 #uppercasegenerator {
   width: 100%;
 }
-.title h1{
-  margin-bottom: 80px;
-  transition: 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-}
-.title .v-card__text {
-  font-size: 4vw !important;
-}
-.title h1:hover {
-  transform: scale(0.95, 0.95);
-}
 .convert {
   padding: 50px;
   margin: 1vw;
   text-align: center;
-}
-@media screen and (min-width: 1000px) {
-  .title h1 {
-    font-size: 4rem;
-  }
 }
 </style>
