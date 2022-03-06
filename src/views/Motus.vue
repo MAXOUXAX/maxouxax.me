@@ -10,7 +10,7 @@
 				</v-col>
 			</v-row>
 		</div>
-		<input hidden type="text" ref="fakeTextInput">
+		<input class="fakeTextInput" type="text" ref="fakeTextInput">
 	</v-container>
 </template>
 
@@ -144,6 +144,10 @@ export default {
 </script>
 
 <style scoped>
+.fakeTextInput{
+	width: 0px;
+	height: 0px;
+}
 .col {
 	border: 0.5px solid white;
 	width: 96px;
