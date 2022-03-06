@@ -112,7 +112,9 @@ export default {
             			}else if(this.motusWord.contains(letter)){
             			    motusLetter.setWronglyPlaced(true);
 							this.partyOngoing = true;
-            			}
+            			}else{
+							this.partyOngoing = true;
+						}
 						this.motusWord.removeLetter(letter);
 						resolve();
 					}, i * 250);
