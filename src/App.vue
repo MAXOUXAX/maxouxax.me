@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header></Header>
+    <Header :theme="theme"></Header>
     <v-main>
       <v-container fill-height fluid>
         <transition
@@ -9,42 +9,43 @@
           appear
           @beforeLeave="beforeLeave"
           @enter="enter"
-          @afterEnter="afterEnter">
+          @afterEnter="afterEnter"
+        >
           <router-view></router-view>
         </transition>
-      </v-container>    
+      </v-container>
     </v-main>
     <Footer></Footer>
   </v-app>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 
-const DEFAULT_TRANSITION = 'slide';
+const DEFAULT_TRANSITION = "slide";
 
 export default {
-  name: 'App',
-
+  name: "App",
   data() {
     return {
       prevHeight: 0,
       transitionName: DEFAULT_TRANSITION,
-    }
+      theme: "dark",
+    };
   },
-
   components: {
-    Footer, Header
+    Footer,
+    Header,
   },
   created() {
     this.$router.beforeEach((to, from, next) => {
       let transitionName = to.meta.transitionName || from.meta.transitionName;
 
-      if (transitionName === 'slide') {
-        const toDepth = to.path.split('/').length;
-        const fromDepth = from.path.split('/').length;
-        transitionName = toDepth < fromDepth ? 'slide-down' : 'slide-up';
+      if (transitionName === "slide") {
+        const toDepth = to.path.split("/").length;
+        const fromDepth = from.path.split("/").length;
+        transitionName = toDepth < fromDepth ? "slide-down" : "slide-up";
       }
 
       this.transitionName = transitionName || DEFAULT_TRANSITION;
@@ -53,10 +54,10 @@ export default {
     });
   },
   methods: {
-     beforeLeave(element) {
-       this.prevHeight = getComputedStyle(element).height;
-      },
-      enter(element) {
+    beforeLeave(element) {
+      this.prevHeight = getComputedStyle(element).height;
+    },
+    enter(element) {
       const { height } = getComputedStyle(element);
 
       element.style.height = this.prevHeight;
@@ -66,9 +67,24 @@ export default {
       });
     },
     afterEnter(element) {
-      element.style.height = 'auto';
+      element.style.height = "auto";
     },
-  }
+  },
+  mounted() {
+    let theme = localStorage.getItem("theme");
+    if (theme) {
+      if(theme === "dark" || theme === "light") {
+        this.theme = theme;
+      }else{
+        localStorage.removeItem("theme");
+      }
+    } else {
+      const osTheme = window.matchMedia("(prefers-color-scheme: dark)");
+      this.theme = osTheme.matches ? "dark" : "light";
+      localStorage.setItem("theme", this.theme);
+    }
+    this.$vuetify.theme.dark = this.theme === "dark" ? true : false;
+  },
 };
 </script>
 
@@ -95,31 +111,30 @@ export default {
   transform: translate(0, 2em);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 
-.container{
+.container {
   width: 100%;
   min-height: 100%;
   padding: 0 !important;
 }
-a{
-	text-decoration: none;
+a {
+  text-decoration: none;
 }
-html{
-	height: 100%;
-	overflow-x: hidden;
-	background-color: black;
+html {
+  height: 100%;
+  overflow-x: hidden;
+  background-color: black;
 }
-body{
-	min-height: 100%;
-	position: relative;
-	display: flex;
-	flex-direction: column;
+body {
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Cabin', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Cabin", sans-serif;
 }
-
 </style>
