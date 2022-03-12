@@ -59,7 +59,7 @@ const routes = [
     path: '/motus',
     name: 'MOTUS',
     component: () => import('../views/Motus.vue'),
-    icon: "mdi-keyboard",
+    icon: "mdi-controller-classic",
     showInMenu: true,
     allowEasterEgg: false
   },
