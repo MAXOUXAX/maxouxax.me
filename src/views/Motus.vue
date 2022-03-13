@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex justify-center align-center flex-column mt-8">
+  <v-container class="d-flex align-center flex-column mt-8">
     <page-title>Motus</page-title>
     <v-divider width="20%" class="my-6"></v-divider>
     <motus-game></motus-game>

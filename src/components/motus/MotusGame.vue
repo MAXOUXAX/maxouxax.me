@@ -1,29 +1,59 @@
 <template>
   <div class="motus-game">
-    <div v-if="!gameStarted" class="game-selection-screen">
-      <div class="game-selection-screen-title">
-        <h1>Game of Motus</h1>
+    <transition name="slide-down" mode="out-in">
+      <div v-if="!gameStarted" class="game-selection-screen py-12">
+        <v-card-title>
+          Choisissez le type de partie à laquelle vous souhaitez jouer
+        </v-card-title>
+        <v-card-actions class="justify-space-around">
+          <div
+            class="
+              game-selection-screen-buttons
+              d-flex
+              justify-space-around
+              ma-2
+              flex-wrap
+            "
+          >
+            <v-btn
+              class="game-selection-screen-button ma-2"
+              @click="startGame('todays-word')"
+              color="primary"
+              elevation="10"
+              outlined
+              raised
+              rounded
+              x-large
+              block
+              :loading="todaysLoading"
+            >
+              <v-icon left> mdi-calendar-today </v-icon>
+              Mot du jour
+            </v-btn>
+            <v-btn
+              class="game-selection-screen-button ma-2"
+              @click="startGame('random')"
+              color="secondary"
+              elevation="10"
+              outlined
+              raised
+              rounded
+              x-large
+              block
+              :loading="randomLoading"
+            >
+              <v-icon left> mdi-dice-5-outline </v-icon>
+              Mot aléatoire
+            </v-btn>
+          </div>
+        </v-card-actions>
       </div>
-      <div class="game-selection-screen-buttons">
-        <v-btn
-          class="game-selection-screen-button"
-          @click="startGame('random')"
-        >
-          Random
-        </v-btn>
-        <v-btn
-          class="game-selection-screen-button"
-          @click="startGame('todays-word')"
-        >
-          Today's Word
-        </v-btn>
-      </div>
-    </div>
-    <div class="game" v-show="gameStarted">
-      <div class="game-command">
-        <v-btn outlined color="red" @click="abandonGame">Abandonner</v-btn>
-      </div>
-      <game-of-motus ref="gameOfMotus"></game-of-motus>
+    </transition>
+    <div class="game">
+      <game-of-motus
+        ref="gameOfMotus"
+        @game-state-change="gameStateChange"
+      ></game-of-motus>
     </div>
   </div>
 </template>
@@ -37,8 +67,10 @@ export default {
   },
   data() {
     return {
-      gameStarted: false,
       gameOfMotus: null,
+      todaysLoading: false,
+      randomLoading: false,
+      gameStarted: false,
     };
   },
   mounted() {
@@ -46,16 +78,30 @@ export default {
   },
   methods: {
     startGame: async function (type) {
-      this.gameStarted = true;
+      this.toggleLoader(type, true);
       await this.gameOfMotus.startGame(type);
+      this.toggleLoader(type, false);
     },
-    abandonGame: function () {
-      this.gameStarted = false;
-      this.gameOfMotus.loading = true;
+    toggleLoader: function (type, state) {
+      if (type == "todays-word") {
+        this.todaysLoading = state;
+      } else {
+        this.randomLoading = state;
+      }
+    },
+    gameStateChange: function (state) {
+      this.gameStarted = state;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.game-selection-screen {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 </style>

@@ -1,21 +1,31 @@
 <template>
-  <div class="game-of-motus">
-    <div v-if="loading">
-      <v-row align="center" justify="center">
-        <v-sheet
-          :width="vSkeletonWidth"
-          class="mx-5 my-4"
-          transition="v-expand-x-transition"
+  <transition name="slide-down" mode="out-in">
+    <div class="game-of-motus" v-show="gameStarted">
+      <v-dialog v-model="abandonDialog" max-width="300px">
+        <v-card>
+          <v-card-title
+            >Voulez-vous vraiment abandonner cette partie ?</v-card-title
+          >
+          <v-divider></v-divider>
+          <v-card-text class="my-4">
+            Êtes-vous sûr de vouloir abandonner la partie en cours ? ATTENTION:
+            Votre progression sera perdue !
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="justify-space-between">
+            <v-btn text @click="abandonDialog = false"> Annuler </v-btn>
+            <v-btn color="red" @click="abandonGame">Abandonner</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <div class="game-command d-flex justify-center ma-12">
+        <v-btn outlined rounded color="red" @click="confirmAbandonGame"
+          >Abandonner</v-btn
         >
-          <v-skeleton-loader
-            width="100%"
-            type="list-item@6"
-          ></v-skeleton-loader>
-        </v-sheet>
-      </v-row>
+      </div>
+      <motus-grid ref="motusGrid"></motus-grid>
     </div>
-    <motus-grid ref="motusGrid" v-show="!loading"></motus-grid>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -26,7 +36,8 @@ export default {
     return {
       motusGrid: null,
       partyOngoing: Boolean,
-      loading: true,
+      gameStarted: false,
+      abandonDialog: false,
     };
   },
   components: {
@@ -43,11 +54,12 @@ export default {
         await this.startTodaysWordGame();
       }
       this.motusGrid.moveRow(1);
+      this.gameStarted = true;
+      this.$emit("game-state-change", this.gameStarted);
     },
     startRandomGame: async function () {
       return fetch("https://api.github.com/users/maxouxax/followers")
         .then((response) => response.json())
-        .then((data) => (this.loading = false))
         .then((data) => {
           this.motusGrid.motusWord.setWord("randomword");
         });
@@ -55,14 +67,19 @@ export default {
     startTodaysWordGame: async function () {
       return fetch("https://api.github.com/users/maxouxax/followers")
         .then((response) => response.json())
-        .then((data) => (this.loading = false))
         .then((data) => {
           this.motusGrid.motusWord.setWord("todaysword");
         });
     },
+    confirmAbandonGame: function () {
+      this.abandonDialog = true;
+    },
     abandonGame: function () {
       this.partyOngoing = false;
+      this.gameStarted = false;
+      this.abandonDialog = false;
       this.motusGrid.motusWord.setWord("");
+      this.$emit("game-state-change", this.gameStarted);
     },
   },
   computed: {
