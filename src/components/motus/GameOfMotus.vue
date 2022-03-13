@@ -49,7 +49,7 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.loading = false))
         .then((data) => {
-          this.motusGrid.motusWord.setWord("AHAHAHAH");
+          this.motusGrid.motusWord.setWord("randomword");
         });
     },
     startTodaysWordGame: async function () {
@@ -57,7 +57,7 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.loading = false))
         .then((data) => {
-          this.motusGrid.motusWord.setWord("randomword");
+          this.motusGrid.motusWord.setWord("todaysword");
         });
     },
     abandonGame: function () {
