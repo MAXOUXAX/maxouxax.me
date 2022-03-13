@@ -31,7 +31,7 @@ export default {
           return this.letterCountClone[letter] > 0;
         },
         setWord: function (word) {
-          this.word = word;
+          this.word = word.toLowerCase();
           this.letterCount = word.split("").reduce((total, letter) => {
             total[letter] ? total[letter]++ : (total[letter] = 1);
             return total;
@@ -73,11 +73,12 @@ export default {
       }
     },
     moveRow: function (row) {
-      this.cursor = 0;
+      this.cursor = 1;
       this.currentRow = row;
       this.$refs["row" + this.currentRow].forEach((motusLetter) => {
         motusLetter.setActive(true);
       });
+      this.$refs["row" + this.currentRow][0].setLetter(this.motusWord.word[0]);
     },
     moveCursor: function (direction) {
       let newCursor = this.cursor + direction;
@@ -106,6 +107,7 @@ export default {
           new Promise((resolve) => {
             setTimeout(() => {
               let letter = motusLetter.getLetter().toLowerCase();
+              console.log(this.motusWord.word[i], letter);
               if (this.motusWord.word[i] == letter) {
                 motusLetter.setWellPlaced(true);
               } else if (this.motusWord.contains(letter)) {

@@ -2,21 +2,7 @@
   <v-container class="d-flex justify-center align-center flex-column mt-8">
     <page-title>Motus</page-title>
     <v-divider width="20%" class="my-6"></v-divider>
-    <div v-if="loading">
-      <v-row align="center" justify="center">
-        <v-sheet
-          :width="vSkeletonWidth"
-          class="mx-5 my-4"
-          transition="v-expand-x-transition"
-        >
-          <v-skeleton-loader
-            width="100%"
-            type="list-item@6"
-          ></v-skeleton-loader>
-        </v-sheet>
-      </v-row>
-    </div>
-    <motus-grid ref="motusGrid" v-if="!loading"></motus-grid>
+    <motus-game></motus-game>
     <v-card
       class="my-16 my-14 card"
       :min-width="vCardWidth"
@@ -62,40 +48,14 @@
 </style>
 
 <script>
-import MotusLetter from "../components/motus/MotusLetter.vue";
-import MotusGrid from "../components/motus/MotusGrid.vue";
-import PageTitle from "../components/PageTitle.vue";
+import MotusGame from "@/components/motus/MotusGame.vue";
+import PageTitle from "@/components/PageTitle.vue";
 
 export default {
   name: "Motus",
-  data() {
-    return {
-      loading: true,
-      motusGrid: null,
-      partyOngoing: Boolean,
-    };
-  },
   components: {
-    MotusLetter,
     PageTitle,
-    MotusGrid,
-  },
-  async mounted() {
-    await this.$nextTick();
-    await this.startGame();
-    this.motusGrid.moveRow(1);
-  },
-  methods: {
-    startGame: async function () {
-      return fetch("https://api.github.com/users/maxouxax/followers")
-        .then((response) => response.json())
-        .then((data) => (this.loading = false))
-        .then((data) => {
-          this.motusGrid = this.$refs.motusGrid;
-          this.motusGrid.motusWord.setWord("AHAHAHAH");
-          this.partyOngoing = true;
-        });
-    },
+    MotusGame
   },
   computed: {
     vCardWidth() {
@@ -105,14 +65,6 @@ export default {
           return "80vw";
         default:
           return 640;
-      }
-    },
-    vSkeletonWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "80vw";
-        default:
-          return 512;
       }
     },
   },
