@@ -107,16 +107,17 @@ export default {
           new Promise((resolve) => {
             setTimeout(() => {
               let letter = motusLetter.getLetter().toLowerCase();
-              console.log(this.motusWord.word[i], letter);
+              let shouldRemoveLetter = true;
               if (this.motusWord.word[i] == letter) {
                 motusLetter.setWellPlaced(true);
+                shouldRemoveLetter = false;
               } else if (this.motusWord.contains(letter)) {
                 motusLetter.setWronglyPlaced(true);
                 this.partyOngoing = true;
               } else {
                 this.partyOngoing = true;
               }
-              this.motusWord.removeLetter(letter);
+              if(shouldRemoveLetter) this.motusWord.removeLetter(letter);
               resolve();
             }, i * 250);
           })
