@@ -20,8 +20,9 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+import CSSMetaProperties from "@/components/CSSMetaProperties.vue";
 
 const DEFAULT_TRANSITION = "slide";
 

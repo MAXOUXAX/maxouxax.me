@@ -1,0 +1,46 @@
+<template>
+  
+</template>
+
+<script>
+export default {
+	name: 'Scrollbar'
+}
+</script>
+
+<style>
+:root {
+  --primary-color: #A7D930;
+  --secondary-color: #95C22B;
+  --text-color-on-selection: white;
+  --scrollbar-color: hsl(78, 69%, 10%);
+  --scrollbar-border-color: hsl(81, 100%, 12%);
+}
+::selection {
+    -webkit-text-fill-color: var(--text-color-on-selection);
+    color: white;
+    background: var(--secondary-color);
+}
+::-webkit-scrollbar {
+    background: none;
+    width: 20px;
+    height: 20px;
+}
+::-webkit-scrollbar-thumb:hover{
+    box-shadow: var(--scrollbar-color) 0px 0px 0px 1px inset, var(--primary-color) 0px 0px 0px 8px inset;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    border-width: 0px 4px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0);
+    border-image: initial;
+    border-radius: 9px / 4px;
+    box-shadow: var(--scrollbar-border-color) 0px 0px 0px 2px inset, var(--scrollbar-color) 0px 0px 0px 8px inset;
+}
+::-webkit-scrollbar-track-piece {
+    margin: 4px 0px;
+}
+</style>

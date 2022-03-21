@@ -1,9 +1,8 @@
 <template>
     <div class="projects my-6">
-        <page-title class="mb-8">Projets</page-title>
+        <page-title class="mb-16">Projets</page-title>
         <div class="network-error" v-if="networkError">
             <v-alert
-               :value="alert"
                border="left"
                icon="mdi-alert-circle"
                transition="slide-y-transition"
@@ -38,15 +37,15 @@
                 justify="center"
                 class="mx-0"
             >
-                <github-repository v-for="repo in repos" :repository="repo" :key="repo.name">{{ repo }}</github-repository>
+                <github-repository v-for="repo in repos" :repository="repo" :key="repo.name"></github-repository>
             </v-row>
         </div>
     </div>
 </template>
 
 <script>
-import GitHubRepository from '../components/GitHubRepository.vue'
-import PageTitle from '../components/PageTitle.vue';
+import GitHubRepository from '@/components/GitHubRepository.vue'
+import PageTitle from '@/components/PageTitle.vue';
 
 export default {
     data() {
@@ -73,22 +72,31 @@ export default {
     },
     mounted(){
         fetch('https://api.github.com/users/MAXOUXAX/repos').then(response => response.json()).then(data => {
-            data.filter(repo => repo.fork == false).forEach(repo => {
-                this.repos.push({
-                    name: repo.name,
-                    url: repo.html_url,
-                    description: repo.description,
-                    language: repo.language,
-                    license: repo.license,
-                    stars: repo.stargazers_count,
-                    archived: repo.archived,
-                    updated: repo.updated_at
-                });
+            data.filter(repo => repo.fork == false)
+                .filter(repo => repo.name != "MAXOUXAX")
+                .forEach(repo => {
+                    this.repos.push({
+                        name: repo.name,
+                        url: repo.html_url,
+                        description: repo.description,
+                        language: repo.language,
+                        license: repo.license,
+                        stars: repo.stargazers_count,
+                        archived: repo.archived,
+                        pushed: repo.pushed_at
+                    });
             });
         }).finally(() => {
             if(this.repos.length == 0){
                 this.networkError = true;
             }else{
+                this.repos.sort((a, b) => {
+                    if(a.archived && !b.archived) return 1;
+                    if(!a.archived && b.archived) return -1;
+                    if(a.pushed < b.pushed) return 1;
+                    if(a.pushed > b.pushed) return -1;
+                    return 0;
+                });
                 this.loading = false;
             }
         });
