@@ -8,12 +8,12 @@
           min-height="120"
           elevation="2"
           outlined
-          :href="repository.url"
+          :disabled="repository.archived"
+          :to="'/projects/' + repository.name"
           raised
-          target="_blank"
         >
 
-            <v-card-title>{{ repository.name }} <v-icon right>mdi-open-in-new</v-icon></v-card-title>
+            <v-card-title>{{ repository.name }} <v-icon v-if="repository.archived" right>mdi-lock</v-icon></v-card-title>
 
 
             <v-card-subtitle>{{ repository.description }}</v-card-subtitle>
@@ -55,13 +55,6 @@ export default {
         }
       },
     },
-    methods: {
-        reserve () {
-            this.loading = true
-
-            setTimeout(() => (this.loading = false), 2000)
-        },
-    },
     props: {
         repository: {
             name: String,
@@ -84,6 +77,9 @@ export default {
 }
 .v-card__title{
     justify-content: space-between;
+}
+.v-card--disabled{
+    pointer-events: inherit !important;
 }
 .card .details{
     display: flex;

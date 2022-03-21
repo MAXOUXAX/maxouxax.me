@@ -32,6 +32,15 @@ const routes = [
     allowEasterEgg: true
   },
   {
+    path: '/projects/:projectName',
+    props: true,
+    name: 'Projets - Détails',
+    component: () => import('../views/ProjectView.vue'),
+    icon: "mdi-bookshelf",
+    showInMenu: false,
+    allowEasterEgg: true
+  },
+  {
     path: '/groubox',
     name: 'GROUBOX',
     component: () => import('../views/GROUBOX.vue'),
@@ -105,8 +114,8 @@ window.addEventListener('keypress', (function() {
       if (strToType.indexOf(strTyped) === -1) strTyped = '';
       else if (strTyped === strToType) {
         let currentRoute = router.options.routes.filter(route => route.path === router.currentRoute.path)[0];
+        strTyped = '';
         if(currentRoute.allowEasterEgg){
-          strTyped = '';
           router.push("mejri");
         }
       }
