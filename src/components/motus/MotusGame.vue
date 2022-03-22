@@ -19,8 +19,6 @@
               class="game-selection-screen-button ma-2"
               @click="startGame('todays-word')"
               color="primary"
-              elevation="10"
-              outlined
               raised
               rounded
               x-large
@@ -34,7 +32,6 @@
               class="game-selection-screen-button ma-2"
               @click="startGame('random')"
               color="secondary"
-              elevation="10"
               outlined
               raised
               rounded

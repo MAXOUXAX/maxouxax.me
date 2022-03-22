@@ -14,12 +14,12 @@
           <v-divider></v-divider>
           <v-card-actions class="justify-space-between">
             <v-btn text @click="abandonDialog = false"> Annuler </v-btn>
-            <v-btn color="red" @click="abandonGame">Abandonner</v-btn>
+            <v-btn color="error" @click="abandonGame">Abandonner</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <div class="game-command d-flex justify-center ma-12">
-        <v-btn outlined rounded color="red" @click="confirmAbandonGame"
+        <v-btn outlined rounded color="error" @click="confirmAbandonGame"
           >Abandonner</v-btn
         >
       </div>

@@ -10,11 +10,11 @@ export default {
 
 <style>
 :root {
-  --primary-color: #A7D930;
-  --secondary-color: #95C22B;
+  --primary-color: #1e3799;
+  --secondary-color: #4a69bd;
   --text-color-on-selection: white;
-  --scrollbar-color: hsl(78, 69%, 10%);
-  --scrollbar-border-color: hsl(81, 100%, 12%);
+  --scrollbar-color: #4a69bd70;
+  --scrollbar-border-color: #6a89cc70;
 }
 ::selection {
     -webkit-text-fill-color: var(--text-color-on-selection);
@@ -22,12 +22,12 @@ export default {
     background: var(--secondary-color);
 }
 ::-webkit-scrollbar {
-    background: none;
+    background: transparent;
     width: 20px;
     height: 20px;
 }
 ::-webkit-scrollbar-thumb:hover{
-    box-shadow: var(--scrollbar-color) 0px 0px 0px 1px inset, var(--primary-color) 0px 0px 0px 8px inset;
+    box-shadow: var(--scrollbar-color) 0px 0px 0px 1px inset, var(--secondary-color) 0px 0px 0px 8px inset;
 }
 ::-webkit-scrollbar-corner {
     background: transparent;

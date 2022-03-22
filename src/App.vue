@@ -126,6 +126,7 @@ html {
   height: 100%;
   overflow-x: hidden;
   background-color: black;
+  scroll-behavior: smooth;
 }
 body {
   min-height: 100%;

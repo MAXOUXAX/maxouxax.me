@@ -68,7 +68,7 @@ const routes = [
     path: '/motus',
     name: 'MOTUS',
     component: () => import('../views/Motus.vue'),
-    icon: "mdi-controller-classic",
+    icon: "mdi-google-controller",
     showInMenu: true,
     allowEasterEgg: false
   },
