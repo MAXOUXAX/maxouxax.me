@@ -7,17 +7,17 @@
     </div>
     <div class="buttons">
       <router-link to="/projects">
-        <v-btn x-large color="blue" dark>
+        <v-btn x-large color="primary" dark>
           <v-icon left> mdi-bookshelf </v-icon>
           Projets
         </v-btn>
       </router-link>
-      <!--<router-link to="/contact">-->
-      <!--  <v-btn outlined x-large color="blue" dark>-->
-      <!--    <v-icon left> mdi-email </v-icon>-->
-      <!--    Contact-->
-      <!--  </v-btn>-->
-      <!--</router-link>-->
+      <router-link to="/motus">
+        <v-btn outlined x-large color="secondary" dark>
+          <v-icon left> mdi-google-controller </v-icon>
+          Jouer à Motus
+        </v-btn>
+      </router-link>
     </div>
   </div>
 </template>
