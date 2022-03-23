@@ -48,10 +48,6 @@ addEventListener('fetch', event => {
             words = data.slice(0, -1).split('\n')
           })
   
-        //let initial = 'p...l..'
-        //let letterIn = 'etn' //etn
-        //let letterOut = 'rd' //rd
-  
         let initial = formData.get('wordPattern')
         let letterIn = formData.get('lettersInWord')
         let letterOut = formData.get('lettersNotInWord')
