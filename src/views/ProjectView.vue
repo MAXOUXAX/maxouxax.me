@@ -62,8 +62,8 @@ export default {
       type="card"
     ></v-skeleton-loader>`,
   }),
-  mounted() {
-    fetch("https://api.github.com/repos/MAXOUXAX/" + this.projectName)
+  async mounted() {
+    await fetch("https://api.github.com/repos/MAXOUXAX/" + this.projectName)
       .then((response) => {
         console.log(response);
         if (!response.ok && response.status == 404)
@@ -96,6 +96,11 @@ export default {
           }, 2000);
         }
       });
+    await fetch("https://api.github.com/repos/MAXOUXAX/" + this.repository.name + "/branches/main")
+      .then(response => response.json())
+      .then(data => {
+        this.repository.lastCommit = data.commit.commit.author.date;
+      })
   },
   computed: {
     vSkeletonWidth() {
