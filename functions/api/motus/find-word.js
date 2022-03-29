@@ -1,24 +1,18 @@
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
-
 const wordList =
   'https://framagit.org/JonathanMM/sutom/-/raw/main/data/mots.txt'
-/**
+
+  /**
  * Handles the findWord endpoint
  * @param {Request} request
  */
-async function handleRequest(request) {
+export async function onRequestPost(request) {
   let words = []
   let response = {
     error: false,
     message: '',
     words: [],
   }
-  if (request.method != 'POST') {
-    response.error = true
-    response.message = 'Request method does not match required pattern'
-  } else if (!request.headers.get('content-type').includes('form')) {
+  if (!request.headers.get('content-type').includes('form')) {
     response.error = true
     response.message = 'Request content-type is not a form'
   }
