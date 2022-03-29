@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header :theme="theme"></Header>
+    <Header></Header>
     <v-main>
       <v-container fill-height fluid>
         <transition
@@ -32,7 +32,6 @@ export default {
     return {
       prevHeight: 0,
       transitionName: DEFAULT_TRANSITION,
-      theme: "dark",
     };
   },
   components: {
@@ -70,21 +69,6 @@ export default {
     afterEnter(element) {
       element.style.height = "auto";
     },
-  },
-  mounted() {
-    let theme = localStorage.getItem("theme");
-    if (theme) {
-      if(theme === "dark" || theme === "light") {
-        this.theme = theme;
-      }else{
-        localStorage.removeItem("theme");
-      }
-    } else {
-      const osTheme = window.matchMedia("(prefers-color-scheme: dark)");
-      this.theme = osTheme.matches ? "dark" : "light";
-      localStorage.setItem("theme", this.theme);
-    }
-    this.$vuetify.theme.dark = this.theme === "dark" ? true : false;
   },
 };
 </script>

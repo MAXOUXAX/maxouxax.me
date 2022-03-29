@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
+import store from '@/store';
 
 Vue.use(Vuetify);
-
-const osTheme = window.matchMedia("(prefers-color-scheme: dark)");
-const theme = osTheme.matches ? 'dark' : 'light';
 
 const colorPalette = {
     primary: '#1e3799',
@@ -18,7 +16,7 @@ const colorPalette = {
 
 export default new Vuetify({
     theme: {
-        dark: theme,
+        dark: store.state.theme,
         themes: {
             light: colorPalette,
             dark: colorPalette

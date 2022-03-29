@@ -27,7 +27,7 @@
       <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
 
       <v-switch
-        :value="!theme"
+        :value="!this.$store.state.theme"
         @change="toggleDarkMode"
         inset
         class="ml-auto switch"
@@ -43,17 +43,13 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    theme: true
   }),
   async mounted(){
     await this.$nextTick();
-    this.theme = this.$vuetify.theme.dark;
   },
   methods: {
     toggleDarkMode: function () {
-      this.theme = !this.theme;
-      this.$vuetify.theme.dark = this.theme;
-      localStorage.setItem("theme", this.theme ? "dark" : "light");
+      this.$store.commit('changeTheme');
     },
   },
   computed: {
