@@ -1,12 +1,9 @@
 <template>
   <div class="project-view">
-    <page-title v-if="!loading" class="mb-16">{{ repository }}></page-title>
+    <page-title v-if="!loading" class="mb-16">{{ repository.name }}</page-title>
     <v-skeleton-loader v-if="loading">
       <v-row align="center" justify="center" class="mx-0">
-        <v-sheet
-          :width="vSkeletonWidth"
-          class="mx-5 my-4"
-        >
+        <v-sheet :width="vSkeletonWidth" class="mx-5 my-4">
           <v-skeleton-loader width="100%" type="card"></v-skeleton-loader>
         </v-sheet>
       </v-row>
@@ -62,45 +59,44 @@ export default {
       type="card"
     ></v-skeleton-loader>`,
   }),
+  methods: {
+    getRepository: async function () {
+      await fetch("https://api.github.com/repos/MAXOUXAX/" + this.projectName)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message == "Not Found") {
+            this.notFound = true;
+          } else {
+            this.repository = {
+              name: data.name,
+              url: data.html_url,
+              description: data.description,
+              language: data.language,
+              license: data.license,
+              stars: data.stargazers_count,
+              archived: data.archived,
+              pushed: data.pushed_at,
+            };
+          }
+        });
+      await fetch(
+        "https://api.github.com/repos/MAXOUXAX/" +
+          this.repository.name +
+          "/branches/main"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.repository.lastCommit = data.commit.commit.author.date;
+        });
+    },
+  },
   async mounted() {
-    await fetch("https://api.github.com/repos/MAXOUXAX/" + this.projectName)
-      .then((response) => {
-        console.log(response);
-        if (!response.ok && response.status == 404)
-          throw new Error("404 - Project not found");
-        response.json();
-      })
-      .catch((e) => {
-        this.notFound = true;
-      })
-      .then((data) => {
-        if (!this.notFound) {
-          this.repository = {
-            name: data.name,
-            url: data.html_url,
-            description: data.description,
-            language: data.language,
-            license: data.license,
-            stars: data.stargazers_count,
-            archived: data.archived,
-            pushed: data.pushed_at,
-          };
-        }
-      })
-      .finally(() => {
-        if (this.repository == null && !this.notFound) {
-          this.networkError = true;
-        } else {
-          setTimeout(() => {
-            this.loading = false;
-          }, 2000);
-        }
-      });
-    await fetch("https://api.github.com/repos/MAXOUXAX/" + this.repository.name + "/branches/main")
-      .then(response => response.json())
-      .then(data => {
-        this.repository.lastCommit = data.commit.commit.author.date;
-      })
+    await this.getRepository();
+    if (this.repository == null && !this.notFound) {
+      this.networkError = true;
+    } else {
+      this.loading = false;
+    }
   },
   computed: {
     vSkeletonWidth() {
