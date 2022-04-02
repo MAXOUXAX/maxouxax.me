@@ -1,17 +1,15 @@
-const wordList =
-  'https://framagit.org/JonathanMM/sutom/-/raw/main/data/mots.txt'
+const wordList = "https://framagit.org/JonathanMM/sutom/-/raw/main/data/mots.txt"
+//const wordList = "https://maxouxax.me/assets/mots-francais.txt"
 
-  /**
- * Handles the findWord endpoint
- * @param {Request} request
- */
-export async function onRequestPost(request) {
+export async function onRequestPost(context) {
   let words = []
   let response = {
     error: false,
     message: '',
     words: [],
   }
+  let request = context.request;
+  console.log("Headers: " + JSON.stringify(request.headers))
   if (!request.headers.get('content-type').includes('form')) {
     response.error = true
     response.message = 'Request content-type is not a form'
@@ -83,4 +81,3 @@ export async function onRequestPost(request) {
   })
 }
 
-  
