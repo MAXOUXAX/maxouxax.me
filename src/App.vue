@@ -2,6 +2,7 @@
   <v-app>
     <Header></Header>
     <v-main>
+      <v-breadcrumbs :items="breadCrumbsItems"></v-breadcrumbs>
       <v-container fill-height fluid>
         <transition
           name="slide-down"
@@ -33,6 +34,45 @@ export default {
       prevHeight: 0,
       transitionName: DEFAULT_TRANSITION,
     };
+  },
+  computed: {
+    breadCrumbsItems() {
+      let items = [];
+      let currentRoute = this.$route.matched[0];
+      console.log("this.$route", this.$route);
+      console.log("currentRoute", currentRoute);
+      let routePath = this.$route.path;
+      console.log("routePath", routePath);
+      let routeParts = routePath.split("/");
+      routeParts = routeParts.filter((part) => part !== "");
+      if (routeParts.length >= 1) {
+        items.push({
+          text: "Accueil",
+          disabled: false,
+          to: "/",
+        });
+        routeParts.forEach((part) => {
+          let partRoute = this.$router.options.routes.find(
+            (route) => route.path == "/" + part
+          );
+          console.log("partRoute", partRoute);
+          let name;
+          if (partRoute) {
+            name = partRoute.name;
+          } else {
+            name = part;
+          }
+          let disabled = routeParts[routeParts.length - 1] == part;
+          items.push({
+            text: name,
+            disabled: disabled,
+            to: partRoute ? partRoute.path : name,
+            exact: true
+          });
+        });
+      }
+      return items;
+    },
   },
   components: {
     Footer,
@@ -67,7 +107,7 @@ export default {
       });
     },
     afterEnter(element) {
-      element.style.height = "auto";
+      element.style.height = null;
     },
   },
 };

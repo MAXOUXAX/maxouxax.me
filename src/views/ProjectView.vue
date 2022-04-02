@@ -1,5 +1,5 @@
 <template>
-  <div class="project-view">
+  <div class="project-view fill-height">
     <page-title v-if="!loading" class="mb-16">{{ repository.name }}</page-title>
     <v-skeleton-loader v-if="loading">
       <v-row align="center" justify="center" class="mx-0">
@@ -33,7 +33,8 @@
         Ce projet n'existe pas. Veuillez retourner à la liste des projets.
       </v-alert>
     </div>
-    <div v-if="!loading" class="project">
+    <div v-if="!loading" class="project d-flex justify-center align-center align-content-center">
+      
       <github-repository
         :repository="repository"
         :key="repository.name"
@@ -126,5 +127,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.project-view{
+  width: 100%;
+}
 </style>
