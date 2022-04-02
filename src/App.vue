@@ -51,22 +51,17 @@ export default {
           disabled: false,
           to: "/",
         });
-        routeParts.forEach((part) => {
+        routeParts.forEach((part, index) => {
           let partRoute = this.$router.options.routes.find(
             (route) => route.path == "/" + part
           );
           console.log("partRoute", partRoute);
-          let name;
-          if (partRoute) {
-            name = partRoute.name;
-          } else {
-            name = part;
-          }
-          let disabled = routeParts[routeParts.length - 1] == part;
+          let name = partRoute ? partRoute.name : part;
+          let routeTo = partRoute ? partRoute.path : "/" + routeParts.slice(0, index + 1).join("/");
           items.push({
             text: name,
-            disabled: disabled,
-            to: partRoute ? partRoute.path : name,
+            disabled: routeParts[routeParts.length - 1] == part,
+            to: routeTo,
             exact: true
           });
         });
@@ -77,6 +72,7 @@ export default {
   components: {
     Footer,
     Header,
+    CSSMetaProperties
   },
   created() {
     this.$router.beforeEach((to, from, next) => {

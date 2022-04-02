@@ -10,8 +10,8 @@ export default {
 
 <style>
 :root {
-  --primary-color: #1e3799;
-  --secondary-color: #4a69bd;
+  --primary-color: #4a69bd;
+  --secondary-color: #6a89cc;
   --text-color-on-selection: white;
   --scrollbar-color: #4a69bd70;
   --scrollbar-border-color: #6a89cc70;
