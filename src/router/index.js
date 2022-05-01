@@ -45,7 +45,7 @@ const routes = [
     name: 'GROUBOX',
     component: () => import('../views/GROUBOX.vue'),
     icon: "mdi-account-voice",
-    showInMenu: true,
+    showInMenu: false,
     allowEasterEgg: true
   },
   {
