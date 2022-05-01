@@ -132,8 +132,6 @@ export default {
   transform: translate(0, 2em);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
-
 .container {
   width: 100%;
   min-height: 100%;
@@ -157,6 +155,5 @@ body {
 * {
   margin: 0;
   padding: 0;
-  font-family: "Cabin", sans-serif;
 }
 </style>

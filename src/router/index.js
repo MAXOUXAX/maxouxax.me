@@ -73,6 +73,14 @@ const routes = [
     allowEasterEgg: false
   },
   {
+    path: '/raymond/teacher/:email',
+    name: 'Raymond',
+    component: () => import('../views/Raymond.vue'),
+    icon: "mdi-email",
+    showInMenu: false,
+    allowEasterEgg: false
+  },
+  {
     path: "*",
     name: 'Page introuvable',
     component: () => import('../views/NotFound.vue'),

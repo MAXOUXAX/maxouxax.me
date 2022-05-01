@@ -33,12 +33,51 @@
         Ce projet n'existe pas. Veuillez retourner à la liste des projets.
       </v-alert>
     </div>
-    <div v-if="!loading" class="project d-flex justify-center align-center align-content-center">
-      
-      <github-repository
-        :repository="repository"
-        :key="repository.name"
-      ></github-repository>
+    <div
+      v-if="!loading"
+      class="project d-flex justify-center align-center align-content-center"
+    >
+      <v-container>
+        <v-row class="mb-6 justify-center align-center" no-gutters>
+          <v-col>
+            <v-card class="ma-5">
+              <v-card-title primary-title>
+                {{ repository.name }}
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                {{ repository.description }}
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card class="ma-5">
+              <v-card-title primary-title> Actions </v-card-title>
+              <v-card-actions>
+                <v-btn
+                  color="primary"
+                  dark
+                  target="_blank"
+                  rel="noopener"
+                  :href="repository.url"
+                >
+                  <v-icon left>mdi-open-in-new</v-icon>
+                  Voir sur GitHub
+                </v-btn>
+              </v-card-actions>
+              <v-divider></v-divider>
+              <v-card-title primary-title>Informations</v-card-title>
+              <v-card-text>Dernière mise à jour</v-card-text>
+              {{
+                new Date(repository.pushed).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "long",
+                })
+              }}
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
@@ -128,7 +167,10 @@ export default {
 </script>
 
 <style scoped>
-.project-view{
+.project-view {
+  width: 100%;
+}
+.project {
   width: 100%;
 }
 </style>
