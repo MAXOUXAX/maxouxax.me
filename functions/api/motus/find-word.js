@@ -53,7 +53,7 @@ export async function onRequestPost(context) {
       } else {
         let temp = ''
         for (let i = 0; i < letterIn.length; i++) {
-          temp += '(?=.*' + letterIn.charAt(i) + ')' + '.+'
+          temp += '(?=.*' + letterIn.charAt(i) + ')' + '.*'
         }
         letterIn = new RegExp(temp)
       }
