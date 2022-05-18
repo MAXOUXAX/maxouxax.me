@@ -62,7 +62,7 @@ export async function onRequestPost(context) {
         return answerRequest(response);
     }
 
-    return answerRequest(findWord(response, words, initialParameter, letterInParameter, letterOutParameter))
+    return answerRequest(await findWord(response, words, initialParameter, letterInParameter, letterOutParameter));
 }
 
 async function findWord(response, words, initialParameter, letterInParameter, letterOutParameter) {
