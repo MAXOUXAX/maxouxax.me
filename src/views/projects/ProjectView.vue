@@ -119,6 +119,7 @@
 <script>
 import GitHubRepository from "@/components/GitHubRepository.vue";
 import { marked } from "marked";
+import { mapGetters } from "vuex";
 
 export default {
   name: "project-view",
@@ -217,22 +218,10 @@ export default {
     }
   },
   computed: {
-    vSkeletonWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "80vw";
-        default:
-          return 374;
-      }
-    },
-    vAlertWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "80vw";
-        default:
-          return "520px";
-      }
-    },
+    ...mapGetters([
+      'vSkeletonWidth',
+      'vAlertWidth',
+    ]),
     getChips() {
       if (this.repository == null) {
         return [];

@@ -40,6 +40,7 @@
 
 <script>
 import GitHubRepository from "@/components/GitHubRepository.vue";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -51,22 +52,10 @@ export default {
     };
   },
   computed: {
-    vSkeletonWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "80vw";
-        default:
-          return 374;
-      }
-    },
-    vAlertWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "80vw";
-        default:
-          return "520px";
-      }
-    },
+    ...mapGetters([
+      "vAlertWidth",
+      "vSkeletonWidth",
+    ]),
   },
   mounted() {
     fetch("https://api.github.com/users/MAXOUXAX/repos")

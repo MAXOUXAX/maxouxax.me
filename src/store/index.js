@@ -42,6 +42,22 @@ const store = new Vuex.Store({
         default: return 374
       }
     },
+    vSkeletonWidth(state) {
+      switch (Vuetify.framework.breakpoint.name) {
+        case "xs":
+          return "80vw";
+        default:
+          return 374;
+      }
+    },
+    vAlertWidth(state) {
+      switch (Vuetify.framework.breakpoint.name) {
+        case "xs":
+          return "80vw";
+        default:
+          return "520px";
+      }
+    },
   },
   actions: {
   },

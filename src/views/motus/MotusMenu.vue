@@ -58,16 +58,5 @@
 <script>
 export default {
   name: "Motus",
-  computed: {
-    vCardWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "sm":
-        case "xs":
-          return "80vw";
-        default:
-          return 640;
-      }
-    },
-  },
 };
 </script>
