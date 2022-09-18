@@ -21,7 +21,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar fixed>
+    <v-app-bar>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
@@ -66,7 +66,6 @@ export default {
 <style scoped>
 #header {
   width: 100%;
-  margin-bottom: 64px;
 }
 #header .item-icon {
   margin: 10px;
