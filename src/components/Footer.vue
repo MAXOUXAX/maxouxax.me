@@ -17,7 +17,7 @@
       </v-card-text>
 
       <v-card-text class="pt-0">
-        Étudiant en première année • BUT Informatique
+        Étudiant en deuxième année de BUT Informatique
       </v-card-text>
 
       <v-row justify="center" no-gutters>
