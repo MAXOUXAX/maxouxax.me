@@ -35,6 +35,14 @@ const store = new Vuex.Store({
       localStorage.setItem("theme", state.theme ? "dark" : "light");
     }
   },
+  getters: {
+    vCardWidth(state) {
+      switch (Vuetify.framework.breakpoint.name) {
+        case 'xs': return "80vw"
+        default: return 374
+      }
+    },
+  },
   actions: {
   },
   modules: {
