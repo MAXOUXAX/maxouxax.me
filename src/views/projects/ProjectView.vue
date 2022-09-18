@@ -1,6 +1,6 @@
 <template>
   <div class="project-view fill-height">
-    <page-title v-if="!loading" class="mb-16">{{ repository.name }}</page-title>
+    <h1 v-if="!loading" class="mb-16">{{ repository.name }}</h1>
     <div class="d-flex align-center justify-center" v-if="networkError">
       <v-alert
         border="left"
@@ -118,7 +118,6 @@
 
 <script>
 import GitHubRepository from "@/components/GitHubRepository.vue";
-import PageTitle from "@/components/PageTitle.vue";
 import { marked } from "marked";
 
 export default {
@@ -331,7 +330,6 @@ export default {
     projectName: String,
   },
   components: {
-    PageTitle,
     GitHubRepository,
   },
 };

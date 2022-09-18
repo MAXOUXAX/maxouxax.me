@@ -1,6 +1,6 @@
 <template>
   <div class="projects-list">
-    <page-title class="mb-16">Projets</page-title>
+    <h1 class="mb-16">Projets</h1>
     <div class="d-flex align-center justify-center" v-if="networkError">
       <v-alert
           border="left"
@@ -40,7 +40,6 @@
 
 <script>
 import GitHubRepository from "@/components/GitHubRepository.vue";
-import PageTitle from "@/components/PageTitle.vue";
 
 export default {
   data() {
@@ -112,7 +111,6 @@ export default {
   },
   components: {
     "github-repository": GitHubRepository,
-    PageTitle,
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="raymond">
-    <page-title class="mb-16">Raymond</page-title>
+    <h1 class="mb-16">Raymond</h1>
     <transition
         name="slide-x-reverse-transition"
         mode="out-in"
@@ -12,13 +12,8 @@
 </template>
 
 <script>
-import PageTitle from "@/components/PageTitle";
-
 export default {
   name: "Raymond",
-  components: {
-    PageTitle
-  }
 }
 </script>
 

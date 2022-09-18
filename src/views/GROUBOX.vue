@@ -1,6 +1,6 @@
 <template>
   <div class="groubox">
-    <page-title class="my-12">GROUBOX</page-title>
+    <h1 class="my-12">GROUBOX</h1>
     <div class="button-div" id="centerdiv" data-sr-id="0">
       <span v-for="sound in sounds" v-bind:key="sound.id">
         <v-tooltip top>
@@ -75,8 +75,6 @@
 </style>
 
 <script>
-import PageTitle from "@/components/PageTitle.vue";
-
 export default {
   methods: {
     playSound(name) {
@@ -265,9 +263,6 @@ export default {
       ],
       audio: null,
     };
-  },
-  components: {
-    PageTitle,
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="uppercasegenerator" class="my-12">
     <div class="header d-flex justify-center align-center flex-column">
-      <page-title class="mb-12">UpperCaseGenerator</page-title>
+      <h1 class="mb-12">UpperCaseGenerator</h1>
       <v-divider width="40%" class="mx-16"></v-divider>
     </div>
     <div class="main">
@@ -70,10 +70,7 @@
 </template>
 
 <script>
-import PageTitle from '@/components/PageTitle.vue';
-
 export default {
-  components: { PageTitle },
   data: function () {
     return {
       text: "",

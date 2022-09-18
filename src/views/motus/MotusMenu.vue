@@ -56,13 +56,8 @@
 </style>
 
 <script>
-import PageTitle from "@/components/PageTitle.vue";
-
 export default {
   name: "Motus",
-  components: {
-    PageTitle,
-  },
   computed: {
     vCardWidth() {
       switch (this.$vuetify.breakpoint.name) {
