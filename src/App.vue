@@ -2,7 +2,7 @@
   <v-app>
     <Header></Header>
     <v-main>
-      <v-breadcrumbs :items="breadCrumbsItems"></v-breadcrumbs>
+      <v-breadcrumbs class="breadcrumbs" :items="breadCrumbsItems"></v-breadcrumbs>
       <v-container fill-height fluid>
         <transition
           name="slide-x-reverse-transition"
@@ -91,6 +91,9 @@ export default {
   width: 100%;
   min-height: 100%;
   padding: 0 !important;
+}
+.breadcrumbs{
+  position: absolute;
 }
 a {
   text-decoration: none;
