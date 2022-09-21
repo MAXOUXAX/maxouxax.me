@@ -4,11 +4,7 @@
     <div class="d-flex justify-center align-center mx-10">
       <raymond-teacher-search></raymond-teacher-search>
     </div>
-    <transition
-        name="slide-x-reverse-transition"
-        mode="out-in"
-        appear
-    >
+    <transition name="slide-x-reverse-transition" mode="out-in" appear>
       <router-view></router-view>
     </transition>
   </div>
@@ -19,6 +15,6 @@ import RaymondTeacherSearch from "@/components/raymond/RaymondTeacherSearch";
 
 export default {
   name: 'RaymondTeacher',
-  components: {RaymondTeacherSearch},
+  components: { RaymondTeacherSearch },
 }
 </script>
