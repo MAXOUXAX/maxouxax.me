@@ -1,6 +1,6 @@
 <template>
   <div class="motus-grid" @click="openKeyboard">
-    <v-row v-for="i in 6" :key="i" class="my-0 mx-0">
+    <v-row v-for="i in 6" :key="i" class="my-0 mx-0 flex-row">
       <v-col
         class="pa-0"
         :width="widthClass()"
@@ -117,7 +117,7 @@ export default {
               } else {
                 this.partyOngoing = true;
               }
-              if(shouldRemoveLetter) this.motusWord.removeLetter(letter);
+              if (shouldRemoveLetter) this.motusWord.removeLetter(letter);
               resolve();
             }, i * 250);
           })
@@ -162,10 +162,17 @@ export default {
 }
 .col {
   border: 0.5px solid white;
-  width: 52px;
-  height: 52px;
+  flex: 1 1 auto;
   flex-basis: initial !important;
   flex-grow: initial !important;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 @media screen and (max-width: 960px) {
   .col {
