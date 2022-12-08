@@ -162,16 +162,10 @@ export default {
 }
 .col {
   border: 0.5px solid white;
-  width: 96px;
-  height: 96px;
+  width: 52px;
+  height: 52px;
   flex-basis: initial !important;
   flex-grow: initial !important;
-}
-@media screen and (max-height: 960px) {
-  .col {
-    width: 84px;
-    height: 84px;
-  }
 }
 @media screen and (max-width: 960px) {
   .col {

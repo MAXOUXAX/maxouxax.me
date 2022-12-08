@@ -2,7 +2,7 @@
   <div class="home">
     <div class="about">
       <h1>MAXOUXAX</h1>
-      <h2>Étudiant en première année</h2>
+      <h2>Étudiant en deuxième année</h2>
       <h3>BUT Informatique</h3>
     </div>
     <div class="buttons">

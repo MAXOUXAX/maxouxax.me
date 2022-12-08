@@ -86,13 +86,25 @@ const routes = [
   },
   {
     path: '/motus',
-    name: 'Motus',
-    component: () => import('../views/Motus.vue'),
+    component: () => import('../views/motus/Motus.vue'),
     meta: {
       icon: "mdi-google-controller",
       showInMenu: true,
       allowEasterEgg: false
-    }
+    },
+    children: [
+      {
+        path: '',
+        name: 'Motus',
+        component: () => import('../views/motus/MotusMenu.vue'),
+      },
+      {
+        path: ':gameMode',
+        props: true,
+        name: 'Motus - Partie',
+        component: () => import('../views/motus/MotusGameView.vue'),
+      }
+    ],
   },
   {
     path: '/raymond',

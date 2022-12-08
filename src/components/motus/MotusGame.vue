@@ -1,104 +1,94 @@
 <template>
-  <div class="motus-game">
-    <transition name="slide-down" mode="out-in">
-      <div v-if="!gameStarted" class="game-selection-screen py-12">
-        <v-card-title>
-          Choisissez le type de partie à laquelle vous souhaitez jouer
-        </v-card-title>
-        <v-card-actions class="justify-space-around">
-          <div
-            class="
-              game-selection-screen-buttons
-              d-flex
-              justify-space-around
-              ma-2
-              flex-wrap
-            "
+  <transition name="slide-down" mode="out-in">
+    <div class="game-of-motus" v-show="gameStarted">
+      <v-dialog v-model="abandonDialog" max-width="300px">
+        <v-card>
+          <v-card-title
+            >Voulez-vous vraiment abandonner cette partie ?</v-card-title
           >
-            <v-btn
-              class="game-selection-screen-button ma-2"
-              @click="startGame('todays-word')"
-              color="primary"
-              raised
-              rounded
-              x-large
-              block
-              :loading="todaysLoading"
-            >
-              <v-icon left> mdi-calendar-today </v-icon>
-              Mot du jour
-            </v-btn>
-            <v-btn
-              class="game-selection-screen-button ma-2"
-              @click="startGame('random')"
-              color="secondary"
-              outlined
-              raised
-              rounded
-              x-large
-              block
-              :loading="randomLoading"
-            >
-              <v-icon left> mdi-dice-5-outline </v-icon>
-              Mot aléatoire
-            </v-btn>
-          </div>
-        </v-card-actions>
-      </div>
-    </transition>
-    <div class="game">
-      <game-of-motus
-        ref="gameOfMotus"
-        @game-state-change="gameStateChange"
-      ></game-of-motus>
+          <v-divider></v-divider>
+          <v-card-text class="my-4">
+            Êtes-vous sûr de vouloir abandonner la partie en cours ? ATTENTION:
+            Votre progression sera perdue !
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="justify-space-between">
+            <v-btn text @click="abandonDialog = false"> Annuler </v-btn>
+            <v-btn color="error" @click="abandonGame">Abandonner</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <motus-grid ref="motusGrid"></motus-grid>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import GameOfMotus from "@/components/motus/GameOfMotus.vue";
+import MotusGrid from "@/components/motus/MotusGrid.vue";
 
 export default {
-  components: {
-    GameOfMotus,
-  },
   data() {
     return {
-      gameOfMotus: null,
-      todaysLoading: false,
-      randomLoading: false,
+      gameStartDate: null,
+      motusGrid: null,
+      partyOngoing: Boolean,
       gameStarted: false,
+      abandonDialog: false,
     };
   },
-  mounted() {
-    this.gameOfMotus = this.$refs.gameOfMotus;
+  components: {
+    MotusGrid,
   },
   methods: {
     startGame: async function (type) {
-      this.toggleLoader(type, true);
-      await this.gameOfMotus.startGame(type);
-      this.toggleLoader(type, false);
-    },
-    toggleLoader: function (type, state) {
-      if (type == "todays-word") {
-        this.todaysLoading = state;
+      await this.$nextTick();
+      this.motusGrid = this.$refs.motusGrid;
+      this.partyOngoing = true;
+      this.gameStartDate = new Date();
+      if (type == "random") {
+        await this.startRandomGame();
       } else {
-        this.randomLoading = state;
+        await this.startTodaysWordGame();
       }
+      this.motusGrid.moveRow(1);
+      this.gameStarted = true;
+      this.$emit("game-state-change", this.gameStarted);
     },
-    gameStateChange: function (state) {
-      this.gameStarted = state;
+    startRandomGame: async function () {
+      return fetch("https://api.github.com/users/maxouxax/followers")
+        .then((response) => response.json())
+        .then((data) => {
+          this.motusGrid.motusWord.setWord("randomword");
+        });
+    },
+    startTodaysWordGame: async function () {
+      return fetch("https://api.github.com/users/maxouxax/followers")
+        .then((response) => response.json())
+        .then((data) => {
+          this.motusGrid.motusWord.setWord("todaysword");
+        });
+    },
+    confirmAbandonGame: function () {
+      this.abandonDialog = true;
+    },
+    abandonGame: function () {
+      this.partyOngoing = false;
+      this.gameStarted = false;
+      this.abandonDialog = false;
+      this.motusGrid.motusWord.setWord("");
+      this.$emit("game-state-change", this.gameStarted);
+    },
+  },
+  computed: {
+    vSkeletonWidth: function () {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "80vw";
+        default:
+          return 512;
+      }
     },
   },
 };
 </script>
 
-<style scoped>
-.game-selection-screen {
-  height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-</style>

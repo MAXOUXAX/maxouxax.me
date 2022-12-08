@@ -14,6 +14,7 @@ npm install
 
 The following command will serve the website locally, automatically open your browser and leverage the power of VueJS and Cloudflare Pages (especially Cloudflare Pages Functions)
 
+Please note the following command does not work on PowerShell due to argument parsing problems.
 ```bash
 wrangler pages dev --proxy 8080 -- npm run serve
 ```
