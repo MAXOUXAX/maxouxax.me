@@ -28,7 +28,11 @@
     </div>
     <v-skeleton-loader v-if="loading && !networkError && !notFound">
       <div class="d-flex align-center justify-center">
-        <v-skeleton-loader class="title-skeleton" width="30%"  type="text"></v-skeleton-loader>
+        <v-skeleton-loader
+          width="30%"
+          height="120px"
+          type="text"
+        ></v-skeleton-loader>
       </div>
       <v-container full-width>
         <v-row class="mb-6 justify-center" no-gutters>
