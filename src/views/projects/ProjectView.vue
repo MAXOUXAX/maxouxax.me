@@ -27,16 +27,87 @@
       </v-alert>
     </div>
     <v-skeleton-loader v-if="loading && !networkError && !notFound">
-      <v-skeleton-loader
-        class="mx-auto d-flex justify-center mb-16"
-        max-width="800px"
-        type="heading"
-      ></v-skeleton-loader>
-      <v-row align="center" justify="center" class="mx-0">
-        <v-sheet :width="vSkeletonWidth" class="mx-5 my-4">
-          <v-skeleton-loader width="100%" type="card"></v-skeleton-loader>
-        </v-sheet>
-      </v-row>
+      <div class="d-flex align-center justify-center">
+        <v-skeleton-loader
+          width="30%"
+          height="120px"
+          type="text"
+        ></v-skeleton-loader>
+      </div>
+      <v-container full-width>
+        <v-row class="mb-6 justify-center" no-gutters>
+          <v-col>
+            <v-card class="ma-5">
+              <v-card-title primary-title>
+                <v-skeleton-loader
+                  width="30%"
+                  type="heading"
+                ></v-skeleton-loader>
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-skeleton-loader type="paragraph"></v-skeleton-loader>
+              </v-card-text>
+            </v-card>
+            <v-card class="ma-5 mt-12">
+              <v-card-title primary-title>
+                <v-skeleton-loader
+                  width="30%"
+                  type="heading"
+                ></v-skeleton-loader>
+              </v-card-title>
+              <v-divider></v-divider>
+              <div class="pa-4">
+                <v-skeleton-loader
+                  width="100%"
+                  type="paragraph"
+                ></v-skeleton-loader>
+              </div>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card class="ma-5">
+              <v-card-title primary-title>Actions</v-card-title>
+              <v-card-actions class="pa-4 flex-wrap">
+                <span v-for="action in [1, 2, 3]" :key="action.text">
+                  <v-btn :class="'ma-0 mr-1 mt-1 '" width="190px">
+                    <v-skeleton-loader
+                      width="20%"
+                      type="icon"
+                    ></v-skeleton-loader>
+                    <span style="white-space: normal">
+                      <v-skeleton-loader
+                        width="80%"
+                        type="text"
+                      ></v-skeleton-loader>
+                    </span>
+                  </v-btn>
+                </span>
+              </v-card-actions>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-col>
+                  <v-chip
+                    v-for="chip in [1, 2, 3, 4]"
+                    :key="chip.text"
+                    class="ml-1 mt-2 mb-1"
+                    style="width: 100px; height: 32px"
+                  >
+                    <v-skeleton-loader
+                      height="24px"
+                      type="circle"
+                    ></v-skeleton-loader>
+                    <v-skeleton-loader
+                      height="24px"
+                      type="text"
+                    ></v-skeleton-loader>
+                  </v-chip>
+                </v-col>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-skeleton-loader>
     <div
       v-if="!loading"
