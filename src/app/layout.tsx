@@ -4,6 +4,8 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { Navigation } from "~/components/navigation";
+import { Toaster } from "~/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "MAXOUXAX",
@@ -22,7 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <Navigation />
+          <main className="min-h-screen">{children}</main>
+          <Toaster />
+        </TRPCReactProvider>
       </body>
     </html>
   );
