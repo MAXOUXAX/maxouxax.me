@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { api } from "~/trpc/react";
-import { ProjectCard } from "~/components/project-card";
-import { ProjectCardSkeleton } from "~/components/project-card-skeleton";
 import { Field, FieldGroup } from "~/components/ui/field";
 import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
@@ -157,21 +155,8 @@ export function ProjectsList() {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {isLoading
-          ? Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
-              <ProjectCardSkeleton key={i} />
-            ))
-          : paginatedProjects.map((project) => (
-              <ProjectCard
-                key={project.fullName}
-                name={project.name}
-                description={project.description}
-                visibility={project.visibility}
-                lastCommitDate={project.lastCommitDate}
-                fullName={project.fullName}
-                owner={project.owner}
-                ownerType={project.ownerType}
-              />
-            ))}
+          ? <p>chargement...</p>
+          : <p>projet</p>}
       </div>
 
       {/* Pagination */}
