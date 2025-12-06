@@ -21,5 +21,11 @@
     "light": "Clair",
     "dark": "Sombre",
     "system": "Système"
+  },
+  "meta": {
+    "home": {
+      "title": "MAXOUXAX — Ingénieur logiciel",
+      "description": "Site personnel de MAXOUXAX, présentant mes projets."
+    }
   }
 }

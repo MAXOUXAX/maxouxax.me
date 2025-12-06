@@ -21,5 +21,11 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
+  },
+  "meta": {
+    "home": {
+      "title": "MAXOUXAX — Software Engineer",
+      "description": "Personal website of MAXOUXAX, showcasing my projects."
+    }
   }
 }
