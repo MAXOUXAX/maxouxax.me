@@ -44,3 +44,6 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# open-next / cloudflare related
+.open-next/
