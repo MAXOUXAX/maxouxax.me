@@ -31,8 +31,8 @@ export default function UnderConstruction() {
       opacity: 1,
       filter: "blur(0px)",
       transition: {
-        duration: 2.3,
-        ease: "easeInOut",
+        duration: 3,
+        ease: "easeOut",
       },
     },
   };
