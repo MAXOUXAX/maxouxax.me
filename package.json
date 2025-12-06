@@ -14,8 +14,9 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "------": "-------",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "ci:build": "opennextjs-cloudflare build",
+    "ci:deploy": "opennextjs-cloudflare deploy",
+    "ci:upload": "opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
