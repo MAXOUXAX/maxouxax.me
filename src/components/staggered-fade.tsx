@@ -33,6 +33,7 @@ export const StaggeredFade: React.FC<TextStaggeredFadeProps> = ({
 
   return (
     <motion.h2
+      key={text}
       ref={ref}
       initial="hidden"
       animate="show"
