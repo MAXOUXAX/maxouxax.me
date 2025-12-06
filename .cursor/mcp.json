@@ -1,8 +1,18 @@
 {
   "mcpServers": {
-    "context7": {
+    "motion": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp", "--api-key", "YOUR_API_KEY"]
+      "args": [
+        "-y",
+        "motion-ai"
+      ]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
     }
   }
 }
