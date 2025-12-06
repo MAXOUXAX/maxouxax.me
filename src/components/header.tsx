@@ -48,12 +48,12 @@ export function Header() {
         variants={shellVariants}
         initial="hidden"
         animate="show"
-        className="bg-background/70 ring-foreground/5 pointer-events-auto relative flex w-full max-w-6xl items-center gap-4 overflow-hidden rounded-full border border-white/10 px-4 py-3 shadow-[0_18px_70px_-26px_rgba(0,0,0,0.6)] ring-1 backdrop-blur-2xl"
+        className="bg-background/70 ring-foreground/5 pointer-events-auto relative flex w-full max-w-6xl flex-wrap items-center gap-3 overflow-hidden rounded-full border border-white/10 px-3 py-2 shadow-[0_18px_70px_-26px_rgba(0,0,0,0.6)] ring-1 backdrop-blur-2xl sm:flex-nowrap sm:gap-4 sm:px-4 sm:py-3"
       >
         <motion.div
           variants={itemVariants}
           custom={0}
-          className="relative flex items-center gap-3 rounded-full px-3 py-2"
+          className="relative flex items-center gap-2 rounded-full px-2.5 py-1.5 sm:gap-3 sm:px-3 sm:py-2"
         >
           <motion.span
             className="bg-foreground/5 pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-500"
@@ -64,7 +64,7 @@ export function Header() {
             <StaggeredFade
               as="span"
               text="MAXOUXAX"
-              className="text-lg font-black tracking-tight"
+              className="text-base font-black tracking-tight sm:text-lg"
             />
           </Link>
         </motion.div>
@@ -72,7 +72,7 @@ export function Header() {
         <motion.div
           variants={itemContainerVariants}
           custom={1}
-          className="relative ml-auto flex items-center gap-2 rounded-full px-2 py-1"
+          className="relative ml-auto flex items-center gap-2 rounded-full px-1.5 py-1 sm:gap-3 sm:px-2"
         >
           <motion.div variants={itemVariants} custom={1}>
             <ThemeSwitcher />

@@ -83,7 +83,7 @@ export function UnderConstruction() {
           variants={socialsContainer}
           initial="hidden"
           animate="show"
-          className="flex flex-col items-center gap-6 md:flex-row"
+          className="flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6"
         >
           {[
             {
