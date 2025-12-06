@@ -87,17 +87,17 @@ export default function UnderConstruction() {
             {
               icon: YoutubeLogoIcon,
               href: "https://youtube.com/MAXOUXAX",
-              label: "YouTube",
+              label: t("socials.youtube"),
             },
             {
               icon: GithubLogoIcon,
               href: "https://github.com/MAXOUXAX",
-              label: "GitHub",
+              label: t("socials.github"),
             },
             {
               icon: XLogoIcon,
               href: "https://x.com/MAXOUXAX",
-              label: "X (formerly Twitter)",
+              label: t("socials.x"),
             },
           ].map(({ icon: Icon, href, label }) => (
             <TooltipProvider key={href}>

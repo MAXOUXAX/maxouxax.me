@@ -4,7 +4,12 @@
     "projects": "Projects"
   },
   "home": {
-    "title": "Website under construction"
+    "title": "Website under construction",
+    "socials": {
+      "github": "GitHub",
+      "x": "X (formerly Twitter)",
+      "youtube": "YouTube"
+    }
   },
   "locale-switcher": {
     "en": "English",
