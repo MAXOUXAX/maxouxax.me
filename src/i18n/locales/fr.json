@@ -15,5 +15,11 @@
     "en": "Anglais",
     "fr": "Français",
     "placeholder": "Langue"
+  },
+  "theme-switcher": {
+    "toggle": "Basculer le thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
   }
 }
