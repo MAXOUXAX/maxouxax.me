@@ -1,11 +1,12 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Unbounded } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { Navigation } from "~/components/navigation";
 import { Toaster } from "~/components/ui/sonner";
+import { getLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "MAXOUXAX",
@@ -13,21 +14,26 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const geist = Geist({
+const unbounded = Unbounded({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-unbounded",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html lang={locale} className={`${unbounded.variable}`}>
       <body>
         <TRPCReactProvider>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
-          <Toaster />
+          <NextIntlClientProvider>
+            <main className="min-h-screen">{children}</main>
+            <Toaster />
+          </NextIntlClientProvider>
         </TRPCReactProvider>
       </body>
     </html>

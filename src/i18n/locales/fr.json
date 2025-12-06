@@ -1,0 +1,14 @@
+{
+  "header": {
+    "home": "Accueil",
+    "projects": "Projets"
+  },
+  "home": {
+    "title": "Site en construction"
+  },
+  "locale-switcher": {
+    "en": "Anglais",
+    "fr": "Français",
+    "placeholder": "Langue"
+  }
+}

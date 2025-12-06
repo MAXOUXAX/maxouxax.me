@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,19 +6,30 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
+import type { Locale } from "~/i18n-config";
+import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
-export function Navigation() {
-  const pathname = usePathname();
+export async function Navigation({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}) {
+  const t = await getTranslations("header");
+
+  const headersList = await headers();
+  const pathname = headersList.get("x-current-path")!;
 
   const isActive = (path: string) => {
     if (path === "/") {
       return pathname === "/";
     }
+
     return pathname.startsWith(path);
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container mx-auto px-4">
         <NavigationMenu className="max-w-full justify-between py-4">
           <div className="flex items-center gap-2">
@@ -34,18 +42,18 @@ export function Navigation() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={isActive("/")}
+                data-active={isActive("/")}
               >
-                <Link href="/">Home</Link>
+                <Link href="/">{t("home")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={isActive("/projects")}
+                data-active={isActive("/projects")}
               >
-                <Link href="/projects">Projects</Link>
+                <Link href="/projects">{t("projects")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
