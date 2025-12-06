@@ -3,25 +3,26 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 
 import { Header } from "~/components/header";
 import { Toaster } from "~/components/ui/sonner";
 import { ThemeProvider } from "~/components/theme-provider";
 import { TRPCReactProvider } from "~/trpc/react";
-
-const SITE_URL = "https://maxouxax.me";
-const SITE_NAME = "MAXOUXAX";
-
-const t = await getTranslations("meta.home");
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  SITE_NAME,
+  SITE_URL,
+} from "~/config/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: t("title"),
+    default: DEFAULT_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
-  description: t("description"),
+  description: DEFAULT_DESCRIPTION,
   applicationName: SITE_NAME,
   keywords: [
     "MAXOUXAX",
@@ -43,8 +44,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: t("title"),
-    description: t("description"),
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
     siteName: SITE_NAME,
     locale: "en",
     alternateLocale: ["fr"],
@@ -53,8 +54,8 @@ export const metadata: Metadata = {
     card: "summary",
     site: "@MAXOUXAX",
     creator: "@MAXOUXAX",
-    title: t("title"),
-    description: t("description"),
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
   },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#e0f2fe" },
@@ -68,11 +69,9 @@ export const metadata: Metadata = {
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: ["/favicon.ico"],
-    // [favicon-script icons end]
+// [favicon-script icons end]
   },
   manifest: "/manifest.webmanifest",
   robots: {
