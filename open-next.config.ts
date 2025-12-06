@@ -1,3 +1,13 @@
-import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import {
+  defineCloudflareConfig,
+  type OpenNextConfig,
+} from "@opennextjs/cloudflare";
 
-export default defineCloudflareConfig({});
+export default {
+  ...defineCloudflareConfig({}),
+  cloudflare: {
+    skewProtection: {
+      enabled: true,
+    },
+  },
+} satisfies OpenNextConfig;
