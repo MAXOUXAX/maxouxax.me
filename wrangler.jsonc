@@ -4,6 +4,14 @@
   "name": "maxouxax-portfolio",
   "compatibility_date": "2025-12-06",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true,
+    },
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
