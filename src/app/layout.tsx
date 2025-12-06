@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "~/components/ui/sonner";
 import { getLocale } from "next-intl/server";
+import { ThemeProvider } from "~/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "MAXOUXAX",
@@ -27,14 +28,16 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={`${unbounded.variable}`}>
+    <html lang={locale} className={`${geist.variable}`} suppressHydrationWarning>
       <body>
-        <TRPCReactProvider>
-          <NextIntlClientProvider>
-            <main className="min-h-screen">{children}</main>
-            <Toaster />
-          </NextIntlClientProvider>
-        </TRPCReactProvider>
+        <ThemeProvider>
+          <TRPCReactProvider>
+            <NextIntlClientProvider>
+              <main className="min-h-screen">{children}</main>
+              <Toaster />
+            </NextIntlClientProvider>
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

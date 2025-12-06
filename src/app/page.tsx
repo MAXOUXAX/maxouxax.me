@@ -57,22 +57,22 @@ export default function UnderConstruction() {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#050505] font-sans text-white selection:bg-white selection:text-black">
+    <div className="bg-background text-foreground selection:bg-foreground/10 selection:text-foreground relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden font-sans">
       <motion.div
         variants={background}
         initial="hidden"
         animate="show"
         className="pointer-events-none absolute inset-0 z-0"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[40px_40px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-size-[40px_40px] opacity-30" />
 
-        <div className="absolute top-1/2 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/2 mix-blend-screen blur-[120px]" />
+        <div className="bg-primary/20 absolute top-1/2 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
       </motion.div>
 
       <div className="relative z-20 flex w-full max-w-5xl flex-col items-center justify-center px-6">
         <div className="flex h-20 items-center justify-center overflow-visible">
           <StaggeredFade
-            className={`${unbounded.className} text-center text-2xl font-black tracking-tight whitespace-nowrap text-white`}
+            className={`${unbounded.className} text-center text-2xl font-black tracking-tight whitespace-nowrap`}
             text={t("title")}
           />
         </div>
@@ -106,9 +106,8 @@ export default function UnderConstruction() {
                   <TooltipTrigger asChild>
                     <Button
                       asChild
-                      variant="ghost"
                       size="icon"
-                      className="h-12 w-12 rounded-full border border-white/10 bg-white/5 text-white hover:scale-110 hover:bg-white hover:text-black active:scale-95"
+                      className="border-border/50 bg-foreground/5 text-foreground hover:bg-foreground hover:text-background h-12 w-12 rounded-full border hover:scale-110 active:scale-95"
                     >
                       <a href={href} target="_blank" rel="noreferrer">
                         <Icon className="size-5" />
