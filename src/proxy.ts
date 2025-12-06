@@ -5,11 +5,18 @@ export function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
   const { pathname } = request.nextUrl;
 
-  let pathnameWithoutLocale = pathname.split("/").at(2);
-  if (!pathnameWithoutLocale) pathnameWithoutLocale = "/";
-  else pathnameWithoutLocale = "/" + pathnameWithoutLocale;
+  /*
+   * Weird Next.js bug that logs "An unexpected response was received from the server." when an action is triggered from a client component.
+   * Found here: https://github.com/vercel/next.js/discussions/77469#discussioncomment-14610419
+   */
+  if (headers.has("next-action") || headers.has("x-action")) {
+    // The workaround has to specifically not include the headers in the response, otherwise it will trigger the bug again.
+    return NextResponse.next();
+  }
 
-  headers.set("x-current-path", pathnameWithoutLocale);
+  const pathnameWithoutFirstSlash = pathname.slice(1);
+
+  headers.set("x-current-path", pathnameWithoutFirstSlash ?? "/");
 
   return NextResponse.next({ headers });
 }
