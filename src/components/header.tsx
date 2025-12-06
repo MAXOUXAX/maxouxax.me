@@ -6,15 +6,12 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
-import type { Locale } from "~/i18n-config";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
+import LocaleSwitcher from "./locale-switcher";
+import ThemeSwitcher from "./theme-switcher";
 
-export async function Navigation({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}) {
+export async function Header() {
   const t = await getTranslations("header");
 
   const headersList = await headers();
@@ -29,15 +26,19 @@ export async function Navigation({
   };
 
   return (
-    <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+    <header className="absolute top-0 z-50 w-full p-2 rounded-full backdrop-blur-lg bg-white/5">
       <div className="container mx-auto px-4">
-        <NavigationMenu className="max-w-full justify-between py-4">
+        {/* <NavigationMenu className="max-w-full justify-between py-4"> */}
           <div className="flex items-center gap-2">
             <Link href="/" className="text-xl font-bold">
               MAXOUXAX
             </Link>
           </div>
-          <NavigationMenuList>
+          <div>
+            <ThemeSwitcher />
+            <LocaleSwitcher />
+          </div>
+          {/* <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
@@ -57,7 +58,7 @@ export async function Navigation({
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
-        </NavigationMenu>
+        </NavigationMenu> */}
       </div>
     </header>
   );

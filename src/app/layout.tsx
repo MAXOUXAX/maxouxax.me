@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "~/components/ui/sonner";
 import { getLocale } from "next-intl/server";
+import { Header } from "~/components/header";
 import { ThemeProvider } from "~/components/theme-provider";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default async function RootLayout({
         <ThemeProvider>
           <TRPCReactProvider>
             <NextIntlClientProvider>
+              <Header />
               <main className="min-h-screen">{children}</main>
               <Toaster />
             </NextIntlClientProvider>
