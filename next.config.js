@@ -10,10 +10,9 @@ const config = {
   experimental: {
     viewTransition: true,
   },
-  deploymentId: getDeploymentId(),
 };
 
-import { getDeploymentId, initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 initOpenNextCloudflareForDev();
 
 const withNextIntl = createNextIntlPlugin();
