@@ -62,6 +62,7 @@ export function Header() {
           />
           <Link href="/" className="relative flex items-center gap-3">
             <StaggeredFade
+              as="span"
               text="MAXOUXAX"
               className="text-lg font-black tracking-tight"
             />

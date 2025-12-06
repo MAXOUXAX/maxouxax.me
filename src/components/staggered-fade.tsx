@@ -1,17 +1,43 @@
 "use client";
 import { easeIn, motion } from "motion/react";
-import { useRef } from "react";
+import { useRef, type JSX } from "react";
+
+type AllowedTag =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "p"
+  | "span"
+  | "div";
 
 type TextStaggeredFadeProps = {
   text: string;
   className?: string;
+  as?: AllowedTag;
 };
 
-export const StaggeredFade: React.FC<TextStaggeredFadeProps> = ({
+const motionTags: Record<AllowedTag, JSX.ElementType> = {
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+  h4: motion.h4,
+  h5: motion.h5,
+  h6: motion.h6,
+  p: motion.p,
+  span: motion.span,
+  div: motion.div,
+};
+
+export const StaggeredFade = ({
   text,
   className = "",
-}) => {
+  as = "p",
+}: TextStaggeredFadeProps) => {
   const letters = text.split("");
+  const Tag = motionTags[as];
 
   const getDelay = (i: number | undefined) => {
     if (letters.length <= 1 || i === undefined) return 0;
@@ -32,7 +58,7 @@ export const StaggeredFade: React.FC<TextStaggeredFadeProps> = ({
   const ref = useRef(null);
 
   return (
-    <motion.h2
+    <Tag
       key={text}
       ref={ref}
       initial="hidden"
@@ -40,11 +66,11 @@ export const StaggeredFade: React.FC<TextStaggeredFadeProps> = ({
       variants={variants}
       className={className}
     >
-      {letters.map((word, i) => (
-        <motion.span key={`${word}-${i}`} variants={variants} custom={i}>
-          {word}
+      {letters.map((letter, i) => (
+        <motion.span key={`${letter}-${i}`} variants={variants} custom={i}>
+          {letter}
         </motion.span>
       ))}
-    </motion.h2>
+    </Tag>
   );
 };

@@ -72,6 +72,7 @@ export default function UnderConstruction() {
       <div className="relative z-20 flex w-full max-w-5xl flex-col items-center justify-center px-6">
         <div className="flex h-20 items-center justify-center overflow-visible">
           <StaggeredFade
+            as="h1"
             className={`${unbounded.className} text-center text-2xl font-black tracking-tight whitespace-nowrap`}
             text={t("title")}
           />
