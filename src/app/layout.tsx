@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Unbounded } from "next/font/google";
+import { Geist } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const unbounded = Unbounded({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-unbounded",
+  variable: "--font-geist",
 });
 
 export default async function RootLayout({
