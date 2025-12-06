@@ -1,22 +1,128 @@
-import { getTranslations } from "next-intl/server";
+"use client";
 
-export default async function Home({}: {}) {
-  const t = await getTranslations("home");
+import { motion, stagger, type Variants } from "motion/react";
+import {
+  GithubLogoIcon,
+  XLogoIcon,
+  YoutubeLogoIcon,
+} from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
+import { Unbounded } from "next/font/google";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+import { Button } from "~/components/ui/button";
+import { StaggeredFade } from "~/components/staggered-fade";
+
+const unbounded = Unbounded({
+  subsets: ["latin"],
+  weight: ["700", "900"],
+});
+
+export default function UnderConstruction() {
+  const t = useTranslations("home");
+
+  const background: Variants = {
+    hidden: { opacity: 0, filter: "blur(4px)" },
+    show: {
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 2.3,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const socialsContainer: Variants = {
+    hidden: {},
+    show: {
+      transition: {
+        delayChildren: stagger(0.12, { startDelay: 1 }),
+      },
+    },
+  };
+
+  const socialItem: Variants = {
+    hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.35, ease: "easeOut" },
+    },
+  };
 
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{
-        background: "#020617",
-        backgroundImage: `
-          linear-gradient(to right, rgba(71,85,105,0.15) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(71,85,105,0.15) 1px, transparent 1px),
-          radial-gradient(circle at 50% 60%, rgba(236,72,153,0.15) 0%, rgba(168,85,247,0.05) 40%, transparent 70%)
-        `,
-        backgroundSize: "40px 40px, 40px 40px, 100% 100%",
-      }}
-    >
-      <h1 className="font-display text-3xl text-white">{t("title")}</h1>
-    </div>  
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#050505] font-sans text-white selection:bg-white selection:text-black">
+      <motion.div
+        variants={background}
+        initial="hidden"
+        animate="show"
+        className="pointer-events-none absolute inset-0 z-0"
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[40px_40px]" />
+
+        <div className="absolute top-1/2 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/2 mix-blend-screen blur-[120px]" />
+      </motion.div>
+
+      <div className="relative z-20 flex w-full max-w-5xl flex-col items-center justify-center px-6">
+        <div className="flex h-20 items-center justify-center overflow-visible">
+          <StaggeredFade
+            className={`${unbounded.className} text-center text-2xl font-black tracking-tight whitespace-nowrap text-white`}
+            text={t("title")}
+          />
+        </div>
+
+        <motion.div
+          variants={socialsContainer}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center gap-6 md:flex-row"
+        >
+          {[
+            {
+              icon: YoutubeLogoIcon,
+              href: "https://youtube.com/MAXOUXAX",
+              label: "YouTube",
+            },
+            {
+              icon: GithubLogoIcon,
+              href: "https://github.com/MAXOUXAX",
+              label: "GitHub",
+            },
+            {
+              icon: XLogoIcon,
+              href: "https://x.com/MAXOUXAX",
+              label: "X (formerly Twitter)",
+            },
+          ].map(({ icon: Icon, href, label }) => (
+            <TooltipProvider key={href}>
+              <motion.div variants={socialItem}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      size="icon"
+                      className="h-12 w-12 rounded-full border border-white/10 bg-white/5 text-white hover:scale-110 hover:bg-white hover:text-black active:scale-95"
+                    >
+                      <a href={href} target="_blank" rel="noreferrer">
+                        <Icon className="size-5" />
+                        <span className="sr-only">{label}</span>
+                      </a>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{label}</TooltipContent>
+                </Tooltip>
+              </motion.div>
+            </TooltipProvider>
+          ))}
+        </motion.div>
+      </div>
+    </div>
   );
 }
