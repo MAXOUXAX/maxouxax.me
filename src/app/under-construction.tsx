@@ -70,11 +70,11 @@ export function UnderConstruction() {
         <div className="bg-primary/20 absolute top-1/2 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
       </motion.div>
 
-      <div className="relative z-20 flex w-full max-w-5xl flex-col items-center justify-center px-6">
-        <div className="flex h-20 items-center justify-center overflow-visible">
+      <div className="relative z-20 flex w-full max-w-4xl flex-col items-center justify-center space-y-10 px-4 sm:px-6">
+        <div className="flex items-center justify-center px-2 text-center">
           <StaggeredFade
             as="h1"
-            className={`${unbounded.className} text-center text-2xl font-black tracking-tight whitespace-nowrap`}
+            className={`${unbounded.className} text-balance wrap-break-word text-center text-[clamp(2.4rem,8vw,3.4rem)] font-black leading-tight tracking-tight sm:text-[clamp(2.8rem,6vw,4.2rem)] md:text-[clamp(3rem,5vw,4.8rem)] lg:text-6xl max-w-[min(92vw,38rem)]`}
             text={t("title")}
           />
         </div>
