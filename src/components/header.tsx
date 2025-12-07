@@ -97,7 +97,7 @@ export function Header() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                size="icon-sm"
+                size="icon"
                 aria-label={t("open-quick-menu")}
                 className="pointer-events-auto"
               >
