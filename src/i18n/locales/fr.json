@@ -1,7 +1,10 @@
 {
   "header": {
     "home": "Accueil",
-    "projects": "Projets"
+    "projects": "Projets",
+    "open-quick-menu": "Ouvrir le menu rapide",
+    "theme": "Thème",
+    "language": "Langue"
   },
   "home": {
     "title": "Site en construction",

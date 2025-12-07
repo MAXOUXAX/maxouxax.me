@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { motion, stagger, type Variants } from "motion/react";
+import { ListIcon } from "@phosphor-icons/react";
 
 import LocaleSwitcher from "./locale-switcher";
 import { StaggeredFade } from "./staggered-fade";
 import ThemeSwitcher from "./theme-switcher";
+import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { useTranslations } from "next-intl";
 
 const BASE_DELAY = 1.5;
 
@@ -42,18 +50,20 @@ const itemVariants: Variants = {
 };
 
 export function Header() {
+  const t = useTranslations("header");
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-4">
       <motion.div
         variants={shellVariants}
         initial="hidden"
         animate="show"
-        className="bg-background/70 ring-foreground/5 pointer-events-auto relative flex w-full max-w-6xl flex-wrap items-center gap-3 overflow-hidden rounded-full border border-white/10 px-3 py-2 shadow-[0_18px_70px_-26px_rgba(0,0,0,0.6)] ring-1 backdrop-blur-2xl sm:flex-nowrap sm:gap-4 sm:px-4 sm:py-3"
+        className="bg-background/85 ring-foreground/5 pointer-events-auto relative flex w-full max-w-4xl items-center gap-2 overflow-hidden rounded-[26px] border border-white/10 px-3 py-2 shadow-[0_16px_60px_-24px_rgba(0,0,0,0.55)] ring-1 backdrop-blur-2xl sm:gap-3 sm:px-4 sm:py-3"
       >
         <motion.div
           variants={itemVariants}
           custom={0}
-          className="relative flex items-center gap-2 rounded-full px-2.5 py-1.5 sm:gap-3 sm:px-3 sm:py-2"
+          className="relative flex min-w-0 shrink items-center gap-2 rounded-full px-2.5 py-1.5 sm:gap-3 sm:px-3 sm:py-2"
         >
           <motion.span
             className="bg-foreground/5 pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-500"
@@ -64,22 +74,55 @@ export function Header() {
             <StaggeredFade
               as="span"
               text="MAXOUXAX"
-              className="text-base font-black tracking-tight sm:text-lg"
+              className="text-sm font-black tracking-tight sm:text-lg"
             />
           </Link>
         </motion.div>
 
-        <motion.div
-          variants={itemContainerVariants}
-          custom={1}
-          className="relative ml-auto flex items-center gap-2 rounded-full px-1.5 py-1 sm:gap-3 sm:px-2"
-        >
+        <motion.div className="ml-auto hidden items-center gap-1.5 rounded-full px-1.5 py-1 sm:flex sm:gap-3 sm:px-2">
           <motion.div variants={itemVariants} custom={1}>
             <ThemeSwitcher />
           </motion.div>
           <motion.div variants={itemVariants} custom={2}>
             <LocaleSwitcher />
           </motion.div>
+        </motion.div>
+
+        <motion.div
+          variants={itemContainerVariants}
+          custom={1}
+          className="ml-auto flex items-center sm:hidden"
+        >
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon-sm"
+                aria-label={t("open-quick-menu")}
+                className="pointer-events-auto"
+              >
+                <ListIcon className="size-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="w-60 space-y-3 p-3"
+              sideOffset={8}
+            >
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                  {t("theme")}
+                </span>
+                <ThemeSwitcher />
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                  {t("language")}
+                </span>
+                <LocaleSwitcher />
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </motion.div>
 
         <motion.div
