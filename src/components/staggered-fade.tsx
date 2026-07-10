@@ -9,6 +9,7 @@ type TextStaggeredFadeProps = {
   text: string;
   className?: string;
   as?: AllowedTag;
+  delay?: number;
 };
 
 const motionTags: Record<AllowedTag, JSX.ElementType> = {
@@ -27,14 +28,15 @@ export const StaggeredFade = ({
   text,
   className = "",
   as = "p",
+  delay = 0,
 }: TextStaggeredFadeProps) => {
   const letters = text.split("");
   const Tag = motionTags[as];
 
   const getDelay = (i: number | undefined) => {
-    if (letters.length <= 1 || i === undefined) return 0;
+    if (letters.length <= 1 || i === undefined) return delay;
     const progress = i / (letters.length - 1);
-    return easeIn(progress);
+    return delay + easeIn(progress);
   };
 
   const variants = {

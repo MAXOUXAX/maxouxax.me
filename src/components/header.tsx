@@ -59,6 +59,9 @@ export function Header() {
   const visibleNavItems = navItems.filter((item) => item.status === "VISIBLE");
   const showNav = visibleNavItems.length > 1;
 
+  const isLandingPage = pathname === "/";
+  const logoDelay = isLandingPage ? BASE_DELAY + 0.15 : 0;
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <motion.div
@@ -82,6 +85,7 @@ export function Header() {
             <StaggeredFade
               as="span"
               text="MAXOUXAX"
+              delay={logoDelay}
               className="text-xs font-black tracking-wider uppercase sm:text-sm"
             />
           </Link>
