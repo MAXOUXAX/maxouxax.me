@@ -24,6 +24,12 @@
     "dark": "Sombre",
     "system": "Système"
   },
+  "not-found": {
+    "title": "404",
+    "heading": "Page introuvable",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "button": "Retour à l'accueil"
+  },
   "meta": {
     "home": {
       "title": "MAXOUXAX — Ingénieur logiciel",

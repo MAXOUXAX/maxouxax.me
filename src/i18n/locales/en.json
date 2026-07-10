@@ -24,6 +24,12 @@
     "dark": "Dark",
     "system": "System"
   },
+  "not-found": {
+    "title": "404",
+    "heading": "Page not found",
+    "description": "The page you are looking for doesn't exist or has been moved.",
+    "button": "Back home"
+  },
   "meta": {
     "home": {
       "title": "MAXOUXAX — Software Engineer",

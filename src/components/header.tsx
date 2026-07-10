@@ -66,7 +66,7 @@ export function Header() {
     <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <motion.div
         variants={shellVariants}
-        initial="hidden"
+        initial={isLandingPage ? "hidden" : false}
         animate="show"
         className="border-border/40 bg-background/60 dark:bg-background/40 pointer-events-auto relative flex w-full max-w-2xl items-center justify-between rounded-full border px-4 py-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-lg dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.35)]"
       >
