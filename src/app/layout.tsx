@@ -103,7 +103,6 @@ export default async function RootLayout({
     sameAs: [
       "https://github.com/MAXOUXAX",
       "https://x.com/MAXOUXAX",
-      "https://youtube.com/MAXOUXAX",
     ],
     jobTitle: "Software Engineer",
   };

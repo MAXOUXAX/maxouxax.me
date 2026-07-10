@@ -4,7 +4,6 @@ import { motion, stagger, type Variants } from "motion/react";
 import {
   GithubLogoIcon,
   XLogoIcon,
-  YoutubeLogoIcon,
 } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { Unbounded } from "next/font/google";
@@ -86,11 +85,6 @@ export function UnderConstruction() {
           className="flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6"
         >
           {[
-            {
-              icon: YoutubeLogoIcon,
-              href: "https://youtube.com/MAXOUXAX",
-              label: t("socials.youtube"),
-            },
             {
               icon: GithubLogoIcon,
               href: "https://github.com/MAXOUXAX",
