@@ -20,14 +20,21 @@ export default function LocaleSwitcher() {
   const t = useTranslations("locale-switcher");
   const locale = useLocale();
 
-  const changeLocale = (locale: Locale) => {
-    startTransition(() => {
-      setUserLocale(locale);
-    });
+  const changeLocale = (locale: string | null) => {
+    if (locale) {
+      startTransition(() => {
+        setUserLocale(locale as Locale);
+      });
+    }
   };
 
+  const items = [
+    { value: "en", label: t("en") },
+    { value: "fr", label: t("fr") },
+  ];
+
   return (
-    <Select defaultValue={locale} onValueChange={changeLocale}>
+    <Select value={locale} onValueChange={changeLocale} items={items}>
       <SelectTrigger
         className={cn(
           "w-[180px]",

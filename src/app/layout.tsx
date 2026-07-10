@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 
@@ -15,6 +15,9 @@ import {
   SITE_NAME,
   SITE_URL,
 } from "~/config/site";
+import { cn } from "~/lib/utils";
+
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -108,7 +111,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${geist.variable}`}
+      className={cn(geist.variable, "font-sans", inter.variable)}
       suppressHydrationWarning
     >
       <body>

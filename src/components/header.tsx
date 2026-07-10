@@ -94,16 +94,18 @@ export function Header() {
           className="ml-auto flex items-center sm:hidden"
         >
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                aria-label={t("open-quick-menu")}
-                className="pointer-events-auto"
-              >
-                <ListIcon className="size-5" />
-              </Button>
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  variant="outline"
+                  size="icon"
+                  aria-label={t("open-quick-menu")}
+                  className="pointer-events-auto"
+                >
+                  <ListIcon className="size-5" />
+                </Button>
+              }
+            ></DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
               className="w-60 space-y-3 p-3"

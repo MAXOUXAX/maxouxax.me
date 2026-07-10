@@ -74,7 +74,7 @@ export function UnderConstruction() {
         <div className="flex items-center justify-center px-2 text-center">
           <StaggeredFade
             as="h1"
-            className={`${unbounded.className} text-balance wrap-break-word text-center text-[clamp(2.4rem,8vw,3.4rem)] font-black leading-tight tracking-tight sm:text-[clamp(2.8rem,6vw,4.2rem)] md:text-[clamp(3rem,5vw,4.8rem)] lg:text-6xl max-w-[min(92vw,38rem)]`}
+            className={`${unbounded.className} max-w-[min(92vw,38rem)] text-center text-[clamp(2.4rem,8vw,3.4rem)] leading-tight font-black tracking-tight text-balance wrap-break-word sm:text-[clamp(2.8rem,6vw,4.2rem)] md:text-[clamp(3rem,5vw,4.8rem)] lg:text-6xl`}
             text={t("title")}
           />
         </div>
@@ -105,18 +105,21 @@ export function UnderConstruction() {
             <TooltipProvider key={href}>
               <motion.div variants={socialItem}>
                 <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      asChild
-                      size="icon"
-                      className="border-border/50 bg-foreground/5 text-foreground hover:bg-foreground hover:text-background h-12 w-12 rounded-full border hover:scale-110 active:scale-95"
-                    >
-                      <a href={href} target="_blank" rel="noreferrer">
-                        <Icon className="size-5" />
-                        <span className="sr-only">{label}</span>
-                      </a>
-                    </Button>
-                  </TooltipTrigger>
+                  <TooltipTrigger
+                    render={
+                      <Button
+                        nativeButton={false}
+                        render={
+                          <a href={href} target="_blank" rel="noreferrer">
+                            <Icon className="size-5" />
+                            <span className="sr-only">{label}</span>
+                          </a>
+                        }
+                        size="icon"
+                        className="border-border/50 bg-foreground/5 text-foreground hover:bg-foreground hover:text-background h-12 w-12 rounded-full border hover:scale-110 active:scale-95"
+                      ></Button>
+                    }
+                  ></TooltipTrigger>
                   <TooltipContent>{label}</TooltipContent>
                 </Tooltip>
               </motion.div>
@@ -127,4 +130,3 @@ export function UnderConstruction() {
     </div>
   );
 }
-
