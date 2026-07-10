@@ -7,11 +7,14 @@ type MetaShape = {
   };
 };
 
-const meta: MetaShape = (en as unknown) as MetaShape;
+const meta: MetaShape = en as unknown as MetaShape;
 const defaultHome = meta.home ?? {};
 
 export const SITE_NAME = "MAXOUXAX";
 export const SITE_URL = "https://maxouxax.me";
 
-export const DEFAULT_TITLE = defaultHome.title ?? `${SITE_NAME} – Software Engineer`;
-export const DEFAULT_DESCRIPTION = defaultHome.description ?? "Personal website of MAXOUXAX, showcasing my projects.";
+export const DEFAULT_TITLE =
+  defaultHome.title ?? `${SITE_NAME} – Software Engineer`;
+export const DEFAULT_DESCRIPTION =
+  defaultHome.description ??
+  "Personal website of MAXOUXAX, showcasing my projects.";

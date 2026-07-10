@@ -24,8 +24,8 @@ export default function LocaleSwitcher() {
       variant="ghost"
       size="icon"
       className={cn(
-        "relative flex size-9 items-center justify-center rounded-full border border-border/40 bg-background/50 text-xs font-semibold uppercase tracking-wider backdrop-blur-md transition-all hover:bg-accent hover:text-accent-foreground shadow-sm dark:bg-transparent dark:hover:bg-input/30",
-        isPending && "pointer-events-none opacity-50"
+        "border-border/40 bg-background/50 hover:bg-accent hover:text-accent-foreground dark:hover:bg-input/30 relative flex size-9 items-center justify-center rounded-full border text-xs font-semibold tracking-wider uppercase shadow-sm backdrop-blur-md transition-all dark:bg-transparent",
+        isPending && "pointer-events-none opacity-50",
       )}
       onClick={toggleLocale}
       aria-label={`Switch to ${locale === "en" ? "French" : "English"}`}
@@ -37,7 +37,7 @@ export default function LocaleSwitcher() {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: 12, filter: "blur(2px)" }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="select-none text-[10px] font-bold"
+          className="text-[10px] font-bold select-none"
         >
           {locale}
         </motion.span>
@@ -45,4 +45,3 @@ export default function LocaleSwitcher() {
     </Button>
   );
 }
-

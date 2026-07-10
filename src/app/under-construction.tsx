@@ -1,10 +1,7 @@
 "use client";
 
 import { motion, stagger, type Variants } from "motion/react";
-import {
-  GithubLogoIcon,
-  XLogoIcon,
-} from "@phosphor-icons/react";
+import { GithubLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { Unbounded } from "next/font/google";
 

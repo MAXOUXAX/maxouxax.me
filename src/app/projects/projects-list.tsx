@@ -51,7 +51,7 @@ export function ProjectsList() {
         project.name.toLowerCase().includes(query) ||
         project.description?.toLowerCase().includes(query) ||
         project.owner.toLowerCase().includes(query) ||
-        project.fullName.toLowerCase().includes(query)
+        project.fullName.toLowerCase().includes(query),
     );
   }, [projects, searchQuery]);
 
@@ -76,7 +76,7 @@ export function ProjectsList() {
   const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
   const paginatedProjects = filteredProjects.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   // Generate page numbers for pagination
@@ -130,7 +130,7 @@ export function ProjectsList() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pr-16"
             />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
               {isSearching && <Spinner className="h-4 w-4" />}
               <Kbd>/</Kbd>
             </div>
@@ -140,7 +140,7 @@ export function ProjectsList() {
 
       {/* Results count */}
       {!isLoading && (
-        <div className="text-sm text-muted-foreground">
+        <div className="text-muted-foreground text-sm">
           {filteredProjects.length === 0 ? (
             <span>No projects found</span>
           ) : (
@@ -153,10 +153,8 @@ export function ProjectsList() {
       )}
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {isLoading
-          ? <p>chargement...</p>
-          : <p>projet</p>}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {isLoading ? <p>chargement...</p> : <p>projet</p>}
       </div>
 
       {/* Pagination */}
@@ -195,7 +193,7 @@ export function ProjectsList() {
                     {page}
                   </PaginationLink>
                 </PaginationItem>
-              )
+              ),
             )}
 
             <PaginationItem>
@@ -219,13 +217,13 @@ export function ProjectsList() {
 
       {/* Empty state */}
       {!isLoading && filteredProjects.length === 0 && searchQuery && (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <p className="text-muted-foreground">
             No projects found matching &quot;{searchQuery}&quot;
           </p>
           <button
             onClick={() => setSearchQuery("")}
-            className="mt-4 text-sm text-primary hover:underline"
+            className="text-primary mt-4 text-sm hover:underline"
           >
             Clear search
           </button>

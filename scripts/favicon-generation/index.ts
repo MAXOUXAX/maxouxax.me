@@ -187,7 +187,9 @@ async function replaceBetweenMarkers(
     await fs.writeFile(filePath, updated, "utf8");
     console.log(`Updated ${path.relative(projectRoot, filePath)}`);
   } else {
-    console.log(`No changes needed for ${path.relative(projectRoot, filePath)}`);
+    console.log(
+      `No changes needed for ${path.relative(projectRoot, filePath)}`,
+    );
   }
 }
 
@@ -200,10 +202,7 @@ async function ensureSourceImage(): Promise<void> {
 
   const meta = await sharp(sourcePath).metadata();
   const minDim = Math.min(meta.width ?? 0, meta.height ?? 0);
-  const largestTarget = Math.max(
-    ...pngTargets.map((t) => t.size),
-    ...icoSizes,
-  );
+  const largestTarget = Math.max(...pngTargets.map((t) => t.size), ...icoSizes);
 
   if (!meta.width || !meta.height || minDim < largestTarget) {
     throw new Error(
@@ -272,4 +271,3 @@ main().catch((err) => {
   console.error(err);
   process.exitCode = 1;
 });
-

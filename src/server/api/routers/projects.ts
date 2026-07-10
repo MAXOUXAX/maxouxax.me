@@ -57,7 +57,7 @@ export const projectsRouter = createTRPCRouter({
             Accept: "application/vnd.github.v3+json",
             "User-Agent": "MAXOUXAX-Portfolio",
           },
-        }
+        },
       );
 
       if (!userReposResponse.ok) {
@@ -74,7 +74,7 @@ export const projectsRouter = createTRPCRouter({
             Accept: "application/vnd.github.v3+json",
             "User-Agent": "MAXOUXAX-Portfolio",
           },
-        }
+        },
       );
 
       let orgRepos: GitHubRepository[] = [];
@@ -90,7 +90,7 @@ export const projectsRouter = createTRPCRouter({
                 Accept: "application/vnd.github.v3+json",
                 "User-Agent": "MAXOUXAX-Portfolio",
               },
-            }
+            },
           );
 
           if (orgReposResponse.ok) {
@@ -108,10 +108,10 @@ export const projectsRouter = createTRPCRouter({
 
       // Remove duplicates and sort by last push date
       const uniqueRepos = Array.from(
-        new Map(allRepos.map((repo) => [repo.full_name, repo])).values()
+        new Map(allRepos.map((repo) => [repo.full_name, repo])).values(),
       ).sort(
         (a, b) =>
-          new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime()
+          new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime(),
       );
 
       return uniqueRepos.map((repo) => ({
@@ -141,7 +141,7 @@ export const projectsRouter = createTRPCRouter({
               Accept: "application/vnd.github.v3+json",
               "User-Agent": "MAXOUXAX-Portfolio",
             },
-          }
+          },
         );
 
         if (!repoResponse.ok) {
@@ -163,7 +163,7 @@ export const projectsRouter = createTRPCRouter({
                 Accept: "application/vnd.github.v3.raw",
                 "User-Agent": "MAXOUXAX-Portfolio",
               },
-            }
+            },
           );
 
           if (readmeResponse.ok) {
@@ -192,7 +192,10 @@ export const projectsRouter = createTRPCRouter({
         };
       } catch (error) {
         console.error("Error fetching GitHub repository details:", error);
-        if (error instanceof Error && error.message === "Repository not found") {
+        if (
+          error instanceof Error &&
+          error.message === "Repository not found"
+        ) {
           throw error;
         }
         throw new Error("Failed to fetch project details from GitHub");

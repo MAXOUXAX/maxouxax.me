@@ -17,7 +17,7 @@ import {
 } from "~/config/site";
 import { cn } from "~/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -72,9 +72,11 @@ export const metadata: Metadata = {
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
     shortcut: ["/favicon.ico"],
-// [favicon-script icons end]
+    // [favicon-script icons end]
   },
   manifest: "/manifest.webmanifest",
   robots: {
@@ -100,10 +102,7 @@ export default async function RootLayout({
     "@type": "Person",
     name: SITE_NAME,
     url: SITE_URL,
-    sameAs: [
-      "https://github.com/MAXOUXAX",
-      "https://x.com/MAXOUXAX",
-    ],
+    sameAs: ["https://github.com/MAXOUXAX", "https://x.com/MAXOUXAX"],
     jobTitle: "Software Engineer",
   };
 

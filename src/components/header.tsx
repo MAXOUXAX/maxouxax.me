@@ -51,7 +51,6 @@ const itemVariants: Variants = {
   }),
 };
 
-
 export function Header() {
   const t = useTranslations("header");
   const pathname = usePathname();
@@ -66,7 +65,7 @@ export function Header() {
         variants={shellVariants}
         initial="hidden"
         animate="show"
-        className="pointer-events-auto relative flex w-full max-w-2xl items-center justify-between rounded-full border border-border/40 bg-background/60 px-4 py-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-lg dark:bg-background/40 dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.35)]"
+        className="border-border/40 bg-background/60 dark:bg-background/40 pointer-events-auto relative flex w-full max-w-2xl items-center justify-between rounded-full border px-4 py-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-lg dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.35)]"
       >
         {/* Brand/Logo */}
         <motion.div
@@ -79,7 +78,7 @@ export function Header() {
             className="group relative flex items-center gap-2 rounded-full px-3.5 py-1.5 transition-transform active:scale-95"
             aria-label="MAXOUXAX Home"
           >
-            <span className="absolute inset-0 rounded-full bg-foreground/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-white/5" />
+            <span className="bg-foreground/5 absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-white/5" />
             <StaggeredFade
               as="span"
               text="MAXOUXAX"
@@ -106,7 +105,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="relative rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-colors duration-250 select-none text-muted-foreground hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground relative rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-colors duration-250 select-none"
                     onMouseEnter={() => setHoveredPath(item.href)}
                     onMouseLeave={() => setHoveredPath(null)}
                   >
@@ -115,7 +114,7 @@ export function Header() {
                       {isHovered && (
                         <motion.span
                           layoutId="navHover"
-                          className="absolute inset-0 -z-10 rounded-full bg-foreground/5 dark:bg-white/5"
+                          className="bg-foreground/5 absolute inset-0 -z-10 rounded-full dark:bg-white/5"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -134,7 +133,7 @@ export function Header() {
                     {isActive && (
                       <motion.span
                         layoutId="activeDot"
-                        className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]"
+                        className="bg-primary absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full shadow-[0_0_8px_rgba(var(--primary),0.5)]"
                         transition={{
                           type: "spring",
                           stiffness: 350,
@@ -172,7 +171,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   aria-label={t("open-quick-menu")}
-                  className="pointer-events-auto size-9 rounded-full border border-border/40 bg-background/50 backdrop-blur-md shadow-sm dark:bg-transparent dark:hover:bg-input/30"
+                  className="border-border/40 bg-background/50 dark:hover:bg-input/30 pointer-events-auto size-9 rounded-full border shadow-sm backdrop-blur-md dark:bg-transparent"
                 >
                   <ListIcon className="size-5" />
                 </Button>
@@ -180,13 +179,13 @@ export function Header() {
             />
             <DropdownMenuContent
               align="end"
-              className="w-52 space-y-3.5 p-3.5 rounded-3xl"
+              className="w-52 space-y-3.5 rounded-3xl p-3.5"
               sideOffset={8}
             >
               {showNav && (
                 <>
                   <div className="flex flex-col gap-1.5">
-                    <span className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                    <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
                       Navigation
                     </span>
                     <div className="flex flex-col gap-1">
@@ -200,10 +199,10 @@ export function Header() {
                             key={item.href}
                             href={item.href}
                             className={cn(
-                              "flex w-full items-center rounded-xl px-2.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-colors hover:bg-accent hover:text-accent-foreground",
+                              "hover:bg-accent hover:text-accent-foreground flex w-full items-center rounded-xl px-2.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-colors",
                               isActive
                                 ? "bg-accent/60 text-foreground font-bold"
-                                : "text-muted-foreground"
+                                : "text-muted-foreground",
                             )}
                           >
                             {t(item.labelKey)}
@@ -213,19 +212,19 @@ export function Header() {
                     </div>
                   </div>
 
-                  <div className="h-px bg-border/50" />
+                  <div className="bg-border/50 h-px" />
                 </>
               )}
 
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
                   {t("theme")}
                 </span>
                 <ThemeSwitcher />
               </div>
-              
+
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
                   {t("language")}
                 </span>
                 <LocaleSwitcher />
@@ -245,4 +244,3 @@ export function Header() {
     </header>
   );
 }
-
