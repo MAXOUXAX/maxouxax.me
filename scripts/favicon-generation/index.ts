@@ -172,7 +172,7 @@ async function replaceBetweenMarkers(
   }
 
   const lineStart = original.lastIndexOf("\n", startIdx) + 1;
-  const indentMatch = original.slice(lineStart, startIdx).match(/^[ \\t]*/);
+  const indentMatch = /^[ \t]*/.exec(original.slice(lineStart, startIdx));
   const indent = indentMatch ? indentMatch[0] : "";
 
   const blockWithIndent =

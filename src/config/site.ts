@@ -7,7 +7,7 @@ type MetaShape = {
   };
 };
 
-const meta: MetaShape = en as unknown as MetaShape;
+const meta: MetaShape = en;
 const defaultHome = meta.home ?? {};
 
 export const SITE_NAME = "MAXOUXAX";

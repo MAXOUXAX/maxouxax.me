@@ -49,27 +49,25 @@ export function ProjectsList() {
     return projects.filter(
       (project) =>
         project.name.toLowerCase().includes(query) ||
-        project.description?.toLowerCase().includes(query) ||
+        (project.description?.toLowerCase().includes(query) ?? false) ||
         project.owner.toLowerCase().includes(query) ||
         project.fullName.toLowerCase().includes(query),
     );
   }, [projects, searchQuery]);
 
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    setCurrentPage(1);
+    setIsSearching(!!val);
+  };
+
   // Handle search with debounce effect
   useEffect(() => {
-    if (searchQuery) {
-      setIsSearching(true);
-      const timer = setTimeout(() => {
-        setIsSearching(false);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-    setIsSearching(false);
-  }, [searchQuery]);
-
-  // Reset to page 1 when search changes
-  useEffect(() => {
-    setCurrentPage(1);
+    if (!searchQuery) return;
+    const timer = setTimeout(() => {
+      setIsSearching(false);
+    }, 300);
+    return () => clearTimeout(timer);
   }, [searchQuery]);
 
   // Paginate filtered projects
@@ -127,7 +125,7 @@ export function ProjectsList() {
               type="text"
               placeholder="Search by name, description, or owner..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="pr-16"
             />
             <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
@@ -186,7 +184,7 @@ export function ProjectsList() {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setCurrentPage(page as number);
+                      setCurrentPage(page);
                     }}
                     isActive={currentPage === page}
                   >
@@ -222,7 +220,7 @@ export function ProjectsList() {
             No projects found matching &quot;{searchQuery}&quot;
           </p>
           <button
-            onClick={() => setSearchQuery("")}
+            onClick={() => handleSearchChange("")}
             className="text-primary mt-4 text-sm hover:underline"
           >
             Clear search

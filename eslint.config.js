@@ -6,7 +6,7 @@ export default tseslint.config(
   ...nextVitals,
   ...nextTs,
   {
-    ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"],
+    ignores: [".next/**", "out/**", "build/**", "next-env.d.ts", ".open-next/**", ".wrangler/**"],
   },
   {
     files: ["**/*.ts", "**/*.tsx"],

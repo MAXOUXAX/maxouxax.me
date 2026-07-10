@@ -15,7 +15,7 @@ export default function LocaleSwitcher() {
   const toggleLocale = () => {
     const nextLocale: Locale = locale === "en" ? "fr" : "en";
     startTransition(() => {
-      setUserLocale(nextLocale);
+      void setUserLocale(nextLocale);
     });
   };
 

@@ -169,7 +169,7 @@ export const projectsRouter = createTRPCRouter({
           if (readmeResponse.ok) {
             readmeContent = await readmeResponse.text();
           }
-        } catch (error) {
+        } catch {
           console.log("No README found for repository:", input.repo);
         }
 

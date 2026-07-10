@@ -38,7 +38,7 @@ const shellVariants: Variants = {
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: -8, filter: "blur(4px)" },
-  show: (i: number = 0) => ({
+  show: (i = 0) => ({
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
