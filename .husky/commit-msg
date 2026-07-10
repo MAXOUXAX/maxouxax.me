@@ -1,0 +1,3 @@
+#!/bin/sh
+bun scripts/git/verify-commit.ts "$1"
+
