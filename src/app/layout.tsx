@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 
-import { type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 import { Geist, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
@@ -18,6 +18,13 @@ import {
 import { cn } from "~/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e0f2fe" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -60,10 +67,6 @@ export const metadata: Metadata = {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e0f2fe" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
-  ],
   icons: {
     // [favicon-script icons start]
     icon: [
