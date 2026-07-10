@@ -1,53 +1,48 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import type { Locale } from "~/i18n/config";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 import { setUserLocale } from "~/services/locale";
 import { useTransition } from "react";
 import { cn } from "~/lib/utils";
-import { GlobeIcon } from "@phosphor-icons/react";
+import { Button } from "./ui/button";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
-
-  const t = useTranslations("locale-switcher");
   const locale = useLocale();
 
-  const changeLocale = (locale: string | null) => {
-    if (locale) {
-      startTransition(() => {
-        setUserLocale(locale as Locale);
-      });
-    }
+  const toggleLocale = () => {
+    const nextLocale: Locale = locale === "en" ? "fr" : "en";
+    startTransition(() => {
+      setUserLocale(nextLocale);
+    });
   };
 
-  const items = [
-    { value: "en", label: t("en") },
-    { value: "fr", label: t("fr") },
-  ];
-
   return (
-    <Select value={locale} onValueChange={changeLocale} items={items}>
-      <SelectTrigger
-        className={cn(
-          "w-[180px]",
-          isPending && "pointer-events-none opacity-50",
-        )}
-      >
-        <GlobeIcon className="size-4" />
-        <SelectValue placeholder={t("placeholder")} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="en">{t("en")}</SelectItem>
-        <SelectItem value="fr">{t("fr")}</SelectItem>
-      </SelectContent>
-    </Select>
+    <Button
+      variant="ghost"
+      size="icon"
+      className={cn(
+        "relative flex size-9 items-center justify-center rounded-full border border-border/40 bg-background/50 text-xs font-semibold uppercase tracking-wider backdrop-blur-md transition-all hover:bg-accent hover:text-accent-foreground shadow-sm dark:bg-transparent dark:hover:bg-input/30",
+        isPending && "pointer-events-none opacity-50"
+      )}
+      onClick={toggleLocale}
+      aria-label={`Switch to ${locale === "en" ? "French" : "English"}`}
+    >
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={locale}
+          initial={{ opacity: 0, y: -12, filter: "blur(2px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: 12, filter: "blur(2px)" }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          className="select-none text-[10px] font-bold"
+        >
+          {locale}
+        </motion.span>
+      </AnimatePresence>
+    </Button>
   );
 }
+

@@ -20,9 +20,13 @@ export default function ModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="outline" size="icon">
-            <SunIcon className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative flex size-9 items-center justify-center rounded-full border border-border/40 bg-background/50 backdrop-blur-md transition-all hover:bg-accent hover:text-accent-foreground shadow-sm dark:bg-transparent dark:hover:bg-input/30"
+          >
+            <SunIcon className="size-4.5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+            <MoonIcon className="absolute size-4.5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
             <span className="sr-only">{t("toggle")}</span>
           </Button>
         }
