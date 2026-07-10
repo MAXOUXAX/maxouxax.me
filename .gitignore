@@ -47,3 +47,6 @@ yarn-error.log*
 
 # open-next / cloudflare related
 .open-next/
+
+# cloudflare wrangler
+.wrangler/
