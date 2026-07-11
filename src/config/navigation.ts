@@ -8,5 +8,5 @@ export interface NavItem {
 
 export const navItems: readonly NavItem[] = [
   { href: "/", labelKey: "home", status: "VISIBLE" },
-  { href: "/projects", labelKey: "projects", status: "HIDDEN" },
+  { href: "/projects", labelKey: "projects", status: "VISIBLE" },
 ] as const;
