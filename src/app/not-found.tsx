@@ -68,24 +68,24 @@ export default function NotFound() {
             x: glowX,
             y: glowY,
           }}
-          className="bg-primary/20 absolute top-1/2 left-1/2 h-125 w-200 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] dark:bg-primary/10"
+          className="bg-primary/20 dark:bg-primary/10 absolute top-1/2 left-1/2 h-125 w-200 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
         />
       </motion.div>
 
       {/* Content layout matching the home page structure */}
       <div className="relative z-20 flex w-full max-w-4xl flex-col items-center justify-center space-y-8 px-4 sm:px-6">
-        <div className="flex flex-col items-center justify-center px-2 text-center space-y-4">
+        <div className="flex flex-col items-center justify-center space-y-4 px-2 text-center">
           <StaggeredFade
             as="h1"
             className={`${unbounded.className} max-w-[min(92vw,38rem)] text-center text-[clamp(2.4rem,8vw,3.4rem)] leading-tight font-black tracking-tight text-balance wrap-break-word sm:text-[clamp(2.8rem,6vw,4.2rem)] md:text-[clamp(3rem,5vw,4.8rem)] lg:text-6xl`}
             text={t("heading")}
           />
-          
+
           <motion.p
             initial={{ opacity: 0, y: 10, filter: "blur(2px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ delay: 0.25, duration: 0.4, ease: "easeOut" }}
-            className="text-muted-foreground max-w-xs text-sm sm:text-base leading-relaxed text-balance"
+            className="text-muted-foreground max-w-xs text-sm leading-relaxed text-balance sm:text-base"
           >
             {t("description")}
           </motion.p>
@@ -101,7 +101,7 @@ export default function NotFound() {
             nativeButton={false}
             render={<Link href="/" />}
             size="lg"
-            className="border-border/50 bg-foreground/5 text-foreground hover:bg-foreground hover:text-background h-12 px-6 rounded-full border hover:scale-105 active:scale-95 transition-all text-xs font-semibold tracking-wide uppercase"
+            className="border-border/50 bg-foreground/5 text-foreground hover:bg-foreground hover:text-background h-12 rounded-full border px-6 text-xs font-semibold tracking-wide uppercase transition-all hover:scale-105 active:scale-95"
           >
             {t("button")}
           </Button>
