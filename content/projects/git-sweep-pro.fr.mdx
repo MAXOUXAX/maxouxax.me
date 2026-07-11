@@ -1,0 +1,41 @@
+---
+title: "Git Sweep Pro"
+description: "Une extension VS Code pour identifier et supprimer en toute sécurité les branches locales disparues du dépôt distant."
+date: "2026-02-17"
+labels: ["TypeScript", "VS Code", "Developer Tools"]
+cover: "/projects/git-sweep-pro/cover.png"
+links:
+  github: "https://github.com/MAXOUXAX/git-sweep-pro"
+draft: false
+---
+
+## Contexte
+
+> TODO(owner) : réécrire cette section.
+
+Les branches git locales s'accumulent rapidement lorsqu'une équipe fusionne
+et supprime régulièrement ses branches distantes. Git Sweep Pro est une
+extension VS Code qui identifie et supprime en toute sécurité les branches
+locales qui n'existent plus sur le dépôt distant.
+
+## Ce que j'ai construit
+
+> TODO(owner) : réécrire cette section.
+
+L'extension affiche les branches obsolètes directement dans la vue
+"Contrôle de code source" de VS Code et permet de les nettoyer en quelques
+clics :
+
+- Détecte les branches dont l'upstream a été supprimé
+- Affiche une étape de confirmation avant toute action destructrice
+- Fonctionne entièrement en local, sans télémétrie
+
+```bash
+git fetch --prune
+```
+
+![Image de couverture de Git Sweep Pro montrant l'icône de l'extension](/projects/git-sweep-pro/cover.png)
+
+## Résultats
+
+> TODO(owner) : réécrire cette section.
