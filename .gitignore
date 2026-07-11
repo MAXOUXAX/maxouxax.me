@@ -50,3 +50,6 @@ yarn-error.log*
 
 # cloudflare wrangler
 .wrangler/
+
+# fumadocs-mdx generated output
+/.source/
