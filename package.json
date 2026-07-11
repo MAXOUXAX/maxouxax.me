@@ -8,7 +8,7 @@
     "check": "eslint . && tsc --noEmit",
     "dev": "next dev",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
-    "format:write": "prettier --write --cache",
+    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "prepare": "husky",
@@ -87,6 +87,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "bun run lint:fix",
-    "*.{ts,tsx,js,jsx,mdx}": "bun run format:write"
+    "*.{ts,tsx,js,jsx,mdx}": "prettier --write --cache"
   }
 }
