@@ -3,7 +3,6 @@
 import { motion, stagger, type Variants } from "motion/react";
 import { GithubLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { Unbounded } from "next/font/google";
 
 import {
   Tooltip,
@@ -13,11 +12,7 @@ import {
 } from "~/components/ui/tooltip";
 import { Button } from "~/components/ui/button";
 import { StaggeredFade } from "~/components/staggered-fade";
-
-const unbounded = Unbounded({
-  subsets: ["latin"],
-  weight: ["700", "900"],
-});
+import { unbounded } from "~/lib/fonts";
 
 export function UnderConstruction() {
   const t = useTranslations("home");

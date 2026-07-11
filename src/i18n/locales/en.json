@@ -2,9 +2,7 @@
   "header": {
     "home": "Home",
     "projects": "Projects",
-    "open-quick-menu": "Open quick menu",
-    "theme": "Theme",
-    "language": "Language"
+    "open-quick-menu": "Open quick menu"
   },
   "home": {
     "title": "Website under construction",
@@ -15,8 +13,7 @@
   },
   "locale-switcher": {
     "en": "English",
-    "fr": "French",
-    "placeholder": "Language"
+    "fr": "French"
   },
   "theme-switcher": {
     "toggle": "Toggle theme",

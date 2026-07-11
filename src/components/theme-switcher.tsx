@@ -23,7 +23,7 @@ export default function ModeToggle() {
           <Button
             variant="ghost"
             size="icon"
-            className="border-border/40 bg-background/50 hover:bg-accent hover:text-accent-foreground dark:hover:bg-input/30 relative flex size-9 items-center justify-center rounded-full border shadow-sm backdrop-blur-md transition-all dark:bg-transparent"
+            className="text-foreground/70 hover:text-foreground hover:bg-foreground/5 relative flex size-9 items-center justify-center rounded-full transition-all dark:hover:bg-white/5"
           >
             <SunIcon className="size-4.5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
             <MoonIcon className="absolute size-4.5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />

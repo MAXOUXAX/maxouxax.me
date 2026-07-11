@@ -1,47 +1,83 @@
 "use client";
 
-import { useLocale } from "next-intl";
-import type { Locale } from "~/i18n/config";
+import { Fragment, useTransition } from "react";
+import { usePathname } from "next/navigation";
+import { motion, type Variants } from "motion/react";
+import { useLocale, useTranslations } from "next-intl";
+
+import { locales, type Locale } from "~/i18n/config";
 import { setUserLocale } from "~/services/locale";
-import { useTransition } from "react";
 import { cn } from "~/lib/utils";
-import { Button } from "./ui/button";
-import { motion, AnimatePresence } from "motion/react";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      type: "spring",
+      stiffness: 140,
+      damping: 18,
+      delay: 1.4,
+    },
+  },
+};
 
 export default function LocaleSwitcher() {
+  const t = useTranslations("locale-switcher");
   const [isPending, startTransition] = useTransition();
   const locale = useLocale();
+  const pathname = usePathname();
+  const isLandingPage = pathname === "/";
 
-  const toggleLocale = () => {
-    const nextLocale: Locale = locale === "en" ? "fr" : "en";
+  const selectLocale = (next: Locale) => {
+    if (next === locale) return;
     startTransition(() => {
-      void setUserLocale(nextLocale);
+      void setUserLocale(next);
     });
   };
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className={cn(
-        "border-border/40 bg-background/50 hover:bg-accent hover:text-accent-foreground dark:hover:bg-input/30 relative flex size-9 items-center justify-center rounded-full border text-xs font-semibold tracking-wider uppercase shadow-sm backdrop-blur-md transition-all dark:bg-transparent",
-        isPending && "pointer-events-none opacity-50",
-      )}
-      onClick={toggleLocale}
-      aria-label={`Switch to ${locale === "en" ? "French" : "English"}`}
+    <motion.div
+      variants={containerVariants}
+      initial={isLandingPage ? "hidden" : false}
+      animate="show"
+      className="pointer-events-auto fixed bottom-5 left-5 z-50 sm:bottom-6 sm:left-8"
     >
-      <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
-          key={locale}
-          initial={{ opacity: 0, y: -12, filter: "blur(2px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: 12, filter: "blur(2px)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="text-[10px] font-bold select-none"
-        >
-          {locale}
-        </motion.span>
-      </AnimatePresence>
-    </Button>
+      <div
+        className={cn(
+          "flex items-center gap-2.5 transition-opacity",
+          isPending && "pointer-events-none opacity-50",
+        )}
+      >
+        {locales.map((l, i) => (
+          <Fragment key={l}>
+            {i > 0 && <span aria-hidden className="bg-border h-px w-4" />}
+            <button
+              type="button"
+              onClick={() => selectLocale(l)}
+              aria-label={t(l)}
+              aria-current={l === locale ? "true" : undefined}
+              className={cn(
+                "relative text-[11px] font-bold tracking-widest uppercase transition-colors duration-250 select-none",
+                l === locale
+                  ? "text-foreground"
+                  : "text-muted-foreground/60 hover:text-foreground cursor-pointer",
+              )}
+            >
+              {l}
+              {l === locale && (
+                <motion.span
+                  layoutId="localeActive"
+                  className="bg-foreground absolute inset-x-0 -bottom-1 h-px"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </button>
+          </Fragment>
+        ))}
+      </div>
+    </motion.div>
   );
 }

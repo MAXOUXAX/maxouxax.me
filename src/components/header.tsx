@@ -8,7 +8,6 @@ import { ListIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 
 import { navItems } from "~/config/navigation";
-import LocaleSwitcher from "./locale-switcher";
 import { StaggeredFade } from "./staggered-fade";
 import ThemeSwitcher from "./theme-switcher";
 import { Button } from "./ui/button";
@@ -18,23 +17,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { cn } from "~/lib/utils";
+import { unbounded } from "~/lib/fonts";
 
 const BASE_DELAY = 1.0;
-
-const shellVariants: Variants = {
-  hidden: { y: -24, opacity: 0, filter: "blur(8px)" },
-  show: {
-    y: 0,
-    opacity: 1,
-    filter: "blur(0px)",
-    transition: {
-      type: "spring",
-      stiffness: 120,
-      damping: 20,
-      delay: BASE_DELAY,
-    },
-  },
-};
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: -8, filter: "blur(4px)" },
@@ -46,7 +31,7 @@ const itemVariants: Variants = {
       type: "spring",
       stiffness: 140,
       damping: 18,
-      delay: BASE_DELAY + 0.15 + i * 0.05,
+      delay: BASE_DELAY + i * 0.08,
     },
   }),
 };
@@ -63,37 +48,35 @@ export function Header() {
   const logoDelay = isLandingPage ? BASE_DELAY + 0.15 : 0;
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
-      <motion.div
-        variants={shellVariants}
-        initial={isLandingPage ? "hidden" : false}
-        animate="show"
-        className="border-border/40 bg-background/60 dark:bg-background/40 pointer-events-auto relative flex w-full max-w-2xl items-center justify-between rounded-full border px-4 py-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-lg dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.35)]"
-      >
-        {/* Brand/Logo */}
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6">
+      {/* Brand + Navigation (left corner) */}
+      <div className="flex items-center gap-8">
         <motion.div
           variants={itemVariants}
           custom={0}
-          className="relative flex items-center"
+          initial={isLandingPage ? "hidden" : false}
+          animate="show"
+          className="pointer-events-auto"
         >
           <Link
             href="/"
-            className="group relative flex items-center gap-2 rounded-full px-3.5 py-1.5 transition-transform active:scale-95"
+            className="group flex items-center transition-transform active:scale-95"
             aria-label="MAXOUXAX Home"
           >
-            <span className="bg-foreground/5 absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-white/5" />
             <StaggeredFade
               as="span"
               text="MAXOUXAX"
               delay={logoDelay}
-              className="text-xs font-black tracking-wider uppercase sm:text-sm"
+              className={cn(
+                unbounded.className,
+                "text-[13px] font-black tracking-tight transition-opacity duration-300 group-hover:opacity-60 sm:text-sm",
+              )}
             />
           </Link>
         </motion.div>
 
-        {/* Center Navigation Links (Desktop) */}
         {showNav && (
-          <nav className="hidden items-center gap-1 sm:flex">
+          <nav className="pointer-events-auto hidden items-center gap-1 sm:flex">
             {visibleNavItems.map((item, index) => {
               const isActive =
                 item.href === "/"
@@ -106,6 +89,8 @@ export function Header() {
                   key={item.href}
                   variants={itemVariants}
                   custom={index + 1}
+                  initial={isLandingPage ? "hidden" : false}
+                  animate="show"
                 >
                   <Link
                     href={item.href}
@@ -151,100 +136,73 @@ export function Header() {
             })}
           </nav>
         )}
+      </div>
 
-        {/* Right Switchers (Desktop) */}
-        <div className="hidden items-center gap-2 sm:flex">
-          <motion.div variants={itemVariants} custom={3}>
-            <ThemeSwitcher />
-          </motion.div>
-          <motion.div variants={itemVariants} custom={4}>
-            <LocaleSwitcher />
-          </motion.div>
-        </div>
-
-        {/* Mobile quick menu */}
+      {/* Theme toggle (right corner) + mobile nav */}
+      <div className="flex items-center gap-1">
         <motion.div
           variants={itemVariants}
-          custom={1}
-          className="flex items-center sm:hidden"
+          custom={showNav ? visibleNavItems.length + 1 : 1}
+          initial={isLandingPage ? "hidden" : false}
+          animate="show"
+          className="pointer-events-auto"
         >
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label={t("open-quick-menu")}
-                  className="border-border/40 bg-background/50 dark:hover:bg-input/30 pointer-events-auto size-9 rounded-full border shadow-sm backdrop-blur-md dark:bg-transparent"
-                >
-                  <ListIcon className="size-5" />
-                </Button>
-              }
-            />
-            <DropdownMenuContent
-              align="end"
-              className="w-52 space-y-3.5 rounded-3xl p-3.5"
-              sideOffset={8}
-            >
-              {showNav && (
-                <>
-                  <div className="flex flex-col gap-1.5">
-                    <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
-                      Navigation
-                    </span>
-                    <div className="flex flex-col gap-1">
-                      {visibleNavItems.map((item) => {
-                        const isActive =
-                          item.href === "/"
-                            ? pathname === "/"
-                            : pathname?.startsWith(item.href);
-                        return (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className={cn(
-                              "hover:bg-accent hover:text-accent-foreground flex w-full items-center rounded-xl px-2.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-colors",
-                              isActive
-                                ? "bg-accent/60 text-foreground font-bold"
-                                : "text-muted-foreground",
-                            )}
-                          >
-                            {t(item.labelKey)}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="bg-border/50 h-px" />
-                </>
-              )}
-
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
-                  {t("theme")}
-                </span>
-                <ThemeSwitcher />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
-                  {t("language")}
-                </span>
-                <LocaleSwitcher />
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ThemeSwitcher />
         </motion.div>
 
-        {/* Ambient bottom glow divider */}
-        <motion.div
-          className="via-foreground/15 absolute inset-x-8 bottom-0 h-px bg-linear-to-r from-transparent to-transparent"
-          animate={{ opacity: [0.15, 0.4, 0.15] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          aria-hidden
-        />
-      </motion.div>
+        {showNav && (
+          <motion.div
+            variants={itemVariants}
+            custom={visibleNavItems.length + 2}
+            initial={isLandingPage ? "hidden" : false}
+            animate="show"
+            className="pointer-events-auto sm:hidden"
+          >
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={t("open-quick-menu")}
+                    className="text-muted-foreground hover:text-foreground hover:bg-foreground/5 size-9 rounded-full dark:hover:bg-white/5"
+                  >
+                    <ListIcon className="size-5" />
+                  </Button>
+                }
+              />
+              <DropdownMenuContent
+                align="end"
+                className="w-52 rounded-3xl p-3.5"
+                sideOffset={8}
+              >
+                <div className="flex flex-col gap-1">
+                  {visibleNavItems.map((item) => {
+                    const isActive =
+                      item.href === "/"
+                        ? pathname === "/"
+                        : pathname?.startsWith(item.href);
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={cn(
+                          "hover:bg-accent hover:text-accent-foreground flex w-full items-center rounded-xl px-2.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-colors",
+                          isActive
+                            ? "bg-accent/60 text-foreground font-bold"
+                            : "text-muted-foreground",
+                        )}
+                      >
+                        {t(item.labelKey)}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </motion.div>
+        )}
+      </div>
     </header>
   );
 }
