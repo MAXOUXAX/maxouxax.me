@@ -28,10 +28,31 @@
     "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
     "button": "Retour à l'accueil"
   },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "title": "Projets",
+    "intro": "Une sélection de projets sur lesquels j'ai travaillé, du plus récent au plus ancien.",
+    "filter-label": "Filtrer les projets par étiquette",
+    "filter-all": "Tous",
+    "results-count": "{count, plural, =0 {Aucun projet affiché} one {# projet affiché} other {# projets affichés}}",
+    "empty-title": "Aucun projet ne correspond à ces filtres",
+    "empty-description": "Essayez de retirer un filtre pour voir plus de projets.",
+    "empty-reset": "Réinitialiser les filtres",
+    "cover-alt": "Image de couverture pour {title}",
+    "toc-label": "Sommaire",
+    "back-to-projects": "Retour aux projets",
+    "view-github": "Voir sur GitHub",
+    "view-website": "Visiter le site",
+    "reading-time": "{minutes, plural, one {# min de lecture} other {# min de lecture}}"
+  },
   "meta": {
     "home": {
       "title": "MAXOUXAX — Ingénieur logiciel",
       "description": "Site personnel de MAXOUXAX, présentant mes projets."
+    },
+    "projects": {
+      "title": "Projets",
+      "description": "Une sélection de projets sur lesquels j'ai travaillé, du plus récent au plus ancien."
     }
   }
 }

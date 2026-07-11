@@ -28,10 +28,31 @@
     "description": "The page you are looking for doesn't exist or has been moved.",
     "button": "Back home"
   },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "title": "Projects",
+    "intro": "A selection of projects I've worked on, from most recent to oldest.",
+    "filter-label": "Filter projects by label",
+    "filter-all": "All",
+    "results-count": "{count, plural, =0 {No projects shown} one {# project shown} other {# projects shown}}",
+    "empty-title": "No projects match these filters",
+    "empty-description": "Try removing a filter to see more projects.",
+    "empty-reset": "Reset filters",
+    "cover-alt": "Cover image for {title}",
+    "toc-label": "Contents",
+    "back-to-projects": "Back to projects",
+    "view-github": "View on GitHub",
+    "view-website": "Visit website",
+    "reading-time": "{minutes, plural, one {# min read} other {# min read}}"
+  },
   "meta": {
     "home": {
       "title": "MAXOUXAX — Software Engineer",
       "description": "Personal website of MAXOUXAX, showcasing my projects."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "A selection of projects I've worked on, from most recent to oldest."
     }
   }
 }
