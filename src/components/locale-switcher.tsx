@@ -1,10 +1,18 @@
 "use client";
 
-import { Fragment, useTransition } from "react";
+import { useTransition } from "react";
 import { usePathname } from "next/navigation";
+import { GlobeIcon } from "@phosphor-icons/react";
 import { motion, type Variants } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 import { locales, type Locale } from "~/i18n/config";
 import { setUserLocale } from "~/services/locale";
 import { cn } from "~/lib/utils";
@@ -31,10 +39,10 @@ export default function LocaleSwitcher() {
   const pathname = usePathname();
   const isLandingPage = pathname === "/";
 
-  const selectLocale = (next: Locale) => {
+  const selectLocale = (next: string) => {
     if (next === locale) return;
     startTransition(() => {
-      void setUserLocale(next);
+      void setUserLocale(next as Locale);
     });
   };
 
@@ -45,39 +53,33 @@ export default function LocaleSwitcher() {
       animate="show"
       className="pointer-events-auto fixed bottom-5 left-5 z-50 sm:bottom-6 sm:left-8"
     >
-      <div
-        className={cn(
-          "flex items-center gap-2.5 transition-opacity",
-          isPending && "pointer-events-none opacity-50",
-        )}
-      >
-        {locales.map((l, i) => (
-          <Fragment key={l}>
-            {i > 0 && <span aria-hidden className="bg-border h-px w-4" />}
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
             <button
               type="button"
-              onClick={() => selectLocale(l)}
-              aria-label={t(l)}
-              aria-current={l === locale ? "true" : undefined}
+              aria-label={t("label")}
               className={cn(
-                "relative text-[11px] font-bold tracking-widest uppercase transition-colors duration-250 select-none",
-                l === locale
-                  ? "text-foreground"
-                  : "text-muted-foreground/60 hover:text-foreground cursor-pointer",
+                "text-muted-foreground/60 hover:text-foreground flex cursor-pointer items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase transition-colors duration-250 select-none",
+                isPending && "pointer-events-none opacity-50",
               )}
-            >
-              {l}
-              {l === locale && (
-                <motion.span
-                  layoutId="localeActive"
-                  className="bg-foreground absolute inset-x-0 -bottom-1 h-px"
-                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                />
-              )}
-            </button>
-          </Fragment>
-        ))}
-      </div>
+            />
+          }
+        >
+          <GlobeIcon className="size-3.5" />
+          {locale}
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent side="top" align="start" sideOffset={10}>
+          <DropdownMenuRadioGroup value={locale} onValueChange={selectLocale}>
+            {locales.map((l) => (
+              <DropdownMenuRadioItem key={l} value={l}>
+                {t(l)}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </motion.div>
   );
 }

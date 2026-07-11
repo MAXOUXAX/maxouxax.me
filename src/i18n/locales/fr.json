@@ -12,6 +12,7 @@
     }
   },
   "locale-switcher": {
+    "label": "Changer de langue",
     "en": "Anglais",
     "fr": "Français"
   },
