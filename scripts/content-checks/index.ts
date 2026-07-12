@@ -23,6 +23,37 @@ function baseSlugFromEnglishFile(filename: string): string | null {
   return filename.slice(0, -".mdx".length);
 }
 
+/**
+ * Validates the common frontmatter fields that are required for every project
+ * file regardless of locale. Returns an array of violation strings (empty when
+ * everything is fine).
+ */
+function validateFrontmatter(
+  data: Record<string, unknown>,
+  relPath: string,
+): Violation[] {
+  const v: Violation[] = [];
+
+  if (
+    !data.title ||
+    typeof data.title !== "string" ||
+    data.title.trim() === ""
+  ) {
+    v.push(`${relPath} is missing a required "title" frontmatter field.`);
+  }
+  if (!data.description || typeof data.description !== "string") {
+    v.push(`${relPath} is missing a required "description" frontmatter field.`);
+  }
+  if (!data.date) {
+    v.push(`${relPath} is missing a required "date" frontmatter field.`);
+  }
+  if (!Array.isArray(data.labels) || data.labels.length === 0) {
+    v.push(`${relPath} must declare at least one label.`);
+  }
+
+  return v;
+}
+
 async function main() {
   const violations: Violation[] = [];
 
@@ -61,7 +92,8 @@ async function main() {
     }
   }
 
-  // (b) cover file must exist under /public, (c) og.png must exist.
+  // (b) cover file must exist under /public, (c) og.png + og.fr.png must exist,
+  // (d) shared frontmatter fields must be present in both locale files.
   for (const slug of englishSlugs) {
     const filePath = path.join(contentDir, `${slug}.mdx`);
     const raw = await fs.readFile(filePath, "utf8");
@@ -90,28 +122,18 @@ async function main() {
       }
     }
 
-    if (
-      !data.title ||
-      typeof data.title !== "string" ||
-      data.title.trim() === ""
-    ) {
+    // Validate frontmatter for the English file.
+    violations.push(
+      ...validateFrontmatter(data, `content/projects/${slug}.mdx`),
+    );
+
+    // Validate frontmatter for the corresponding French file (if it exists).
+    const frFilePath = path.join(contentDir, `${slug}.fr.mdx`);
+    if (existsSync(frFilePath)) {
+      const frRaw = await fs.readFile(frFilePath, "utf8");
+      const { data: frData } = matter(frRaw);
       violations.push(
-        `content/projects/${slug}.mdx is missing a required "title" frontmatter field.`,
-      );
-    }
-    if (!data.description || typeof data.description !== "string") {
-      violations.push(
-        `content/projects/${slug}.mdx is missing a required "description" frontmatter field.`,
-      );
-    }
-    if (!data.date) {
-      violations.push(
-        `content/projects/${slug}.mdx is missing a required "date" frontmatter field.`,
-      );
-    }
-    if (!Array.isArray(data.labels) || data.labels.length === 0) {
-      violations.push(
-        `content/projects/${slug}.mdx must declare at least one label.`,
+        ...validateFrontmatter(frData, `content/projects/${slug}.fr.mdx`),
       );
     }
   }
