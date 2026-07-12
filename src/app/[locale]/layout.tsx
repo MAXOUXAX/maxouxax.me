@@ -145,6 +145,20 @@ export default async function RootLayout({
         className={cn(geist.variable, "font-sans", inter.variable)}
         suppressHydrationWarning
       >
+        <head>
+          {/* The browser's own scroll restoration (default: "auto") races
+              with the view-transition-driven back/forward navigation and can
+              paint a stray top-of-page frame before it settles — this must
+              run before that first popstate event, so it's a blocking inline
+              script rather than a client component effect. We fully own
+              scroll restoration ourselves from here on (see
+              projects-index.tsx). */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }`,
+            }}
+          />
+        </head>
         <body>
           <script
             type="application/ld+json"
