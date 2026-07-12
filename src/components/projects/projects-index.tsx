@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { useTranslations } from "next-intl";
@@ -65,6 +65,21 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
   // previously visited row carries the names for the reverse transition.
   const [returnSlug] = useState<string | null>(getLastVisitedSlug);
   const namedSlug = hoveredSlug ?? returnSlug;
+
+  // When arriving back from a project page, the browser snapshots the list
+  // before Next restores the scroll position — the morph then targets a row
+  // that is not where it will end up (page flashes at the top, then jumps).
+  // Scroll the returning row into view synchronously at mount so the
+  // incoming snapshot is taken at the right position.
+  useLayoutEffect(() => {
+    if (!returnSlug) return;
+    const row = document.getElementById(`project-row-${returnSlug}`);
+    if (!row) return;
+    const { top, bottom } = row.getBoundingClientRect();
+    if (top < 0 || bottom > window.innerHeight) {
+      row.scrollIntoView({ block: "center", behavior: "instant" });
+    }
+  }, [returnSlug]);
 
   const allLabels = useMemo(() => {
     const set = new Set<string>();
@@ -147,6 +162,7 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                       {items.map((project) => (
                         <motion.li
                           key={project.slug}
+                          id={`project-row-${project.slug}`}
                           layout
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
