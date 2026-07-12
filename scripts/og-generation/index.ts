@@ -197,8 +197,6 @@ async function main() {
     const slug = file.slice(0, -".mdx".length);
     const sourcePath = path.join(contentDir, file);
     const raw = await fs.readFile(sourcePath, "utf8");
-    const { data } = matter(raw);
-    const fm = data as Frontmatter;
 
     const outDir = path.join(publicDir, "projects", slug);
     await fs.mkdir(outDir, { recursive: true });
@@ -211,6 +209,26 @@ async function main() {
         f.endsWith(".mdx") &&
         /\.[a-z]{2}\.mdx$/.test(f),
     );
+
+    function parseFrontmatter(raw: string, src: string): Frontmatter | null {
+      const { data } = matter(raw);
+      if (
+        typeof data.title !== "string" ||
+        typeof data.description !== "string" ||
+        !Array.isArray(data.labels)
+      ) {
+        console.warn(
+          `Skipping OG generation for ${path.relative(projectRoot, src)}: ` +
+            `frontmatter is missing required title, description, or labels.`,
+        );
+        return null;
+      }
+      return data as Frontmatter;
+    }
+
+    const fm = parseFrontmatter(raw, sourcePath);
+    if (!fm) continue;
+
     const ogTargets: { src: string; out: string; fm: Frontmatter }[] = [
       { src: sourcePath, out: path.join(outDir, "og.png"), fm },
     ];
@@ -218,10 +236,12 @@ async function main() {
       const lang = variant.slice(slug.length + 1, -".mdx".length);
       const variantPath = path.join(contentDir, variant);
       const variantRaw = await fs.readFile(variantPath, "utf8");
+      const variantFm = parseFrontmatter(variantRaw, variantPath);
+      if (!variantFm) continue;
       ogTargets.push({
         src: variantPath,
         out: path.join(outDir, `og.${lang}.png`),
-        fm: matter(variantRaw).data as Frontmatter,
+        fm: variantFm,
       });
     }
 
