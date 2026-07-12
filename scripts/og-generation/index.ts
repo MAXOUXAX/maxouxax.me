@@ -203,14 +203,37 @@ async function main() {
     const outDir = path.join(publicDir, "projects", slug);
     await fs.mkdir(outDir, { recursive: true });
 
-    const ogPath = path.join(outDir, "og.png");
-    if (isUpToDate(ogPath, sourcePath)) {
-      skipped++;
-    } else {
-      const png = await renderPng(fm, OG_WIDTH, OG_HEIGHT, fonts);
-      await fs.writeFile(ogPath, png);
-      console.log(`Wrote ${path.relative(projectRoot, ogPath)}`);
-      generated++;
+    // One OG image per locale: og.png (en) from `<slug>.mdx`, og.<lang>.png
+    // from `<slug>.<lang>.mdx` (localized title/description/labels).
+    const localeVariants = entries.filter(
+      (f) =>
+        f.startsWith(`${slug}.`) &&
+        f.endsWith(".mdx") &&
+        /\.[a-z]{2}\.mdx$/.test(f),
+    );
+    const ogTargets: { src: string; out: string; fm: Frontmatter }[] = [
+      { src: sourcePath, out: path.join(outDir, "og.png"), fm },
+    ];
+    for (const variant of localeVariants) {
+      const lang = variant.slice(slug.length + 1, -".mdx".length);
+      const variantPath = path.join(contentDir, variant);
+      const variantRaw = await fs.readFile(variantPath, "utf8");
+      ogTargets.push({
+        src: variantPath,
+        out: path.join(outDir, `og.${lang}.png`),
+        fm: matter(variantRaw).data as Frontmatter,
+      });
+    }
+
+    for (const target of ogTargets) {
+      if (isUpToDate(target.out, target.src)) {
+        skipped++;
+      } else {
+        const png = await renderPng(target.fm, OG_WIDTH, OG_HEIGHT, fonts);
+        await fs.writeFile(target.out, png);
+        console.log(`Wrote ${path.relative(projectRoot, target.out)}`);
+        generated++;
+      }
     }
 
     const coverPath = path.join(outDir, "cover.png");

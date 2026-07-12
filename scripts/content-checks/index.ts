@@ -81,11 +81,13 @@ async function main() {
       }
     }
 
-    const ogPath = path.join(publicDir, "projects", slug, "og.png");
-    if (!existsSync(ogPath)) {
-      violations.push(
-        `public/projects/${slug}/og.png is missing — run \`bun run og:generate\`.`,
-      );
+    for (const ogFile of ["og.png", "og.fr.png"]) {
+      const ogPath = path.join(publicDir, "projects", slug, ogFile);
+      if (!existsSync(ogPath)) {
+        violations.push(
+          `public/projects/${slug}/${ogFile} is missing — run \`bun run og:generate\`.`,
+        );
+      }
     }
 
     if (
