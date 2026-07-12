@@ -24,6 +24,6 @@ export function getSortedProjects(locale: string) {
   const visible =
     process.env.NODE_ENV === "production"
       ? pages.filter((p) => !p.data.draft)
-      : pages;
+      : pages.slice();
   return visible.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
