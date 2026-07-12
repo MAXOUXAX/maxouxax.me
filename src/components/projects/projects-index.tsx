@@ -24,8 +24,9 @@ import {
 } from "~/components/ui/empty";
 import { cn } from "~/lib/utils";
 import {
-  getLastVisitedSlug,
-  setLastVisitedSlug,
+  setLastVisitedProject,
+  useLastVisitedScrollY,
+  useLastVisitedSlug,
 } from "~/components/projects/last-visited-project";
 import { unbounded } from "~/lib/fonts";
 
@@ -38,13 +39,6 @@ export type ProjectListItem = {
   cover: string;
   url: string;
 };
-
-/**
- * Slug of the last project the user navigated to, kept at module level so it
- * survives the round-trip to the detail page. When the list re-mounts on back
- * navigation, that row gets the view-transition names so the reverse morph
- * matches the forward one.
- */
 
 function groupByYear(projects: ProjectListItem[]) {
   const groups = new Map<number, ProjectListItem[]>();
@@ -61,25 +55,36 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
   const t = useTranslations("projects");
   const [activeLabels, setActiveLabels] = useState<string[]>([]);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
-  // Consumed once on mount (client-side back navigation only) so the
-  // previously visited row carries the names for the reverse transition.
-  const [returnSlug] = useState<string | null>(getLastVisitedSlug);
+  // The previously visited row carries the names for the reverse transition.
+  // useSyncExternalStore renders `null` on the server and on the client's
+  // hydration pass (matching exactly, no mismatch), then swaps in the real
+  // client-only value right after — see last-visited-project.tsx.
+  const returnSlug = useLastVisitedSlug();
+  const returnScrollY = useLastVisitedScrollY();
   const namedSlug = hoveredSlug ?? returnSlug;
 
   // When arriving back from a project page, the browser snapshots the list
   // before Next restores the scroll position — the morph then targets a row
   // that is not where it will end up (page flashes at the top, then jumps).
-  // Scroll the returning row into view synchronously at mount so the
-  // incoming snapshot is taken at the right position.
+  // Restore scroll synchronously before paint, so the incoming snapshot is
+  // taken at the right position. Prefer the exact pixel offset recorded when
+  // the visitor left (immune to the below-the-fold row's final position
+  // depending on images/fonts that may not have finished settling yet);
+  // fall back to measuring the row only when there's no recorded offset
+  // (e.g. the project page was the entry point).
   useLayoutEffect(() => {
     if (!returnSlug) return;
+    if (returnScrollY !== null) {
+      window.scrollTo({ top: returnScrollY, behavior: "instant" });
+      return;
+    }
     const row = document.getElementById(`project-row-${returnSlug}`);
     if (!row) return;
     const { top, bottom } = row.getBoundingClientRect();
     if (top < 0 || bottom > window.innerHeight) {
       row.scrollIntoView({ block: "center", behavior: "instant" });
     }
-  }, [returnSlug]);
+  }, [returnSlug, returnScrollY]);
 
   const allLabels = useMemo(() => {
     const set = new Set<string>();
@@ -181,7 +186,10 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                             onFocus={() => setHoveredSlug(project.slug)}
                             onBlur={() => setHoveredSlug(null)}
                             onClick={() => {
-                              setLastVisitedSlug(project.slug);
+                              setLastVisitedProject(
+                                project.slug,
+                                window.scrollY,
+                              );
                             }}
                           >
                             <AnimatePresence>
