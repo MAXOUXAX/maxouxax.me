@@ -23,6 +23,11 @@ import {
   EmptyContent,
 } from "~/components/ui/empty";
 import { cn } from "~/lib/utils";
+import {
+  getLastVisitedSlug,
+  setLastVisitedSlug,
+} from "~/components/projects/last-visited-project";
+import { unbounded } from "~/lib/fonts";
 
 export type ProjectListItem = {
   slug: string;
@@ -33,6 +38,13 @@ export type ProjectListItem = {
   cover: string;
   url: string;
 };
+
+/**
+ * Slug of the last project the user navigated to, kept at module level so it
+ * survives the round-trip to the detail page. When the list re-mounts on back
+ * navigation, that row gets the view-transition names so the reverse morph
+ * matches the forward one.
+ */
 
 function groupByYear(projects: ProjectListItem[]) {
   const groups = new Map<number, ProjectListItem[]>();
@@ -49,6 +61,10 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
   const t = useTranslations("projects");
   const [activeLabels, setActiveLabels] = useState<string[]>([]);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  // Consumed once on mount (client-side back navigation only) so the
+  // previously visited row carries the names for the reverse transition.
+  const [returnSlug] = useState<string | null>(getLastVisitedSlug);
+  const namedSlug = hoveredSlug ?? returnSlug;
 
   const allLabels = useMemo(() => {
     const set = new Set<string>();
@@ -148,6 +164,9 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                             onMouseLeave={() => setHoveredSlug(null)}
                             onFocus={() => setHoveredSlug(project.slug)}
                             onBlur={() => setHoveredSlug(null)}
+                            onClick={() => {
+                              setLastVisitedSlug(project.slug);
+                            }}
                           >
                             <AnimatePresence>
                               {hoveredSlug === project.slug && (
@@ -169,7 +188,10 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                             <span
                               className="border-border/60 relative aspect-video w-full shrink-0 overflow-hidden rounded-lg border sm:w-44"
                               style={{
-                                viewTransitionName: `project-cover-${project.slug}`,
+                                viewTransitionName:
+                                  namedSlug === project.slug
+                                    ? "project-cover"
+                                    : undefined,
                               }}
                             >
                               <Image
@@ -184,9 +206,15 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                             <span className="flex min-w-0 flex-1 flex-col gap-1">
                               <span className="flex items-center gap-1.5">
                                 <span
-                                  className="vt-project-title text-lg font-semibold tracking-tight"
+                                  className={cn(
+                                    unbounded.className,
+                                    "text-base leading-tight font-bold tracking-tight",
+                                  )}
                                   style={{
-                                    viewTransitionName: `project-${project.slug}`,
+                                    viewTransitionName:
+                                      namedSlug === project.slug
+                                        ? "project-title"
+                                        : undefined,
                                   }}
                                 >
                                   {project.title}

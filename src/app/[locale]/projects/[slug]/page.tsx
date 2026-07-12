@@ -1,7 +1,6 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { format } from "date-fns";
 import { fr as frLocale } from "date-fns/locale";
@@ -9,6 +8,8 @@ import { GithubLogoIcon, GlobeIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { projectsSource, projectsI18n } from "~/lib/projects-source";
 import { mdxComponents } from "~/components/mdx/mdx-components";
+import { RememberProjectVisit } from "~/components/projects/last-visited-project";
+import { TransitionLink } from "~/components/transition-link";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { unbounded } from "~/lib/fonts";
@@ -124,6 +125,7 @@ export default async function ProjectPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <RememberProjectVisit slug={slug} />
 
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap gap-1.5">
@@ -139,8 +141,8 @@ export default async function ProjectPage({
         </div>
 
         <h1
-          className={`${unbounded.className} vt-project-title text-3xl font-black tracking-tight text-balance sm:text-4xl`}
-          style={{ viewTransitionName: `project-${slug}` }}
+          className={`${unbounded.className} text-3xl leading-tight font-bold tracking-tight text-balance sm:text-4xl`}
+          style={{ viewTransitionName: "project-title" }}
         >
           {data.title}
         </h1>
@@ -196,7 +198,7 @@ export default async function ProjectPage({
 
       <div
         className="border-border/60 relative mt-8 aspect-video overflow-hidden rounded-3xl border"
-        style={{ viewTransitionName: `project-cover-${slug}` }}
+        style={{ viewTransitionName: "project-cover" }}
       >
         <Image
           src={data.cover}
@@ -236,12 +238,12 @@ export default async function ProjectPage({
       </div>
 
       <div className="border-border/60 mt-16 border-t pt-8">
-        <Link
+        <TransitionLink
           href="/projects"
           className="text-muted-foreground hover:text-foreground text-sm font-semibold tracking-wide uppercase transition-colors"
         >
           {t("back-to-projects")}
-        </Link>
+        </TransitionLink>
       </div>
     </article>
   );
