@@ -181,6 +181,9 @@ export default async function ProjectPage({
           priority
           sizes="(max-width: 768px) 100vw, 672px"
           className="object-cover"
+          style={{
+            viewTransitionName: `project-cover-${page.slugs.join("/")}`,
+          }}
         />
       </div>
 

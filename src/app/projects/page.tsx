@@ -44,6 +44,7 @@ export default async function ProjectsPage() {
     description: project.data.description,
     date: project.data.date.toISOString(),
     labels: project.data.labels,
+    cover: project.data.cover,
     url: project.url,
   }));
 

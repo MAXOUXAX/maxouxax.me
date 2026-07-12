@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
@@ -29,6 +30,7 @@ export type ProjectListItem = {
   description: string;
   date: string; // ISO string
   labels: string[];
+  cover: string;
   url: string;
 };
 
@@ -141,7 +143,7 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                         >
                           <Link
                             href={project.url}
-                            className="group focus-visible:ring-ring relative -mx-3 flex flex-col gap-1 rounded-xl px-3 py-4 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+                            className="group focus-visible:ring-ring relative -mx-3 flex flex-col gap-4 rounded-xl px-3 py-4 transition-colors focus-visible:ring-2 focus-visible:outline-none sm:flex-row sm:items-center"
                             onMouseEnter={() => setHoveredSlug(project.slug)}
                             onMouseLeave={() => setHoveredSlug(null)}
                             onFocus={() => setHoveredSlug(project.slug)}
@@ -164,37 +166,52 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                               )}
                             </AnimatePresence>
 
-                            <span className="flex items-center gap-1.5">
-                              <span
-                                className="text-lg font-semibold tracking-tight"
+                            <span className="border-border/60 relative aspect-video w-full shrink-0 overflow-hidden rounded-lg border sm:w-44">
+                              <Image
+                                src={project.cover}
+                                alt=""
+                                fill
+                                sizes="(max-width: 640px) 100vw, 176px"
+                                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
                                 style={{
-                                  viewTransitionName: `project-${project.slug}`,
+                                  viewTransitionName: `project-cover-${project.slug}`,
                                 }}
-                              >
-                                {project.title}
-                              </span>
-                              <ArrowUpRightIcon
-                                aria-hidden
-                                className={cn(
-                                  "size-4 -translate-x-1 opacity-0 transition",
-                                  "group-hover:translate-x-0 group-hover:opacity-100",
-                                  "motion-reduce:transition-none",
-                                )}
                               />
                             </span>
-                            <span className="text-muted-foreground text-sm">
-                              {project.description}
-                            </span>
-                            <span className="mt-1 flex flex-wrap gap-1.5">
-                              {project.labels.map((label) => (
-                                <Badge
-                                  key={label}
-                                  variant="outline"
-                                  className="text-muted-foreground rounded-full text-[11px] font-medium tracking-wide uppercase"
+
+                            <span className="flex min-w-0 flex-1 flex-col gap-1">
+                              <span className="flex items-center gap-1.5">
+                                <span
+                                  className="text-lg font-semibold tracking-tight"
+                                  style={{
+                                    viewTransitionName: `project-${project.slug}`,
+                                  }}
                                 >
-                                  {label}
-                                </Badge>
-                              ))}
+                                  {project.title}
+                                </span>
+                                <ArrowUpRightIcon
+                                  aria-hidden
+                                  className={cn(
+                                    "size-4 -translate-x-1 opacity-0 transition",
+                                    "group-hover:translate-x-0 group-hover:opacity-100",
+                                    "motion-reduce:transition-none",
+                                  )}
+                                />
+                              </span>
+                              <span className="text-muted-foreground text-sm">
+                                {project.description}
+                              </span>
+                              <span className="mt-1 flex flex-wrap gap-1.5">
+                                {project.labels.map((label) => (
+                                  <Badge
+                                    key={label}
+                                    variant="outline"
+                                    className="text-muted-foreground rounded-full text-[11px] font-medium tracking-wide uppercase"
+                                  >
+                                    {label}
+                                  </Badge>
+                                ))}
+                              </span>
                             </span>
                           </Link>
                         </motion.li>
