@@ -7,11 +7,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 import { createMDX } from "fumadocs-mdx/next";
 
 /** @type {import("next").NextConfig} */
-const config = {
-  experimental: {
-    viewTransition: true,
-  },
-};
+const config = {};
 
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 initOpenNextCloudflareForDev();

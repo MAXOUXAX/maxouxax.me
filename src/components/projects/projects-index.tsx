@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useTranslations } from "next-intl";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import {
@@ -166,16 +166,18 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                               )}
                             </AnimatePresence>
 
-                            <span className="border-border/60 relative aspect-video w-full shrink-0 overflow-hidden rounded-lg border sm:w-44">
+                            <span
+                              className="border-border/60 relative aspect-video w-full shrink-0 overflow-hidden rounded-lg border sm:w-44"
+                              style={{
+                                viewTransitionName: `project-cover-${project.slug}`,
+                              }}
+                            >
                               <Image
                                 src={project.cover}
                                 alt=""
                                 fill
                                 sizes="(max-width: 640px) 100vw, 176px"
                                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
-                                style={{
-                                  viewTransitionName: `project-cover-${project.slug}`,
-                                }}
                               />
                             </span>
 
