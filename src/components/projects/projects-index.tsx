@@ -43,7 +43,7 @@ export type ProjectListItem = {
 function groupByYear(projects: ProjectListItem[]) {
   const groups = new Map<number, ProjectListItem[]>();
   for (const project of projects) {
-    const year = new Date(project.date).getFullYear();
+    const year = new Date(project.date).getUTCFullYear();
     const bucket = groups.get(year) ?? [];
     bucket.push(project);
     groups.set(year, bucket);
