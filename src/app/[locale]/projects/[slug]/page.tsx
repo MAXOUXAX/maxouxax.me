@@ -139,7 +139,7 @@ export default async function ProjectPage({
         </div>
 
         <h1
-          className={`${unbounded.className} text-3xl font-black tracking-tight text-balance sm:text-4xl`}
+          className={`${unbounded.className} vt-project-title text-3xl font-black tracking-tight text-balance sm:text-4xl`}
           style={{ viewTransitionName: `project-${slug}` }}
         >
           {data.title}

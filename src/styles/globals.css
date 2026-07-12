@@ -141,3 +141,16 @@
     @apply font-sans;
   }
 }
+/* Project title view transition: tag both ends with a shared class so the
+   snapshots keep their aspect ratio while the group morphs. Without this the
+   old/new images are stretched to the group's box, which smears the small
+   list title across the large h1 box. */
+.vt-project-title {
+  view-transition-class: project-title;
+}
+
+::view-transition-old(.project-title),
+::view-transition-new(.project-title) {
+  height: 100%;
+  width: auto;
+}

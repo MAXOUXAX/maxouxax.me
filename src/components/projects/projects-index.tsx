@@ -184,7 +184,7 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
                             <span className="flex min-w-0 flex-1 flex-col gap-1">
                               <span className="flex items-center gap-1.5">
                                 <span
-                                  className="text-lg font-semibold tracking-tight"
+                                  className="vt-project-title text-lg font-semibold tracking-tight"
                                   style={{
                                     viewTransitionName: `project-${project.slug}`,
                                   }}
