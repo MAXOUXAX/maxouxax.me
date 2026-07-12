@@ -13,7 +13,6 @@ import { Header } from "~/components/header";
 import LocaleSwitcher from "~/components/locale-switcher";
 import { Toaster } from "~/components/ui/sonner";
 import { ThemeProvider } from "~/components/theme-provider";
-import { TRPCReactProvider } from "~/trpc/react";
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_TITLE,
@@ -152,14 +151,12 @@ export default async function RootLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
           <ThemeProvider>
-            <TRPCReactProvider>
-              <NextIntlClientProvider>
-                <Header />
-                <main className="min-h-screen">{children}</main>
-                <LocaleSwitcher />
-                <Toaster />
-              </NextIntlClientProvider>
-            </TRPCReactProvider>
+            <NextIntlClientProvider>
+              <Header />
+              <main className="min-h-screen">{children}</main>
+              <LocaleSwitcher />
+              <Toaster />
+            </NextIntlClientProvider>
           </ThemeProvider>
         </body>
       </html>
