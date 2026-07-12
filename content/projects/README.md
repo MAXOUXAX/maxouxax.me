@@ -34,8 +34,10 @@ The slug is the filename (kebab-case), and it becomes the URL:
 
 - Cover: `public/projects/<slug>/cover.png` (mandatory, referenced by the
   `cover` frontmatter field).
-- OG image: `public/projects/<slug>/og.png` (mandatory, generated — see
-  below). The build fails if it is missing.
+- OG image: `public/projects/<slug>/og.png` for the default (English) locale,
+  and `public/projects/<slug>/og.<lang>.png` (e.g. `og.fr.png`) for every
+  non-default locale — all are mandatory and generated automatically. The build
+  fails if any are missing.
 - Placeholder covers/OG cards are generated automatically for any project
   missing one when running `bun run og:generate`. **Replace placeholder
   covers with real imagery before publishing.**
