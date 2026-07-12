@@ -2,12 +2,12 @@ import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { format } from "date-fns";
 import { fr as frLocale } from "date-fns/locale";
 import { GithubLogoIcon, GlobeIcon } from "@phosphor-icons/react/dist/ssr";
 
-import { projectsSource } from "~/lib/projects-source";
+import { projectsSource, projectsI18n } from "~/lib/projects-source";
 import { mdxComponents } from "~/components/mdx/mdx-components";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -26,13 +26,26 @@ function estimateReadingMinutes(
   return Math.max(1, Math.ceil(words / 200));
 }
 
+export function generateStaticParams() {
+  return projectsI18n.languages.flatMap((locale) =>
+    projectsSource
+      .getPages(locale)
+      .map((page) => ({ locale, slug: page.slugs.join("/") })),
+  );
+}
+
+function ogImagePath(slug: string, locale: string) {
+  return locale === projectsI18n.defaultLanguage
+    ? `/projects/${slug}/og.png`
+    : `/projects/${slug}/og.${locale}.png`;
+}
+
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const locale = await getLocale();
+  const { locale, slug } = await params;
   const page = projectsSource.getPage([slug], locale);
 
   if (!page) return {};
@@ -41,19 +54,26 @@ export async function generateMetadata({
     title: page.data.title,
     description: page.data.description,
     alternates: {
-      canonical: `${SITE_URL}/projects/${slug}`,
+      canonical: `${SITE_URL}/${locale}/projects/${slug}`,
+      languages: {
+        en: `${SITE_URL}/en/projects/${slug}`,
+        fr: `${SITE_URL}/fr/projects/${slug}`,
+        "x-default": `${SITE_URL}/en/projects/${slug}`,
+      },
     },
     openGraph: {
       type: "article",
       title: page.data.title,
       description: page.data.description,
-      url: `${SITE_URL}/projects/${slug}`,
-      images: [`/projects/${slug}/og.png`],
+      url: `${SITE_URL}/${locale}/projects/${slug}`,
+      locale,
+      images: [ogImagePath(slug, locale)],
     },
     twitter: {
       card: "summary_large_image",
       title: page.data.title,
       description: page.data.description,
+      images: [ogImagePath(slug, locale)],
     },
   };
 }
@@ -61,10 +81,10 @@ export async function generateMetadata({
 export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const locale = await getLocale();
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("projects");
   const page = projectsSource.getPage([slug], locale);
 
@@ -89,7 +109,8 @@ export default async function ProjectPage({
     name: data.title,
     description: data.description,
     datePublished: data.date.toISOString(),
-    url: `${SITE_URL}/projects/${slug}`,
+    url: `${SITE_URL}/${locale}/projects/${slug}`,
+    inLanguage: locale,
     author: {
       "@type": "Person",
       name: SITE_NAME,
@@ -173,7 +194,10 @@ export default async function ProjectPage({
         </div>
       </div>
 
-      <div className="border-border/60 relative mt-8 aspect-video overflow-hidden rounded-3xl border">
+      <div
+        className="border-border/60 relative mt-8 aspect-video overflow-hidden rounded-3xl border"
+        style={{ viewTransitionName: `project-cover-${slug}` }}
+      >
         <Image
           src={data.cover}
           alt={t("cover-alt", { title: data.title })}
@@ -181,9 +205,6 @@ export default async function ProjectPage({
           priority
           sizes="(max-width: 768px) 100vw, 672px"
           className="object-cover"
-          style={{
-            viewTransitionName: `project-cover-${page.slugs.join("/")}`,
-          }}
         />
       </div>
 

@@ -1,5 +1,7 @@
 import { type Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { routing } from "~/i18n/routing";
 
 import { getSortedProjects } from "~/lib/projects-source";
 import {
@@ -9,8 +11,17 @@ import {
 import { unbounded } from "~/lib/fonts";
 import { SITE_URL } from "~/config/site";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("meta.projects");
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta.projects" });
   const title = t("title");
   const description = t("description");
 
@@ -18,12 +29,17 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     alternates: {
-      canonical: `${SITE_URL}/projects`,
+      canonical: `${SITE_URL}/${locale}/projects`,
+      languages: {
+        en: `${SITE_URL}/en/projects`,
+        fr: `${SITE_URL}/fr/projects`,
+        "x-default": `${SITE_URL}/en/projects`,
+      },
     },
     openGraph: {
       title,
       description,
-      url: `${SITE_URL}/projects`,
+      url: `${SITE_URL}/${locale}/projects`,
     },
     twitter: {
       card: "summary",
@@ -33,8 +49,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function ProjectsPage() {
-  const locale = await getLocale();
+export default async function ProjectsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("projects");
   const projects = getSortedProjects(locale);
 

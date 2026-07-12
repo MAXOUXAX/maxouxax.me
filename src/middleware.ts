@@ -1,26 +1,26 @@
+import createMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const headers = new Headers(request.headers);
-  const { pathname } = request.nextUrl;
+import { routing } from "~/i18n/routing";
 
+const handleI18nRouting = createMiddleware(routing);
+
+export function middleware(request: NextRequest) {
   /*
    * Weird Next.js bug that logs "An unexpected response was received from the server." when an action is triggered from a client component.
    * Found here: https://github.com/vercel/next.js/discussions/77469#discussioncomment-14610419
    */
-  if (headers.has("next-action") || headers.has("x-action")) {
+  if (request.headers.has("next-action") || request.headers.has("x-action")) {
     // The workaround has to specifically not include the headers in the response, otherwise it will trigger the bug again.
     return NextResponse.next();
   }
 
-  const pathnameWithoutFirstSlash = pathname.slice(1);
-
-  headers.set("x-current-path", pathnameWithoutFirstSlash ?? "/");
-
-  return NextResponse.next({ headers });
+  return handleI18nRouting(request);
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico).*)"],
+  // Skip api routes, Next internals and any path with a file extension
+  // (static assets under /public must never be locale-redirected).
+  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
 };

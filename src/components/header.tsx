@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "~/i18n/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { ListIcon } from "@phosphor-icons/react";

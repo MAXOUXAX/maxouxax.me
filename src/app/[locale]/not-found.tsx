@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, type Variants } from "motion/react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "~/i18n/navigation";
 
 import { Button } from "~/components/ui/button";
 import { StaggeredFade } from "~/components/staggered-fade";

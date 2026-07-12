@@ -9,10 +9,8 @@ export const projectsI18n: I18nConfig = {
   languages: ["en", "fr"],
   // "dot" parser: `foo.mdx` is English (default), `foo.fr.mdx` is French.
   parser: "dot",
-  // The site resolves locale from the NEXT_LOCALE cookie — URLs never carry
-  // a locale segment, so page.url must stay `/projects/<slug>` for both
-  // languages instead of the default `/fr/projects/<slug>`.
-  hideLocale: "always",
+  // Routing is locale-prefixed ("always"), so the default "never" is what we
+  // want: page.url is `/en/projects/<slug>` / `/fr/projects/<slug>`.
 };
 
 export const projectsSource = loader({

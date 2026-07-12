@@ -1,7 +1,6 @@
 "use client";
 
 import { useTransition } from "react";
-import { usePathname } from "next/navigation";
 import { GlobeIcon } from "@phosphor-icons/react";
 import { motion, type Variants } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
@@ -13,8 +12,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { locales, type Locale } from "~/i18n/config";
-import { setUserLocale } from "~/services/locale";
+import { locales } from "~/i18n/config";
+import { usePathname, useRouter } from "~/i18n/navigation";
 import { cn } from "~/lib/utils";
 
 const containerVariants: Variants = {
@@ -36,13 +35,14 @@ export default function LocaleSwitcher() {
   const t = useTranslations("locale-switcher");
   const [isPending, startTransition] = useTransition();
   const locale = useLocale();
+  const router = useRouter();
   const pathname = usePathname();
   const isLandingPage = pathname === "/";
 
   const selectLocale = (next: string) => {
     if (next === locale) return;
     startTransition(() => {
-      void setUserLocale(next as Locale);
+      router.replace(pathname, { locale: next });
     });
   };
 
