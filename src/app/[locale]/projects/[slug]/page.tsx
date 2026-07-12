@@ -31,7 +31,7 @@ export function generateStaticParams() {
   return projectsI18n.languages.flatMap((locale) =>
     projectsSource
       .getPages(locale)
-      .map((page) => ({ locale, slug: page.slugs.join("/") })),
+      .map((page) => ({ locale, slug: page.slugs[0] ?? page.slugs.join("/") })),
   );
 }
 
@@ -50,6 +50,10 @@ export async function generateMetadata({
   const page = projectsSource.getPage([slug], locale);
 
   if (!page) return {};
+
+  // Draft pages in production: return empty metadata (same guard as the page
+  // component) so bots never index draft content.
+  if (page.data.draft && process.env.NODE_ENV === "production") return {};
 
   return {
     title: page.data.title,
@@ -123,7 +127,9 @@ export default async function ProjectPage({
     <article className="mx-auto w-full max-w-2xl px-5 pt-32 pb-24 sm:px-8 sm:pt-40">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/<\/script>/gi, "<\/script>"),
+        }}
       />
       <RememberProjectVisit slug={slug} />
 

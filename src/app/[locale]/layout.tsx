@@ -57,7 +57,6 @@ export async function generateMetadata({
       "cloudflare",
       "next.js",
       "react",
-      "tRPC",
       "frontend",
     ],
     authors: [{ name: SITE_NAME, url: SITE_URL }],

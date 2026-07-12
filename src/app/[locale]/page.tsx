@@ -1,9 +1,10 @@
 import { type Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { UnderConstruction } from "./under-construction";
+import { routing } from "~/i18n/routing";
+import { SITE_URL } from "~/config/site";
 
-const SITE_URL = "https://maxouxax.me";
+import { UnderConstruction } from "./under-construction";
 
 export async function generateMetadata({
   params,
@@ -18,6 +19,15 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+      languages: {
+        ...Object.fromEntries(
+          routing.locales.map((l) => [l, `${SITE_URL}/${l}`] as const),
+        ),
+        "x-default": `${SITE_URL}/${routing.defaultLocale}`,
+      },
+    },
     openGraph: {
       title,
       description,

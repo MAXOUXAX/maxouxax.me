@@ -2,8 +2,7 @@ import { type MetadataRoute } from "next";
 
 import { routing } from "~/i18n/routing";
 import { getSortedProjects, projectsI18n } from "~/lib/projects-source";
-
-const BASE_URL = "https://maxouxax.me";
+import { SITE_URL as BASE_URL } from "~/config/site";
 
 function localized(path: string) {
   return Object.fromEntries(
