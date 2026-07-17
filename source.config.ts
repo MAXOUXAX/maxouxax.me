@@ -17,8 +17,8 @@ export const projects = defineCollections({
     cover: z.string().min(1),
     links: z
       .object({
-        github: z.string().url().optional(),
-        website: z.string().url().optional(),
+        github: z.url().optional(),
+        website: z.url().optional(),
       })
       .default({}),
     draft: z.boolean().default(false),
