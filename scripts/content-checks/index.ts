@@ -44,11 +44,22 @@ function validateFrontmatter(
   if (!data.description || typeof data.description !== "string") {
     v.push(`${relPath} is missing a required "description" frontmatter field.`);
   }
-  if (!data.date) {
-    v.push(`${relPath} is missing a required "date" frontmatter field.`);
+  if (
+    !data.date ||
+    Number.isNaN(new Date(data.date as string | number | Date).getTime())
+  ) {
+    v.push(
+      `${relPath} is missing a required "date" frontmatter field, or it is not a valid date.`,
+    );
   }
-  if (!Array.isArray(data.labels) || data.labels.length === 0) {
-    v.push(`${relPath} must declare at least one label.`);
+  if (
+    !Array.isArray(data.labels) ||
+    data.labels.length === 0 ||
+    !data.labels.every((label) => typeof label === "string")
+  ) {
+    v.push(
+      `${relPath} must declare at least one label, and every label must be a string.`,
+    );
   }
 
   return v;
