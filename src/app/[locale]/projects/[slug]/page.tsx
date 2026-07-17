@@ -122,7 +122,7 @@ export default async function ProjectPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/<\/script>/gi, "<\/script>"),
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
       <RememberProjectVisit slug={slug} />
