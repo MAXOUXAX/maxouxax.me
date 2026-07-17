@@ -1,0 +1,35 @@
+---
+title: "Git Sweep Pro"
+description: "A VS Code extension to safely identify and prune local branches that are gone on the remote."
+date: "2026-02-17"
+labels: ["TypeScript", "VS Code", "Developer Tools"]
+cover: "/projects/git-sweep-pro/cover.png"
+links:
+  github: "https://github.com/MAXOUXAX/git-sweep-pro"
+draft: false
+---
+
+## Context
+
+Local git branches pile up fast once a team merges and deletes remote
+branches regularly. Git Sweep Pro is a VS Code extension that safely
+identifies and prunes local branches that no longer exist on the remote.
+
+## What I built
+
+The extension surfaces stale branches directly inside the VS Code source
+control view and lets you clean them up in a couple of clicks:
+
+- Detects branches whose upstream has been deleted
+- Shows a confirmation step before any destructive action
+- Runs entirely locally, no telemetry
+
+```bash
+git fetch --prune
+```
+
+![Git Sweep Pro cover image showing the extension icon](/projects/git-sweep-pro/cover.png)
+
+## Results
+
+> TODO(owner): rewrite this section.

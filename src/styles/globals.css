@@ -141,3 +141,69 @@
     @apply font-sans;
   }
 }
+/* Project title view transition. The list row uses a smaller/bolder text
+   style than the h1, so the two snapshots never share the same box ratio —
+   a plain cross-fade used to show both at once ("double ghosting") around
+   the midpoint. A staggered crossfade (45%-55% overlap window) still showed
+   both snapshots at ~50% opacity mid-flight, which read as a doubled/offset
+   title. Instead we do a hard cut at the midpoint: the old title stays fully
+   opaque while the group travels, then disappears instantly at 50%; the new
+   title stays fully transparent until 50%, then appears instantly. Exactly
+   one title is ever visible at any instant. Plain names (not
+   view-transition-class) for broad browser support; the list only names the
+   hovered/focused/returning item. */
+@keyframes project-title-out {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.001% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes project-title-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  50.001% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+::view-transition-old(project-title) {
+  height: 100%;
+  width: auto;
+  animation-name: project-title-out;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+::view-transition-new(project-title) {
+  height: 100%;
+  width: auto;
+  animation-name: project-title-in;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(project-title),
+  ::view-transition-new(project-title) {
+    animation: none;
+  }
+}
+

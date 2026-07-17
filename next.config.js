@@ -4,16 +4,14 @@
  */
 import "./src/env.js";
 import createNextIntlPlugin from "next-intl/plugin";
+import { createMDX } from "fumadocs-mdx/next";
 
 /** @type {import("next").NextConfig} */
-const config = {
-  experimental: {
-    viewTransition: true,
-  },
-};
+const config = {};
 
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 initOpenNextCloudflareForDev();
 
+const withMDX = createMDX();
 const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(config);
+export default withNextIntl(withMDX(config));
