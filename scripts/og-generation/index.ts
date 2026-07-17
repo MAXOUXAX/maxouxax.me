@@ -215,15 +215,21 @@ async function main() {
       if (
         typeof data.title !== "string" ||
         typeof data.description !== "string" ||
-        !Array.isArray(data.labels)
+        !Array.isArray(data.labels) ||
+        data.labels.length === 0 ||
+        !data.labels.every((label) => typeof label === "string")
       ) {
         console.warn(
           `Skipping OG generation for ${path.relative(projectRoot, src)}: ` +
-            `frontmatter is missing required title, description, or labels.`,
+            `frontmatter is missing required title, description, or a non-empty string[] "labels".`,
         );
         return null;
       }
-      return data as Frontmatter;
+      return {
+        title: data.title,
+        description: data.description,
+        labels: data.labels,
+      };
     }
 
     const fm = parseFrontmatter(raw, sourcePath);
