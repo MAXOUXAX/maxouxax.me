@@ -24,7 +24,9 @@ import {
 } from "~/components/ui/empty";
 import { cn } from "~/lib/utils";
 import {
+  setLastActiveLabels,
   setLastVisitedProject,
+  useLastActiveLabels,
   useLastVisitedScrollY,
   useLastVisitedSlug,
 } from "~/components/projects/last-visited-project";
@@ -53,7 +55,12 @@ function groupByYear(projects: ProjectListItem[]) {
 
 export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
   const t = useTranslations("projects");
-  const [activeLabels, setActiveLabels] = useState<string[]>([]);
+  // Persisted in the same shared store as the scroll/slug return state (not
+  // component-local useState), so the filter selection survives the index
+  // remounting when the visitor returns from a case study — otherwise the
+  // list would come back unfiltered and the row being scrolled back to
+  // might not even be present in it.
+  const activeLabels = useLastActiveLabels();
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   // The previously visited row carries the names for the reverse transition.
   // useSyncExternalStore renders `null` on the server and on the client's
@@ -108,7 +115,7 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
       <nav aria-label={t("filter-label")} className="flex flex-wrap gap-2">
         <ToggleGroup
           value={activeLabels}
-          onValueChange={(value: string[]) => setActiveLabels(value)}
+          onValueChange={(value: string[]) => setLastActiveLabels(value)}
           spacing={2}
           className="flex flex-wrap gap-2"
         >
@@ -130,7 +137,7 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
             variant="ghost"
             size="sm"
             className="text-muted-foreground hover:text-foreground rounded-full text-xs font-semibold tracking-wide uppercase"
-            onClick={() => setActiveLabels([])}
+            onClick={() => setLastActiveLabels([])}
           >
             {t("filter-all")}
           </Button>
@@ -148,7 +155,7 @@ export function ProjectsIndex({ projects }: { projects: ProjectListItem[] }) {
             <EmptyDescription>{t("empty-description")}</EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <Button variant="ghost" onClick={() => setActiveLabels([])}>
+            <Button variant="ghost" onClick={() => setLastActiveLabels([])}>
               {t("empty-reset")}
             </Button>
           </EmptyContent>

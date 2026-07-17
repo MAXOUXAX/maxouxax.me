@@ -21,22 +21,36 @@ import { useLayoutEffect, useSyncExternalStore } from "react";
 // without a visible flash (React flushes that swap before paint).
 let lastVisitedSlug: string | null = null;
 let lastVisitedScrollY: number | null = null;
+// The projects index's active label filters, carried across the
+// list -> detail -> list round trip: otherwise the index remounts with an
+// unfiltered list and the row being scrolled back to may not even be in it.
+const EMPTY_LABELS: string[] = [];
+let lastActiveLabels: string[] = EMPTY_LABELS;
+
+// The index can still be mounted (or remount and immediately subscribe)
+// around the same time a click handler or RememberProjectVisit writes to
+// this store, so writers must notify subscribers rather than rely on them
+// to re-read on their own.
+const listeners = new Set<() => void>();
+
+function notify() {
+  for (const listener of listeners) listener();
+}
 
 export function setLastVisitedProject(slug: string, scrollY: number) {
   lastVisitedSlug = slug;
   lastVisitedScrollY = scrollY;
+  notify();
 }
 
-function subscribe() {
-  // Nothing to subscribe to: by the time a consumer (the list) reads this
-  // store, whoever was going to write to it (a row's click handler, or the
-  // project page's RememberProjectVisit effect) has already done so on an
-  // earlier, now-unmounted page.
-  return noop;
+export function setLastActiveLabels(labels: string[]) {
+  lastActiveLabels = labels;
+  notify();
 }
 
-function noop() {
-  /* no subscription to tear down */
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
 }
 
 function getSlugSnapshot() {
@@ -47,8 +61,16 @@ function getScrollYSnapshot() {
   return lastVisitedScrollY;
 }
 
+function getActiveLabelsSnapshot() {
+  return lastActiveLabels;
+}
+
 function getServerSnapshot() {
   return null;
+}
+
+function getActiveLabelsServerSnapshot() {
+  return EMPTY_LABELS;
 }
 
 export function useLastVisitedSlug() {
@@ -57,6 +79,14 @@ export function useLastVisitedSlug() {
 
 export function useLastVisitedScrollY() {
   return useSyncExternalStore(subscribe, getScrollYSnapshot, getServerSnapshot);
+}
+
+export function useLastActiveLabels() {
+  return useSyncExternalStore(
+    subscribe,
+    getActiveLabelsSnapshot,
+    getActiveLabelsServerSnapshot,
+  );
 }
 
 export function RememberProjectVisit({ slug }: { slug: string }) {
@@ -71,6 +101,7 @@ export function RememberProjectVisit({ slug }: { slug: string }) {
       lastVisitedScrollY = null;
     }
     lastVisitedSlug = slug;
+    notify();
   }, [slug]);
   return null;
 }
