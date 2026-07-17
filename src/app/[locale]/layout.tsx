@@ -19,6 +19,7 @@ import {
   SITE_NAME,
   SITE_URL,
 } from "~/config/site";
+import { localizedAlternates } from "~/i18n/metadata";
 import { cn } from "~/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -62,14 +63,7 @@ export async function generateMetadata({
     authors: [{ name: SITE_NAME, url: SITE_URL }],
     creator: SITE_NAME,
     publisher: SITE_NAME,
-    alternates: {
-      canonical: `${SITE_URL}/${locale}`,
-      languages: {
-        en: `${SITE_URL}/en`,
-        fr: `${SITE_URL}/fr`,
-        "x-default": `${SITE_URL}/en`,
-      },
-    },
+    alternates: localizedAlternates(locale, ""),
     openGraph: {
       type: "website",
       url: `${SITE_URL}/${locale}`,
