@@ -13,6 +13,7 @@ import { TransitionLink } from "~/components/transition-link";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { unbounded } from "~/lib/fonts";
+import { localizedAlternates } from "~/i18n/metadata";
 import { SITE_NAME, SITE_URL } from "~/config/site";
 
 function estimateReadingMinutes(
@@ -58,14 +59,7 @@ export async function generateMetadata({
   return {
     title: page.data.title,
     description: page.data.description,
-    alternates: {
-      canonical: `${SITE_URL}/${locale}/projects/${slug}`,
-      languages: {
-        en: `${SITE_URL}/en/projects/${slug}`,
-        fr: `${SITE_URL}/fr/projects/${slug}`,
-        "x-default": `${SITE_URL}/en/projects/${slug}`,
-      },
-    },
+    alternates: localizedAlternates(locale, `/projects/${slug}`),
     openGraph: {
       type: "article",
       title: page.data.title,

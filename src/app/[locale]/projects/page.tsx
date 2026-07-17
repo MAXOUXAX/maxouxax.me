@@ -9,6 +9,7 @@ import {
   type ProjectListItem,
 } from "~/components/projects/projects-index";
 import { unbounded } from "~/lib/fonts";
+import { localizedAlternates } from "~/i18n/metadata";
 import { SITE_URL } from "~/config/site";
 
 export function generateStaticParams() {
@@ -28,14 +29,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: `${SITE_URL}/${locale}/projects`,
-      languages: {
-        en: `${SITE_URL}/en/projects`,
-        fr: `${SITE_URL}/fr/projects`,
-        "x-default": `${SITE_URL}/en/projects`,
-      },
-    },
+    alternates: localizedAlternates(locale, "/projects"),
     openGraph: {
       title,
       description,
